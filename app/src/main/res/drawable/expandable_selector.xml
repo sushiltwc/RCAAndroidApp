@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/ic_expanddetails_selected" android:state_pressed="true"/>
+    <item android:drawable="@drawable/ic_expanddetails_selected" android:state_checked="true"/>
+    <item android:drawable="@drawable/ic_expanddetails_selected" android:state_selected="true"/>
+    <item android:drawable="@drawable/ic_expanddetails_unselected" android:state_pressed="false"/>
+    <item android:drawable="@drawable/ic_expanddetails_unselected" android:state_active="false"/>
+    <item android:drawable="@drawable/ic_expanddetails_unselected"/>
+</selector>

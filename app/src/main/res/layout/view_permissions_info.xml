@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent"
+    android:fillViewport="true"
+    android:padding="@dimen/extra_small_widget_spacing"
+    android:scrollbars="none">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/permission_dialog_desc_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:padding="@dimen/large_widget_spacing"
+            android:text="@string/permission_acccount_dialog_desc"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/large_widget_spacing" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/permission_not_now"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/permission_not_now"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/permission_continue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/permission_not_now"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/large_widget_spacing"
+            android:paddingLeft="@dimen/extra_large_widget_spacing"
+            android:paddingRight="@dimen/extra_large_widget_spacing"
+            android:text="@string/permission_continue"
+            android:textColor="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/request_personal_data_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/permission_continue"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:maxLines="5"
+            android:text="@string/permission_assurance_msg"
+            android:textColor="@android:color/background_light"
+            android:textSize="@dimen/large_widget_spacing"
+            android:textStyle="italic" />
+    </RelativeLayout>
+</ScrollView>

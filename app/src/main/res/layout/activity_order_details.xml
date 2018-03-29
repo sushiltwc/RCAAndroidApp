@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/extra_large_widget_spacing"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/basic_widget_spacing"
+                android:background="@drawable/ic_order_card"
+                android:orientation="vertical"
+                android:padding="0dip">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/extra_large_widget_spacing"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_dv_od_visa_period"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/basic_widget_spacing"
+                        android:gravity="center"
+                        android:text="30 DAYS"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/extra_large_text_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_od_visa_product"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/basic_widget_spacing"
+                        android:gravity="center"
+                        android:text="Dubai Tourist Visa"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/medium_text_size"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <include
+                    layout="@layout/layout_product_form"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/large_widget_spacing"
+                    android:layout_marginBottom="@dimen/large_widget_spacing"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btn_proceed_to_pay">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/extra_large_widget_spacing"
+            android:layout_marginLeft="@dimen/extra_large_widget_spacing"
+            android:drawableLeft="@drawable/ic_receptionist"
+            android:drawablePadding="@dimen/large_widget_spacing"
+            android:text="@string/meet_assist_lable"
+            android:textSize="@dimen/normal_text_size" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/extra_large_widget_spacing"
+            android:layout_marginTop="@dimen/small_widget_spacing"
+            android:src="@drawable/ic_arrow_to_right" />
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btn_proceed_to_pay"
+        style="@style/BottomButtonStyle"
+        android:text="@string/proceed_to_pay"/>
+
+</RelativeLayout>

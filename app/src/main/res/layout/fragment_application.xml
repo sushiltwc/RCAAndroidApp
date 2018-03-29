@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ExpandableListView
+            android:id="@+id/expand_list_applicant_form"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/basic_widget_spacing"
+            android:descendantFocusability="beforeDescendants"
+            android:paddingBottom="@dimen/extra_large_widget_spacing" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_submit_application"
+            style="@style/BottomButtonStyle"
+            android:text="@string/submit_application" />
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

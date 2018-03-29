@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_otp_send" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/extra_large_widget_spacing"
+        android:gravity="center"
+        android:text="@string/otp_lable_1"
+        android:textColor="@color/text_color"
+        android:textStyle="bold" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tv_otp_mailId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="sushil@thewhiteboard.company"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/large_text_size"
+        android:textStyle="bold" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/basic_widget_spacing"
+        android:gravity="center"
+        android:text="@string/otp_lable_2"
+        android:textColor="@color/text_color"
+        android:textStyle="bold" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/et_otp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/extra_large_widget_spacing"
+        android:gravity="center"
+        android:text="@string/enter_otp"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/large_text_size" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/et_otp_digit_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/basic_widget_spacing"
+            android:inputType="number"
+            android:maxLength="1" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/et_otp_digit_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/basic_widget_spacing"
+            android:inputType="number"
+            android:maxLength="1" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/et_otp_digit_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/basic_widget_spacing"
+            android:inputType="number"
+            android:maxLength="1" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/et_otp_digit_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/basic_widget_spacing"
+            android:inputType="number"
+            android:maxLength="1" />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tv_resend_otp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/extra_large_widget_spacing"
+        android:gravity="center"
+        android:text="@string/resend_otp"
+        android:textColor="@color/colorBlue" />
+
+</LinearLayout>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/cardback"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/large_widget_spacing"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_dv_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/extra_large_widget_spacing"
+                android:gravity="center"
+                android:text="₹ 3456"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/larger_text_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/basic_widget_spacing"
+                android:gravity="center"
+                android:text="All inclusive price"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/small_text_size" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/extra_large_widget_spacing">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/large_widget_spacing"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_clock" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/medium_widget_spacing"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_dv_processing_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2/3 Days"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/medium_text_size"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Visa processing"
+                            android:textSize="@dimen/small_text_size" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/large_widget_spacing"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_calendar" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/medium_widget_spacing"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_dv_visa_validity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="30 Days"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/medium_text_size"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Visa validity"
+                            android:textSize="@dimen/small_text_size" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/extra_large_widget_spacing"
+                android:gravity="center"
+                android:text="@string/visa_info_documents_lable"
+                android:textColor="@color/colorDarkBlue"
+                android:textSize="@dimen/normal_text_size" />
+        </LinearLayout>
+
+        <include
+            layout="@layout/layout_product_form"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/basic_widget_spacing"
+            android:layout_marginRight="@dimen/basic_widget_spacing"
+            android:layout_marginTop="@dimen/basic_widget_spacing" />
+    </LinearLayout>
+

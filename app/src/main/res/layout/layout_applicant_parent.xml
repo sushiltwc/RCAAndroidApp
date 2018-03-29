@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/basic_widget_spacing"
+    android:paddingTop="@dimen/large_widget_spacing"
+    android:paddingBottom="@dimen/large_widget_spacing">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/img_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="@dimen/basic_widget_spacing"
+        android:src="@drawable/personal_details_selector"/>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tv_applicant_form_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/img_icon"
+        android:layout_marginLeft="@dimen/extra_large_widget_spacing"
+        android:gravity="center_horizontal"
+        android:text="sample"
+        android:textColor="@color/application_tab_selector"
+        android:drawablePadding="@dimen/extra_large_widget_spacing"
+        android:textSize="@dimen/normal_text_size"
+        android:textStyle="bold" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/img_application_groupIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/basic_widget_spacing"
+        android:layout_marginTop="@dimen/basic_widget_spacing"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_expanddetails_unselected"/>
+
+</RelativeLayout>

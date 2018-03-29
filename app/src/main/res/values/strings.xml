@@ -1,0 +1,195 @@
+<resources>
+    <string name="app_name">RCA</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!--Walkthrough Screen-->
+    <string name="skip">Skip</string>
+
+    <!--Permission-->
+    <string name="permission_continue">CONTINUE</string>
+    <string name="permission_not_now">NOT NOW</string>
+    <string name="permission_snack_msg">Permissions required for this feature are disabled. Enable now!</string>
+    <string name="permission_snack_action_msg">Enable Now</string>
+    <string name="permission_toast_msg">Please tap on permissions and turn on %1$s</string>
+    <string name="permission_registration_dialog_desc">
+        \nYour calls logs\nSMS to verify your number\n
+    </string>
+    <string name="permission_acccount_dialog_desc">\nMedia files \nCamera \nStorage \nContacts</string>
+    <string name="permission_assurance_msg">Don\'t worry we don\'t use your personal data</string>
+
+    <!--Login Screen-->
+    <string name="name_hint">Name*</string>
+    <string name="phone_no_hint">Phone No*</string>
+    <string name="email_hint">eMail ID*</string>
+    <string name="pswd_hint">Password*</string>
+    <string name="re_pswd_hint">Retype Password*</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="login">LOG IN</string>
+    <string name="signup_heading">Signup using your eMail ID</string>
+    <string name="login_heading">Login using your eMail ID</string>
+    <string name="email_validation_msg">Please enter a valid email address</string>
+    <string name="empty_password_msg">Please enter a password</string>
+    <string name="password_validation_msg">Password contains 1 small,1 caps,1 Number @amp; 1 special character...</string>
+    <string name="password_mismatch_msg">Password &amp; Reenter Password Mismatch!</string>
+    <string name="empty_name_msg">Please enter user name</string>
+    <string name="empty_mobile_msg">Please enter valid mobile number</string>
+    <string name="need_to_verify">Need to Verify</string>
+    <string name="sign_up_link">New User? Go to <font fgcolor="#4A90E2">SIGN UP</font></string>
+    <string name="login_link">Already have an account? Go to <font fgcolor="#4A90E2">LOG IN</font></string>
+    <string name="forgot_password">Forgot Password</string>
+
+    <!--Forgot Password Screen-->
+    <string name="reset_msg">After pressing NEXT a link will be sent to your email ID, \n using that linkyou can reset your Password</string>
+    <string name="forget_pswd_login_link">Go back to <font fgcolor="#4A90E2">LOG IN</font></string>
+
+    <!--Reset Password Screen-->
+    <string name="reset_password">Reset Password</string>
+    <string name="create_new_password">Create New Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="reset_pswd_link">Entered a wrong eMail ID? <font fgcolor="#4A90E2">Go Back</font></string>
+
+    <!--OTP Screen-->
+    <string name="otp_lable_1">We have sent you OTP on your email ID</string>
+    <string name="otp_lable_2">please verify and proceed further</string>
+    <string name="enter_otp">ENTER OTP</string>
+    <string name="resend_otp">Resend OTP</string>
+    <string name="submit">Submit</string>
+
+    <!--OTP Verification Screen-->
+    <string name="continues">CONTINUE</string>
+    <string name="verification_msg1">Thank you for \n verifying your eMail ID</string>
+    <string name="verification_msg2">You\'re logged in</string>
+    <string name="verification_msg3">Thanks for joining \n Let\'s continue our journey!</string>
+    
+    <!--Home Screen-->
+    <string name="dubai_visa">DUBAI VISA</string>
+    <string name="meet_assist">MEET &amp; ASSIST</string>
+    <string name="arrival_date">Date of Arrival</string>
+    <string name="departure_date">Date of Departure</string>
+    <string name="press_back_again_app_name">Press again to close Red Carpet Assist</string>
+
+    <!--My Account Screen-->
+    <string name="current">CURRENT</string>
+    <string name="all">ALL</string>
+    <string name="add_applicant_msg">Please add applicant to start your Application</string>
+    <string name="got_it">Got It</string>
+
+    <!--Dubai Visa Form-->
+    <string name="traveller_hint">No. of Travellers</string>
+    <string name="nationality_hint">Nationality</string>
+    <string name="arriving_airport_hint">Arriving Airport</string>
+    <string name="departure_airport_hint">Departure Airport</string>
+    <string name="airport_coming_from_hint">Airport Coming From</string>
+    <string name="airport_going_to_hint">Airport Going To</string>
+    <string name="date_of_travel">Date of Travel</string>
+    <string name="select_nationality">Select Nationality</string>
+    <string name="select_gender">Select Gender</string>
+
+    <!--Add Traveller Page-->
+    <string name="add_traveller">Add Traveller</string>
+
+    <!--Booking Detail Page-->
+    <string name="review_booking_details">Review Booking Details</string>
+    <string name="proceed_to_pay">PROCEED TO PAY </string>
+    <string name="meet_assist_lable"><b>Travelling with family?</b>\nCheck our Meet &amp; Assist for family </string>
+
+    <!--Payment Page-->
+    <string name="securely_pay_visa">Securely Pay for Visa</string>
+    <string name="pay_now">PAY NOW</string>
+
+    <!--Payment Receipt Page-->
+    <string name="payment_receipt">Payment Receipt</string>
+    <string name="lets_start">LET\'S START</string>
+    <string name="total_amt_paid">Total Amount Paid</string>
+    <string name="payment_receipt_msg">Thanks for being awesome \n we hope your journey is seamless so far!</string>
+
+    <!--Applicant Page-->
+    <string name="your_applicants">Your Applicants</string>
+    <string name="visa_document">VISA DOCUMENTS</string>
+    <string name="applicantion">APPLICATION</string>
+    <string name="next">NEXT</string>
+    <string name="submit_application">SUBMIT APPLICATION</string>
+    <string name="your_personal_details">Your Personal Details</string>
+    <string name="your_passport_details">Your Passport Details</string>
+    <string name="your_contact_details">Your Contact Details</string>
+    <string name="your_travel_details">Your Travel Details</string>
+
+    <!--Visa Document Form-->
+    <string name="select_document">Select Document</string>
+    <string name="take_photo">Take Photo</string>
+    <string name="choose_from_gallery">Choose From Gallery</string>
+    <string name="cancel">Cancel</string>
+    
+    <!--Personal Detail Form-->
+    <string name="surname">Surname*</string>
+    <string name="given_names">Given Names*</string>
+    <string name="nationality">Nationality*</string>
+    <string name="gender">Gender*</string>
+    <string name="dob">Date of Birth*</string>
+    <string name="pob">Place of Birth*</string>
+    <string name="cob">Country of Birth*</string>
+    <string name="marital_status">Marital Status*</string>
+    <string name="religion">Religion*</string>
+    <string name="language_spoken">Language Spoken*</string>
+    <string name="profession">Profession*</string>
+    <string name="father_name">Father\'s Name*</string>
+    <string name="mother_name">Mother\'s Name</string>
+    <string name="husband_name">Husband\'s Name</string>
+
+    <!--Personal Detail Validation Message-->
+    <string name="invalid_surname">Please enter valid Surname</string>
+    <string name="invalid_name">Please enter valid Name</string>
+    <string name="invalid_nationality">Please select Nationality</string>
+    <string name="invalid_gender">Please select Gender</string>
+    <string name="invalid_dob">Please select Date of Birth</string>
+    <string name="invalid_pob">Please enter Place of Birth</string>
+    <string name="invalid_cob">Please select Country of Birth</string>
+    <string name="invalid_marital_status">Please select Marital Status</string>
+    <string name="invalid_religion">Please select Religion</string>
+    <string name="invalid_lang_spoken">Please select Language Spoken</string>
+    <string name="invalid_profession">Please select Profession</string>
+    <string name="invalid_father_name">Please enter Father Name</string>
+    <string name="invalid_mother_name">Please enter Mother Name</string>
+    <string name="invalid_husband_name">Please enter Husband Name</string>
+
+    <!--Passport Detail Form-->
+    <string name="passport_no">Passport No*</string>
+    <string name="passport_type">Passport Type*</string>
+    <string name="passport_issuing_govt">Passport Issuing Govt*</string>
+    <string name="place_of_issue">Place of Issue*</string>
+    <string name="date_of_issue">Date of Issue*</string>
+    <string name="date_of_expiry">Date of Expiry*</string>
+
+    <!--Contact Detail Form-->
+    <string name="address_line1">Address Line1*</string>
+    <string name="address_line2">Address Line2</string>
+    <string name="address_line3">Address Line3</string>
+    <string name="city">City*</string>
+    <string name="country">Country*</string>
+    <string name="telephone">Telephone*</string>
+
+    <!--Travel Detail Form-->
+    <string name="arrival_airlines">Arrival Airlines*</string>
+    <string name="arrival_flight_no">Arrival Flight No*</string>
+    <string name="arrival_coing_from">Arrival Coming From*</string>
+    <string name="arrival_dt">Arrival Date*</string>
+    <string name="arrival_time_hr">Arrival Time (Hour)*</string>
+    <string name="arrival_time_min">Arrival Time (Min)*</string>
+    <string name="departure_airlines">Departure Airlines*</string>
+    <string name="departure_flight_no">Departure Flight No*</string>
+    <string name="departure_leaving_to">Departure Leaving To*</string>
+    <string name="departure_dt">Departure Date*</string>
+    <string name="departure_time_hr">Departure Time (Hour)*</string>
+    <string name="departure_time_min">Departure Time (Min)*</string>
+
+    <!--Lables-->
+    <string name="visa_info_documents_lable">VISA INFO &amp; DOCUMENTS</string>
+
+    <!--Progress Dialog Messages-->
+    <string name="please_wait">Please Wait...</string>
+
+</resources>

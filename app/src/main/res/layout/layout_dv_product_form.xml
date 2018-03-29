@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/et_dv_traveller_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/large_widget_spacing"
+                android:clickable="true"
+                android:editable="false"
+                android:focusable="false"
+                android:hint="@string/traveller_hint"
+                android:textSize="@dimen/medium_text_size" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/et_dv_nationality"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/large_widget_spacing"
+                android:clickable="true"
+                android:editable="false"
+                android:focusable="false"
+                android:hint="@string/nationality_hint"
+                android:textSize="@dimen/medium_text_size" />
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        android:weightSum="2">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <android.support.v7.widget.AppCompatAutoCompleteTextView
+                android:id="@+id/auto_dv_arriving_airport"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/large_widget_spacing"
+                android:clickable="true"
+                android:editable="false"
+                android:focusable="false"
+                android:hint="@string/arriving_airport_hint"
+                android:textSize="@dimen/medium_text_size" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <android.support.v7.widget.AppCompatAutoCompleteTextView
+                android:id="@+id/auto_dv_departure_airport"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/large_widget_spacing"
+                android:clickable="true"
+                android:editable="false"
+                android:focusable="false"
+                android:hint="@string/departure_airport_hint"
+                android:textSize="@dimen/medium_text_size" />
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        android:weightSum="2">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <android.support.v7.widget.AppCompatAutoCompleteTextView
+                android:id="@+id/auto_dv_airport_coming_from"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/large_widget_spacing"
+                android:hint="@string/airport_coming_from_hint"
+                android:textSize="@dimen/medium_text_size" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <android.support.v7.widget.AppCompatAutoCompleteTextView
+                android:id="@+id/auto_dv_airport_going_to"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/large_widget_spacing"
+                android:hint="@string/airport_going_to_hint"
+                android:textSize="@dimen/medium_text_size" />
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/et_dv_dt_arrival"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/large_widget_spacing"
+                android:clickable="true"
+                android:editable="false"
+                android:focusable="false"
+                android:hint="@string/arrival_date"
+                android:textSize="@dimen/medium_text_size" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/et_dv_dt_departure"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/large_widget_spacing"
+                android:clickable="true"
+                android:editable="false"
+                android:focusable="false"
+                android:hint="@string/departure_date"
+                android:textSize="@dimen/medium_text_size" />
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btn_book_now"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/basic_widget_spacing"
+        android:layout_marginRight="@dimen/basic_widget_spacing"
+        android:background="@drawable/button_corner_layout"
+        android:elevation="@dimen/basic_widget_spacing"
+        android:text="BOOK NOW"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/large_text_size" />
+
+</LinearLayout>

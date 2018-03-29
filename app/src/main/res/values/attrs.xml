@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DotPagerIndicator">
+        <!-- Centre aligned or not -->
+        <attr name="centered" format="boolean"/>
+        <!-- Fill color of current page -->
+        <attr name="fillColor" format="color"/>
+        <!-- Inactive fill colors -->
+        <attr name="pageColor" format="color"/>
+        <!-- Orientation of the indicator. -->
+        <attr name="android:orientation"/>
+        <!-- Radius of the circles. This is also the spacing between circles. -->
+        <attr name="circleRadius" format="dimension"/>
+        <!-- Radius of the active circles. Should be larger than default radius. -->
+        <attr name="activeRadius" format="dimension"/>
+        <!-- Whether or not the selected indicator snaps to the circles. -->
+        <attr name="snap" format="boolean"/>
+        <!-- Color of the open circles. -->
+        <attr name="dotStrokeColor" format="color"/>
+        <!-- Width of the stroke used to draw the circles. -->
+        <attr name="dotStrokeWidth" format="dimension"/>
+    </declare-styleable>
+
+    <!--CustomFontTextView-->
+    <declare-styleable name="CustomFontTextView">
+        <attr name="fontTextView" format="string"/>
+    </declare-styleable>
+
+    <!--CustomFontButton-->
+    <declare-styleable name="CustomFontButton">
+        <attr name="fontButton" format="string"/>
+    </declare-styleable>
+
+</resources>
