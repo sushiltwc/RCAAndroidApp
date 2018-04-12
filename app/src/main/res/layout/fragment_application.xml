@@ -19,6 +19,7 @@
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_submit_application"
             style="@style/BottomButtonStyle"
+            android:enabled="false"
             android:text="@string/submit_application" />
     </RelativeLayout>
 

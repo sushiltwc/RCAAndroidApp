@@ -2,23 +2,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/large_widget_spacing"
     android:fitsSystemWindows="true">
 
-    <SearchView
+    <android.support.v7.widget.SearchView
         android:id="@+id/application_search_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:iconifiedByDefault="false">
-
-        <requestFocus />
-    </SearchView>
+        android:clickable="false" />
 
     <ListView
         android:id="@+id/list_search"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginTop="@dimen/basic_widget_spacing"
-        android:layout_below="@+id/application_search_view" />
+        android:layout_below="@+id/application_search_view"
+        android:layout_marginTop="@dimen/basic_widget_spacing" />
 
 </RelativeLayout>

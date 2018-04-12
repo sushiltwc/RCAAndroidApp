@@ -76,9 +76,9 @@ public class LanguageHelper extends SQLiteOpenHelper {
 
         Cursor cursor = null;
         LanguageModel languageModel;
-        ArrayList<LanguageModel> languageModelArrayList=new ArrayList<>();
+        ArrayList<LanguageModel> languageModelArrayList = new ArrayList<>();
         try {
-            cursor = myDataBase.query(TABLE_NAME, new String[]{LANGUAGE_ID,LANGUAGE_CODE,LANGUAGE_NAME}, null,
+            cursor = myDataBase.query(TABLE_NAME, new String[]{LANGUAGE_ID, LANGUAGE_CODE, LANGUAGE_NAME}, null,
                     null, null, null, null, null);
         } catch (SQLiteException ex) {
             ex.printStackTrace();
@@ -91,11 +91,31 @@ public class LanguageHelper extends SQLiteOpenHelper {
                     languageModel.setLanguageCode(cursor.getString(cursor.getColumnIndex(LANGUAGE_CODE)));
                     languageModel.setLanguageName(cursor.getString(cursor.getColumnIndex(LANGUAGE_NAME)));
                     languageModelArrayList.add(languageModel);
-                }while (cursor.moveToNext());
+                } while (cursor.moveToNext());
             }
             cursor.close();
         }
         return languageModelArrayList;
     }
+
+    public String getLanguageId(String languageName) {
+        String languageId = null;
+
+        String sql = "";
+        sql += "SELECT " + LANGUAGE_ID + " FROM " + TABLE_NAME;
+        sql += " WHERE " + LANGUAGE_NAME + "='" + languageName + "'";
+
+        Cursor cur = myDataBase.rawQuery(sql, null);
+
+        if (cur != null) {
+            if (cur.getCount() > 0) {
+                cur.moveToFirst();
+                languageId = cur.getString(cur.getColumnIndex(LANGUAGE_ID));
+            }
+        }
+        cur.close();
+        return languageId;
+    }
 }
+
 

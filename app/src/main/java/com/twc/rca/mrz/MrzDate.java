@@ -81,6 +81,14 @@ public class MrzDate implements Serializable, Comparable<MrzDate> {
         }
     }
 
+    public String toMrz1() {
+        if(mrz != null) {
+            return mrz;
+        } else {
+            return String.format("%02d%02d%02d", day, month, year);
+        }
+    }
+
     private boolean check() {
         if (year < 0 || year > 99) {
             //log.debug("Parameter year: invalid value " + year + ": must be 0..99");

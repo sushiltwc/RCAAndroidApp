@@ -14,10 +14,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.twc.rca.BuildConfig;
 import com.twc.rca.R;
+import com.twc.rca.applicant.model.PassportFrontModel;
 import com.twc.rca.product.fragments.DocumentFragment;
-import com.twc.rca.utils.PassportUtils;
+import com.twc.rca.utils.GVPassportUtils;
+import com.twc.rca.utils.TAPassportUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -99,9 +100,9 @@ public class DocumentAdapter extends BaseAdapter {
             try {
                 Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(context.getApplicationContext().getContentResolver(), data.getData());
 
-                PassportUtils passportUtils=new PassportUtils(context);
+                TAPassportUtils passportUtils=new TAPassportUtils(context);
 
-                passportUtils.processFront(imageBitmap);
+                PassportFrontModel passportFrontModel= new GVPassportUtils(context).processPassportFront(imageBitmap);
 
                 Bitmap thumbnailImageBitmap = Bitmap.createScaledBitmap(imageBitmap, THUMBNAIL_WIDTH_SIZE, THUMBNAIL_HEIGHT_SIZE, false);
 

@@ -32,17 +32,16 @@ public class MyAccountFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_my_account, container, false);
         initView(view);
-
         return view;
     }
 
     void initView(View view) {
-        mViewPager = (ViewPager) view.findViewById(R.id.dashboard_pager);
+        mViewPager = (ViewPager) view.findViewById(R.id.my_account_pager);
         FragmentStatePagerAdapter manager = new MyAccountPagerAdapter(getFragmentManager());
         mViewPager.setAdapter(manager);
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.dashboard_tabs);
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.my_account_tabs);
         tabLayout.setupWithViewPager(mViewPager);
     }
 
@@ -53,7 +52,7 @@ public class MyAccountFragment extends Fragment {
         }
 
         @Override
-        public android.support.v4.app.Fragment getItem(int position) {
+        public Fragment getItem(int position) {
             switch (position) {
                 case CURRENT_APPLICANT:
                     return mCurrentApplicantFragment = CurrentApplicantFragment.getInstance();

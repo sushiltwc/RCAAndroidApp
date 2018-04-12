@@ -13,6 +13,7 @@
     <dimen name="large_widget_spacing">16dp</dimen>
     <dimen name="larger_widget_spacing">24dp</dimen>
     <dimen name="extra_large_widget_spacing">32dp</dimen>
+    <dimen name="extra_larger_widget_spacing">40dp</dimen>
 
     <dimen name="small_text_size">8sp</dimen>
     <dimen name="normal_text_size">12sp</dimen>

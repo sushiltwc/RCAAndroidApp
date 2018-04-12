@@ -8,8 +8,11 @@ import com.twc.rca.BuildConfig;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -70,21 +73,84 @@ public class ApiUtils {
     }
 
     // validate first name
-    public static boolean isValidateGivenName( String firstName )
-    {
+    public static boolean isValidateGivenName(String firstName) {
         return firstName.matches("^\\p{L}+[\\p{L}\\p{Z}\\p{P}]{0,}");//( "[A-Z][a-zA-Z]*" );
     }
 
     // validate last name
-    public static boolean isValidateSurName( String lastName )
-    {
-        return lastName.matches( "[a-zA-z]+([ '-][a-zA-Z]+)*" );
+    public static boolean isValidateSurName(String lastName) {
+        return lastName.matches("[a-zA-z]+([ '-][a-zA-Z]+)*");
     }
 
     public static String formatDate(Date date) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String hireDate = sdf.format(date);
         return hireDate;
+    }
+
+    public static String getDate(String dt) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "dd/MM/yy");
+        Date myDate = null;
+        try {
+            myDate = dateFormat.parse(dt);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        SimpleDateFormat timeFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String finalDate = timeFormat.format(myDate);
+        return finalDate;
+    }
+
+    public static String getIssueDate(String indate, String custType) {
+        String yesterdayAsString = null;
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            Date date = dateFormat.parse(indate);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            calendar.add(Calendar.DATE, 1);
+            if (custType.equalsIgnoreCase("C"))
+                calendar.add(Calendar.YEAR, -5);
+            else
+                calendar.add(Calendar.YEAR, -10);
+            yesterdayAsString = dateFormat.format(calendar.getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return yesterdayAsString;
+    }
+
+    public static int getAge(String dobString) {
+
+        Date date = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            date = sdf.parse(dobString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if (date == null) return 0;
+
+        Calendar dob = Calendar.getInstance();
+        Calendar today = Calendar.getInstance();
+
+        dob.setTime(date);
+
+        int year = dob.get(Calendar.YEAR);
+        int month = dob.get(Calendar.MONTH);
+        int day = dob.get(Calendar.DAY_OF_MONTH);
+
+        dob.set(year, month + 1, day);
+
+        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+
+        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)) {
+            age--;
+        }
+        return age;
     }
 
     public static boolean isValidResponse(String response) {

@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.MenuItem;
 
 import com.twc.rca.R;
 import com.twc.rca.activities.BaseActivity;
@@ -82,4 +83,14 @@ public class ApplicantActivity extends BaseActivity {
             }
         }
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home)
+        {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

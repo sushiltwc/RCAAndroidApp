@@ -6,7 +6,7 @@
         <item name="colorPrimary">@color/text_color</item>
         <item name="colorPrimaryDark">@color/text_color</item>
         <item name="colorAccent">@color/colorPrimary</item>
-        <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
+        <!--<item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>-->
     </style>
 
     <style name="AppTheme.NoActionBar">

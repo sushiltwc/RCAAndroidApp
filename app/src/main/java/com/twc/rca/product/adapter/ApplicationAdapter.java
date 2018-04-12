@@ -5,8 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
@@ -32,7 +30,6 @@ import com.twc.rca.model.MaritalModel;
 import com.twc.rca.model.PassportTypeModel;
 import com.twc.rca.model.ProfessionModel;
 import com.twc.rca.model.ReligionModel;
-import com.twc.rca.product.activities.ApplicantActivity;
 import com.twc.rca.product.fragments.ApplicantionFragment;
 import com.twc.rca.product.fragments.DatePickerDialogFragment;
 import com.twc.rca.product.model.Transaction;
@@ -47,13 +44,13 @@ import java.util.Map;
  * Created by Sushil on 07-03-2018.
  */
 
-public class ApplicationAdapter extends BaseExpandableListAdapter implements View.OnClickListener, DatePickerDialogFragment.DateDialogListener{
+public class ApplicationAdapter extends BaseExpandableListAdapter implements View.OnClickListener, DatePickerDialogFragment.DateDialogListener {
 
     Context context;
 
     public int REQUEST_FOR_ACTIVITY_CODE = 100;
 
-    public static String SEARCHLIST = "searchList";
+    public static String SEARCHLIST = "searchList",TITLE="title";
 
     Fragment applicantionFragment;
 
@@ -89,6 +86,8 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
     ArrayList<Integer> list_header_icon;
     Map<String, ArrayList<Integer>> formCollection;
 
+    ProcessForm processForm;
+
     // 4 Child types
     private static final int CHILD_TYPE_1 = 0;
     private static final int CHILD_TYPE_2 = 1;
@@ -101,12 +100,18 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
     private static final int GROUP_TYPE_3 = 2;
     private static final int GROUP_TYPE_4 = 3;
 
-    public ApplicationAdapter(Context context, ApplicantionFragment fragment, ArrayList<Integer> list_header_icon, ArrayList<String> list_header_title, Map<String, ArrayList<Integer>> formCollection) {
+
+    public interface ProcessForm {
+        void enableSubmit(boolean status);
+    }
+
+    public ApplicationAdapter(Context context, ApplicantionFragment fragment, ArrayList<Integer> list_header_icon, ArrayList<String> list_header_title, Map<String, ArrayList<Integer>> formCollection, ProcessForm processForm) {
         this.context = context;
         applicantionFragment = fragment;
         this.list_header_icon = list_header_icon;
         this.list_header_title = list_header_title;
         this.formCollection = formCollection;
+        this.processForm = processForm;
     }
 
     @Override
@@ -362,16 +367,18 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
         religionModelArrayList = ReligionHelper.getInstance(context).getReligionList();
 
         et_surname.addTextChangedListener(new FormValidator(et_surname) {
-            @Override public void validate(TextView textView, String text) {
-                if(!ApiUtils.isValidateSurName(et_surname.getText().toString()))
-                et_surname.setError(context.getResources().getString(R.string.invalid_surname));
+            @Override
+            public void validate(TextView textView, String text) {
+                if (!ApiUtils.isValidateSurName(et_surname.getText().toString()))
+                    et_surname.setError(context.getResources().getString(R.string.invalid_surname));
+                checkRequiredFields(processForm);
             }
         });
 
         et_given_name.addTextChangedListener(new FormValidator(et_given_name) {
             @Override
             public void validate(TextView textView, String text) {
-                if(!ApiUtils.isValidateGivenName(et_given_name.getText().toString()))
+                if (!ApiUtils.isValidateGivenName(et_given_name.getText().toString()))
                     et_given_name.setError(context.getResources().getString(R.string.invalid_name));
             }
         });
@@ -379,7 +386,7 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
         et_pob.addTextChangedListener(new FormValidator(et_pob) {
             @Override
             public void validate(TextView textView, String text) {
-                if(ApiUtils.isValidStringValue(et_pob.getText().toString()))
+                if (ApiUtils.isValidStringValue(et_pob.getText().toString()))
                     et_pob.setError(context.getResources().getString(R.string.invalid_pob));
             }
         });
@@ -387,7 +394,7 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
         et_father_name.addTextChangedListener(new FormValidator(et_father_name) {
             @Override
             public void validate(TextView textView, String text) {
-                if(!ApiUtils.isValidateGivenName(et_father_name.getText().toString()))
+                if (!ApiUtils.isValidateGivenName(et_father_name.getText().toString()))
                     et_father_name.setError(context.getResources().getString(R.string.invalid_father_name));
             }
         });
@@ -395,7 +402,7 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
         et_mother_name.addTextChangedListener(new FormValidator(et_mother_name) {
             @Override
             public void validate(TextView textView, String text) {
-                if(!ApiUtils.isValidateGivenName(et_mother_name.getText().toString()))
+                if (!ApiUtils.isValidateGivenName(et_mother_name.getText().toString()))
                     et_mother_name.setError(context.getResources().getString(R.string.invalid_mother_name));
             }
         });
@@ -403,10 +410,70 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
         et_husband_name.addTextChangedListener(new FormValidator(et_husband_name) {
             @Override
             public void validate(TextView textView, String text) {
-                if(!ApiUtils.isValidateGivenName(et_husband_name.getText().toString()))
+                if (!ApiUtils.isValidateGivenName(et_husband_name.getText().toString()))
                     et_husband_name.setError(context.getResources().getString(R.string.invalid_husband_name));
             }
         });
+    }
+
+    boolean validatePersonalDetails() {
+        if (!ApiUtils.isValidateSurName(et_surname.getText().toString())) {
+            et_surname.setError(context.getResources().getString(R.string.invalid_surname));
+            return false;
+        }
+        if (!ApiUtils.isValidateGivenName(et_given_name.getText().toString())) {
+            et_given_name.setError(context.getResources().getString(R.string.invalid_name));
+            return false;
+        }
+        if (!ApiUtils.isValidStringValue(et_nationality.getText().toString())) {
+            et_nationality.setError(context.getResources().getString(R.string.invalid_nationality));
+            return false;
+        }
+        if (!ApiUtils.isValidStringValue(et_gender.getText().toString())) {
+            et_gender.setError(context.getResources().getString(R.string.invalid_gender));
+            return false;
+        }
+        if (!ApiUtils.isValidStringValue(et_dob.getText().toString())) {
+            et_dob.setError(context.getResources().getString(R.string.invalid_dob));
+            return false;
+        }
+        if (!ApiUtils.isValidStringValue(et_pob.getText().toString())) {
+            et_pob.setError(context.getResources().getString(R.string.invalid_pob));
+            return false;
+        }
+        if (!ApiUtils.isValidStringValue(et_cob.getText().toString())) {
+            et_cob.setError(context.getResources().getString(R.string.invalid_cob));
+            return false;
+        }
+        if (!ApiUtils.isValidStringValue(et_marital_status.getText().toString())) {
+            et_marital_status.setError(context.getResources().getString(R.string.invalid_marital_status));
+            return false;
+        }
+        if (!ApiUtils.isValidStringValue(et_religion.getText().toString())) {
+            et_religion.setError(context.getResources().getString(R.string.invalid_religion));
+            return false;
+        }
+        if (!ApiUtils.isValidStringValue(et_language.getText().toString())) {
+            et_language.setError(context.getResources().getString(R.string.invalid_lang_spoken));
+            return false;
+        }
+        if (!ApiUtils.isValidStringValue(et_profession.getText().toString())) {
+            et_profession.setError(context.getResources().getString(R.string.invalid_profession));
+            return false;
+        }
+        if (!ApiUtils.isValidStringValue(et_father_name.getText().toString())) {
+            et_father_name.setError(context.getResources().getString(R.string.invalid_father_name));
+            return false;
+        }
+        if (!ApiUtils.isValidStringValue(et_husband_name.getText().toString())) {
+            et_husband_name.setError(context.getResources().getString(R.string.invalid_husband_name));
+            return false;
+        }
+        if (!ApiUtils.isValidStringValue(et_mother_name.getText().toString())) {
+            et_mother_name.setError(context.getResources().getString(R.string.invalid_mother_name));
+            return false;
+        }
+        return true;
     }
 
     void initPassportDetails(View convertView) {
@@ -419,9 +486,73 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
 
         et_pp_doi.setOnClickListener(this);
         et_pp_doe.setOnClickListener(this);
+
+        et_pp_no.addTextChangedListener(new FormValidator(et_pp_no) {
+            @Override
+            public void validate(TextView textView, String text) {
+                if (!ApiUtils.isValidStringValue(et_pp_no.getText().toString()))
+                    et_pp_no.setError(context.getResources().getString(R.string.invalid_pp_no));
+            }
+        });
+
+        et_pp_type.addTextChangedListener(new FormValidator(et_pp_type) {
+            @Override
+            public void validate(TextView textView, String text) {
+                if (!ApiUtils.isValidStringValue(et_pp_type.getText().toString()))
+                    et_pp_type.setError(context.getResources().getString(R.string.invalid_pp_type));
+            }
+        });
+
+        et_pp_issue_govt.addTextChangedListener(new FormValidator(et_pp_issue_govt) {
+            @Override
+            public void validate(TextView textView, String text) {
+                if (!ApiUtils.isValidStringValue(et_pp_issue_govt.getText().toString()))
+                    et_pp_issue_govt.setError(context.getResources().getString(R.string.invalid_pp_issue_govt));
+            }
+        });
+
+        et_pp_place_issue.addTextChangedListener(new FormValidator(et_pp_place_issue) {
+            @Override
+            public void validate(TextView textView, String text) {
+                if (!ApiUtils.isValidStringValue(et_pp_place_issue.getText().toString()))
+                    et_pp_place_issue.setError(context.getResources().getString(R.string.invalid_pp_poi));
+            }
+        });
+
+        et_pp_doi.addTextChangedListener(new FormValidator(et_pp_doi) {
+            @Override
+            public void validate(TextView textView, String text) {
+                if (!ApiUtils.isValidStringValue(et_pp_place_issue.getText().toString()))
+                    et_pp_place_issue.setError(context.getResources().getString(R.string.invalid_pp_poi));
+            }
+        });
     }
 
-    void initContactDetails(View convertView) {
+    boolean validatePassportDetails() {
+        if (!ApiUtils.isValidateSurName(et_pp_no.getText().toString())) {
+            et_pp_no.setError(context.getResources().getString(R.string.invalid_pp_no));
+            return false;
+        }
+        if (!ApiUtils.isValidateSurName(et_pp_type.getText().toString())) {
+            et_pp_type.setError(context.getResources().getString(R.string.invalid_pp_type));
+            return false;
+        }
+        if (!ApiUtils.isValidateSurName(et_pp_issue_govt.getText().toString())) {
+            et_pp_issue_govt.setError(context.getResources().getString(R.string.invalid_pp_issue_govt));
+            return false;
+        }
+        if (!ApiUtils.isValidateSurName(et_pp_doi.getText().toString())) {
+            et_pp_doi.setError(context.getResources().getString(R.string.invalid_pp_doi));
+            return false;
+        }
+        if (!ApiUtils.isValidateSurName(et_pp_doe.getText().toString())) {
+            et_pp_doe.setError(context.getResources().getString(R.string.invalid_pp_doe));
+            return false;
+        }
+        return true;
+    }
+
+    void initContactDetails(final View convertView) {
         et_address_line1 = (AppCompatEditText) convertView.findViewById(R.id.et_cd_address_line_1);
         et_address_line2 = (AppCompatEditText) convertView.findViewById(R.id.et_cd_address_line_2);
         et_address_line3 = (AppCompatEditText) convertView.findViewById(R.id.et_cd_address_line_3);
@@ -430,22 +561,76 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
         et_telephone_no = (AppCompatEditText) convertView.findViewById(R.id.et_cd_telephone);
 
         et_country.setOnClickListener(this);
+
+        et_address_line1.addTextChangedListener(new FormValidator(et_address_line1) {
+            @Override
+            public void validate(TextView textView, String text) {
+                if (!ApiUtils.isValidStringValue(et_address_line1.getText().toString()))
+                    et_address_line1.setError(context.getResources().getString(R.string.invalid_address_line1));
+            }
+        });
+
+        et_telephone_no.addTextChangedListener(new FormValidator(et_telephone_no) {
+            @Override
+            public void validate(TextView textView, String text) {
+                if (!ApiUtils.isValidMobileNumber(et_telephone_no.getText().toString()))
+                    et_telephone_no.setError(context.getResources().getString(R.string.invalid_mob_no));
+            }
+        });
     }
 
-    void initTravelDetails(View convertView){
-        et_arrival_airlines=(AppCompatEditText)convertView.findViewById(R.id.et_td_arrival_airlines);
-        et_arrival_flight_no=(AppCompatEditText)convertView.findViewById(R.id.et_td_arrival_flight_no);
-        et_arrival_coming_from=(AppCompatEditText)convertView.findViewById(R.id.et_td_arrival_coming_from);
-        et_doa=(AppCompatEditText)convertView.findViewById(R.id.et_td_arrival_date);
-        et_arrival_time_hr=(AppCompatEditText)convertView.findViewById(R.id.et_td_arrival_time_hr);
-        et_arrival_time_min=(AppCompatEditText)convertView.findViewById(R.id.et_td_arrival_time_hr);
-        et_arrival_time_min=(AppCompatEditText)convertView.findViewById(R.id.et_td_arrival_time_min);
-        et_dept_airline=(AppCompatEditText)convertView.findViewById(R.id.et_td_departure_airlines);
-        et_dept_flight_no=(AppCompatEditText)convertView.findViewById(R.id.et_td_departure_flight_no);
-        et_dept_leaving_to=(AppCompatEditText)convertView.findViewById(R.id.et_td_departure_leaving_to);
-        et_dod=(AppCompatEditText)convertView.findViewById(R.id.et_td_departure_date);
-        et_dept_time_hr=(AppCompatEditText)convertView.findViewById(R.id.et_td_departure_time_hr);
-        et_dept_time_min=(AppCompatEditText)convertView.findViewById(R.id.et_td_departure_time_min);
+    boolean validateContactDetails() {
+        if (!ApiUtils.isValidStringValue(et_address_line1.getText().toString())) {
+            et_address_line1.setError(context.getResources().getString(R.string.invalid_address_line1));
+            return false;
+        }
+
+        if (!ApiUtils.isValidStringValue(et_city.getText().toString())) {
+            et_city.setError(context.getResources().getString(R.string.invalid_city));
+            return false;
+        }
+
+        if (!ApiUtils.isValidStringValue(et_country.getText().toString())) {
+            et_country.setError(context.getResources().getString(R.string.invalid_country));
+            return false;
+        }
+
+        if (!ApiUtils.isValidMobileNumber(et_telephone_no.getText().toString())) {
+            et_telephone_no.setError(context.getResources().getString(R.string.invalid_mob_no));
+            return false;
+        }
+        return true;
+    }
+
+    void initTravelDetails(View convertView) {
+        et_arrival_airlines = (AppCompatEditText) convertView.findViewById(R.id.et_td_arrival_airlines);
+        et_arrival_flight_no = (AppCompatEditText) convertView.findViewById(R.id.et_td_arrival_flight_no);
+        et_arrival_coming_from = (AppCompatEditText) convertView.findViewById(R.id.et_td_arrival_coming_from);
+        et_doa = (AppCompatEditText) convertView.findViewById(R.id.et_td_arrival_date);
+        et_arrival_time_hr = (AppCompatEditText) convertView.findViewById(R.id.et_td_arrival_time_hr);
+        et_arrival_time_min = (AppCompatEditText) convertView.findViewById(R.id.et_td_arrival_time_hr);
+        et_arrival_time_min = (AppCompatEditText) convertView.findViewById(R.id.et_td_arrival_time_min);
+        et_dept_airline = (AppCompatEditText) convertView.findViewById(R.id.et_td_departure_airlines);
+        et_dept_flight_no = (AppCompatEditText) convertView.findViewById(R.id.et_td_departure_flight_no);
+        et_dept_leaving_to = (AppCompatEditText) convertView.findViewById(R.id.et_td_departure_leaving_to);
+        et_dod = (AppCompatEditText) convertView.findViewById(R.id.et_td_departure_date);
+        et_dept_time_hr = (AppCompatEditText) convertView.findViewById(R.id.et_td_departure_time_hr);
+        et_dept_time_min = (AppCompatEditText) convertView.findViewById(R.id.et_td_departure_time_min);
+    }
+
+    void checkRequiredFields(ProcessForm process) {
+        if (!et_surname.getText().toString().isEmpty() && !et_given_name.getText().toString().isEmpty() && !et_nationality.getText().toString().isEmpty()
+                && !et_gender.getText().toString().isEmpty() && !et_dob.getText().toString().isEmpty() && !et_pob.getText().toString().isEmpty()
+                && !et_cob.getText().toString().isEmpty() && !et_marital_status.getText().toString().isEmpty() && !et_religion.getText().toString().isEmpty()
+                && !et_language.getText().toString().isEmpty() && !et_profession.getText().toString().isEmpty() && !et_father_name.getText().toString().isEmpty()
+                && !et_mother_name.getText().toString().isEmpty() && !et_husband_name.getText().toString().isEmpty()
+                && !et_pp_no.getText().toString().isEmpty() && !et_pp_type.getText().toString().isEmpty() && !et_pp_issue_govt.getText().toString().isEmpty()
+                && !et_pp_place_issue.getText().toString().isEmpty() && !et_pp_doi.getText().toString().isEmpty() && !et_pp_doe.getText().toString().isEmpty()
+                && !et_address_line1.getText().toString().isEmpty() && !et_city.getText().toString().isEmpty() && !et_country.getText().toString().isEmpty()
+                && !et_telephone_no.getText().toString().isEmpty())
+            process.enableSubmit(true);
+        else
+            process.enableSubmit(false);
     }
 
     @Override
@@ -459,6 +644,7 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
                     searchNameList.add(countryModelArrayList.get(i).getCountryName());
                 }
                 intent = new Intent(context, SearchFieldActivity.class);
+                intent.putExtra(TITLE,context.getString(R.string.select_country_birth));
                 intent.putStringArrayListExtra(SEARCHLIST, searchNameList);
                 applicantionFragment.startActivityForResult(intent, REQUEST_FOR_ACTIVITY_CODE);
                 break;
@@ -470,6 +656,7 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
                     searchNameList.add(maritalModelArrayList.get(i).getMaritalName());
                 }
                 intent = new Intent(context, SearchFieldActivity.class);
+                intent.putExtra(TITLE,context.getString(R.string.select_marital_status));
                 intent.putStringArrayListExtra(SEARCHLIST, searchNameList);
                 applicantionFragment.startActivityForResult(intent, REQUEST_FOR_ACTIVITY_CODE);
                 break;
@@ -481,6 +668,7 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
                     searchNameList.add(religionModelArrayList.get(i).getReligionName());
                 }
                 intent = new Intent(context, SearchFieldActivity.class);
+                intent.putExtra(TITLE,context.getString(R.string.select_religion));
                 intent.putStringArrayListExtra(SEARCHLIST, searchNameList);
                 applicantionFragment.startActivityForResult(intent, REQUEST_FOR_ACTIVITY_CODE);
                 break;
@@ -492,6 +680,7 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
                     searchNameList.add(languageModelArrayList.get(i).getLanguageName());
                 }
                 intent = new Intent(context, SearchFieldActivity.class);
+                intent.putExtra(TITLE,context.getString(R.string.select_language));
                 intent.putStringArrayListExtra(SEARCHLIST, searchNameList);
                 applicantionFragment.startActivityForResult(intent, REQUEST_FOR_ACTIVITY_CODE);
                 break;
@@ -503,6 +692,7 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
                     searchNameList.add(professionModelArrayList.get(i).getProfessionName());
                 }
                 intent = new Intent(context, SearchFieldActivity.class);
+                intent.putExtra(TITLE,context.getString(R.string.select_profession));
                 intent.putStringArrayListExtra(SEARCHLIST, searchNameList);
                 applicantionFragment.startActivityForResult(intent, REQUEST_FOR_ACTIVITY_CODE);
                 break;

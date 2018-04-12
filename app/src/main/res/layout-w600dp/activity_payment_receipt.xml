@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_amount_paid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/larger_text_size"
+            android:textStyle="bold"
+            android:textColor="@color/text_color"
+            android:text="₹ 3456"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/large_widget_spacing"
+            android:textSize="@dimen/medium_text_size"
+            android:text="@string/total_amt_paid"/>
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/extra_large_widget_spacing"
+            android:src="@drawable/ic_check_mark"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/larger_text_size"
+            android:textStyle="bold"
+            android:text="You're all set"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_margin="@dimen/extra_large_widget_spacing"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/medium_text_size"
+            android:text="@string/payment_receipt_msg"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/extra_large_widget_spacing"
+            android:src="@mipmap/ic_splash_logo"/>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btn_lets_start"
+        style="@style/BottomButtonStyle"
+        android:text="@string/lets_start"/>
+
+</RelativeLayout>

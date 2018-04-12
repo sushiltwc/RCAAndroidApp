@@ -3,12 +3,16 @@ package com.twc.rca.product.activities;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,6 +33,8 @@ public class AddTravellerActivity extends BaseActivity {
 
     Button btn_apply;
 
+    ImageButton btn_close;
+
     String[] list_traveller_lable = new String[]{"Adults", "Children", "Infant"};
 
     String[] list_age_group = new String[]{"16+", "2-11", "0-2"};
@@ -46,8 +52,32 @@ public class AddTravellerActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dv_add_traveller);
 
+        final ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            View viewActionBar = getLayoutInflater().inflate(R.layout.layout_traveller_actionbar, null);
+            ActionBar.LayoutParams params = new ActionBar.LayoutParams(
+                    ActionBar.LayoutParams.MATCH_PARENT,
+                    ActionBar.LayoutParams.MATCH_PARENT,
+                    Gravity.CENTER);
+            actionBar.setCustomView(viewActionBar, params);
+            actionBar.setDisplayShowCustomEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(false);
+            Toolbar toolbar = (Toolbar) actionBar.getCustomView().getParent();
+            toolbar.setContentInsetsAbsolute(0, 0);
+            toolbar.getContentInsetEnd();
+            toolbar.setPadding(0, 0, 0, 0);
+
+            btn_close = (ImageButton) viewActionBar.findViewById(R.id.btn_close);
+            btn_close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    finish();
+                }
+            });
+        }
+
         list_add_travellers = (ListView) findViewById(R.id.list_add_travellers);
-        btn_apply=(Button)findViewById(R.id.btn_apply);
+        btn_apply = (Button) findViewById(R.id.btn_apply);
 
         for (int i = 0; i < list_traveller_lable.length; i++) {
             ls_traveller.add(list_traveller_lable[i]);
@@ -63,11 +93,11 @@ public class AddTravellerActivity extends BaseActivity {
         btn_apply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (int i = 0; i < list_add_travellers.getCount(); i++){
+                for (int i = 0; i < list_add_travellers.getCount(); i++) {
                     View view = list_add_travellers.getChildAt(i);
                     TextView tv_count = (TextView) view.findViewById(R.id.tv_traveller_count);
-                    list_count[i]=Integer.parseInt((String) tv_count.getText());
-                    sum=list_count[i]+sum;
+                    list_count[i] = Integer.parseInt((String) tv_count.getText());
+                    sum = list_count[i] + sum;
                 }
                 Transaction.getmTransactionInstance().setNoOfAdults(list_count[0]);
                 Transaction.getmTransactionInstance().setNoOfChildrens(list_count[1]);
@@ -79,6 +109,10 @@ public class AddTravellerActivity extends BaseActivity {
 
     }
 
+    @Override
+    protected boolean isHomeAsUpEnabled() {
+        return false;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

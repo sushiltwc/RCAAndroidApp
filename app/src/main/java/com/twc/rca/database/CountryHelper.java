@@ -76,9 +76,9 @@ public class CountryHelper extends SQLiteOpenHelper {
 
         Cursor cursor = null;
         CountryModel countryModel;
-        ArrayList<CountryModel> countryModelArrayList=new ArrayList<>();
+        ArrayList<CountryModel> countryModelArrayList = new ArrayList<>();
         try {
-            cursor = myDataBase.query(TABLE_NAME, new String[]{COUNTRY_ID,COUNTRY_CODE,COUNTRY_NAME}, null,
+            cursor = myDataBase.query(TABLE_NAME, new String[]{COUNTRY_ID, COUNTRY_CODE, COUNTRY_NAME}, null,
                     null, null, null, null, null);
         } catch (SQLiteException ex) {
             ex.printStackTrace();
@@ -91,10 +91,29 @@ public class CountryHelper extends SQLiteOpenHelper {
                     countryModel.setCountryCode(cursor.getString(cursor.getColumnIndex(COUNTRY_CODE)));
                     countryModel.setCountryName(cursor.getString(cursor.getColumnIndex(COUNTRY_NAME)));
                     countryModelArrayList.add(countryModel);
-                }while (cursor.moveToNext());
+                } while (cursor.moveToNext());
             }
             cursor.close();
         }
         return countryModelArrayList;
+    }
+
+    public String getCountryName(String countryCode) {
+        String countryName = null;
+
+        String sql = "";
+        sql += "SELECT " + COUNTRY_NAME + " FROM " + TABLE_NAME;
+        sql += " WHERE " + COUNTRY_CODE + "='" + countryCode + "'";
+
+        Cursor cur = myDataBase.rawQuery(sql, null);
+
+        if (cur != null) {
+            if (cur.getCount() > 0) {
+                cur.moveToFirst();
+                countryName = cur.getString(cur.getColumnIndex(COUNTRY_NAME));
+            }
+        }
+        cur.close();
+        return countryName;
     }
 }

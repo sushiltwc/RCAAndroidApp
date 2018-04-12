@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_home"
+        android:title="Home"
+        android:icon="@drawable/ic_home"
+        />
+    <item
+        android:id="@+id/menu_track_visa"
+        android:title="Track Visa"
+        android:icon="@drawable/ic_track_visa"
+        />
+
+    <item
+        android:id="@+id/menu_notifications"
+        android:title="Notifications"
+        android:icon="@drawable/ic_notifications" />
+
+    <item
+        android:id="@+id/menu_my_account"
+        android:title="My Account"
+        android:icon="@drawable/ic_my_account" />
+</menu>

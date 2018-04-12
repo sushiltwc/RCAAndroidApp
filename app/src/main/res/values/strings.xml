@@ -90,7 +90,7 @@
     <string name="select_gender">Select Gender</string>
 
     <!--Add Traveller Page-->
-    <string name="add_traveller">Add Traveller</string>
+    <string name="add_traveller">Add Travelers</string>
 
     <!--Booking Detail Page-->
     <string name="review_booking_details">Review Booking Details</string>
@@ -123,7 +123,8 @@
     <string name="take_photo">Take Photo</string>
     <string name="choose_from_gallery">Choose From Gallery</string>
     <string name="cancel">Cancel</string>
-    
+    <string name="passport_scan_error">Detector dependencies are not yet available</string>
+
     <!--Personal Detail Form-->
     <string name="surname">Surname*</string>
     <string name="given_names">Given Names*</string>
@@ -155,6 +156,20 @@
     <string name="invalid_father_name">Please enter Father Name</string>
     <string name="invalid_mother_name">Please enter Mother Name</string>
     <string name="invalid_husband_name">Please enter Husband Name</string>
+    
+    <!--Passport Validation Message-->
+    <string name="invalid_pp_no">Please enter valid passport no</string>
+    <string name="invalid_pp_type">Please enter valid passport type</string>
+    <string name="invalid_pp_issue_govt">Please enter valid passport issuing govt</string>
+    <string name="invalid_pp_poi">Please enter valid place of issue</string>
+    <string name="invalid_pp_doi">Please enter valid date of issue</string>
+    <string name="invalid_pp_doe">Please enter valid date of expiry</string>
+
+    <!--Contact Validation Message-->
+    <string name="invalid_address_line1">Please enter valid Address Line 1</string>
+    <string name="invalid_city">Please select valid City</string>
+    <string name="invalid_country">Please select valid Country</string>
+    <string name="invalid_mob_no">Please enter valid Mobile No.</string>
 
     <!--Passport Detail Form-->
     <string name="passport_no">Passport No*</string>
@@ -185,6 +200,14 @@
     <string name="departure_dt">Departure Date*</string>
     <string name="departure_time_hr">Departure Time (Hour)*</string>
     <string name="departure_time_min">Departure Time (Min)*</string>
+
+    <!--SearchView Page-->
+    <string name="select_country_birth">Select Country of Birth</string>
+    <string name="select_marital_status">Select Marital Status</string>
+    <string name="select_religion">Select Religion</string>
+    <string name="select_language">Select Language Spoken</string>
+    <string name="select_profession">Select Profession</string>
+    <string name="select_passport_type">Select Passport Type</string>
 
     <!--Lables-->
     <string name="visa_info_documents_lable">VISA INFO &amp; DOCUMENTS</string>

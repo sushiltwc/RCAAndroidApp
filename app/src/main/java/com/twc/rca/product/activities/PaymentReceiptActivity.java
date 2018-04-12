@@ -7,11 +7,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.IntentCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.twc.rca.R;
 import com.twc.rca.activities.BaseActivity;
@@ -25,11 +29,31 @@ import com.twc.rca.utils.PreferenceUtils;
 public class PaymentReceiptActivity extends BaseActivity {
 
     AppCompatButton btn_lets_start;
+    TextView tv_actionbar_title;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_receipt);
+
+        final ActionBar actionBar = getSupportActionBar();
+        if(actionBar !=null)
+        {
+            View viewActionBar = getLayoutInflater().inflate(R.layout.layout_actionbar, null);
+            ActionBar.LayoutParams params = new ActionBar.LayoutParams(
+                    ActionBar.LayoutParams.MATCH_PARENT,
+                    ActionBar.LayoutParams.WRAP_CONTENT,
+                    Gravity.CENTER);
+            tv_actionbar_title = (TextView) viewActionBar.findViewById(R.id.tv_actionbar_title);
+            tv_actionbar_title.setText(getString(R.string.payment_receipt));
+            actionBar.setCustomView(viewActionBar, params);
+            actionBar.setDisplayShowCustomEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(false);
+            Toolbar toolbar=(Toolbar)actionBar.getCustomView().getParent();
+            toolbar.setContentInsetsAbsolute(0, 0);
+            toolbar.getContentInsetEnd();
+            toolbar.setPadding(0, 0, 0, 0);
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = this.getWindow();
