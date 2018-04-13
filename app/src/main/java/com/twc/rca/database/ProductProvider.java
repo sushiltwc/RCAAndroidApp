@@ -119,14 +119,14 @@ public class ProductProvider extends ContentProvider {
     public static class ProductList {
         public static final String TABLE_NAME = "ProductList";
 
-        public static final String KEY_PID = "Product_id", KEY_PNAME = "Product_Name", KEY_ADULT_TAX = "Adult_Tax", KEY_ADULT_PRICE = "Adult_Price", KEY_CHILD_TAX = "Child_Tax", KEY_CHILD_PRICE = "Child_Price",KEY_INFANT_TAX = "Infant_Tax", KEY_INFANT_PRICE = "Infant_Price";
+        public static final String KEY_PID = "Product_id", KEY_PNAME = "Product_Name", KEY_PRODUCT_TYPE="Product_Type", KEY_PRODUCT_VALIDITY="Product_Validity", KEY_PRODUCT_CURRENCY="Currency", KEY_ADULT_PRICE = "Adult_Price",KEY_CHILD_PRICE = "Child_Price",KEY_INFANT_PRICE = "Infant_Price";
 
         public static final Uri CONTENT_URI = Uri.withAppendedPath(
                 ProductProvider.CONTENT_URI, ProductList.TABLE_NAME);
 
         public static final String CREATE_TABLE =
                 " CREATE TABLE IF NOT EXISTS  " + TABLE_NAME + "(" + KEY_PID + " TEXT  , " + KEY_PNAME + " TEXT  , "
-                        + KEY_ADULT_TAX + " TEXT, " + KEY_ADULT_PRICE + " TEXT, " + KEY_CHILD_TAX + " TEXT , " + KEY_CHILD_PRICE + " TEXT , " +
-                        KEY_INFANT_TAX + " TEXT ," + KEY_INFANT_PRICE + " TEXT " + ")";
+                        + KEY_PRODUCT_TYPE + " TEXT, " + KEY_PRODUCT_VALIDITY + " TEXT, " + KEY_PRODUCT_CURRENCY + " TEXT , " + KEY_ADULT_PRICE + " TEXT , " +
+                        KEY_CHILD_PRICE + " TEXT ," + KEY_INFANT_PRICE + " TEXT " + ")";
     }
 }

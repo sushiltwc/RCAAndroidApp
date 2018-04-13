@@ -14,15 +14,22 @@ import android.view.ViewGroup;
 import com.twc.rca.R;
 import com.twc.rca.product.adapter.DubaiVisaAdapter;
 import com.twc.rca.product.model.DVProduct;
+import com.twc.rca.product.task.DubaiVisaProductTask;
+import com.twc.rca.utils.ApiUtils;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by TWC on 21-02-2018.
+ * Created by Sushil on 21-02-2018.
  */
 
 public class DubaiVisaFragment extends Fragment {
+
+    public static String PRODUCT_ID = "product_id", PRODUCT_NAME = "product_name", PRODUCT_VALIDITY = "product_validity", PRODUCT_TYPE = "product_type", CURRENCY = "currency", ADULT_PRICE = "adult_price", CHILD_PRICE = "child_price", INFANT_PRICE = "infant_price";
 
     RecyclerView list_dv_product;
 
@@ -41,32 +48,64 @@ public class DubaiVisaFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_dubai_visa, container, false);
 
-        list_dv_product=(RecyclerView)view.findViewById(R.id.list_dv_product);
+        list_dv_product = (RecyclerView) view.findViewById(R.id.list_dv_product);
 
-        dubaiVisaAdapter = new DubaiVisaAdapter(this.getActivity(),dvProductList);
+        dubaiVisaAdapter = new DubaiVisaAdapter(this.getActivity(), dvProductList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         list_dv_product.setLayoutManager(mLayoutManager);
         list_dv_product.setItemAnimator(new DefaultItemAnimator());
         list_dv_product.setAdapter(dubaiVisaAdapter);
 
-        prepareDVData();
+        new DubaiVisaProductTask(getContext()).getDubaiVisaProduct(dubaiVisaProductResponseCallback);
 
         return view;
     }
 
-    private void prepareDVData() {
-        DVProduct dvProduct = new DVProduct("30","DAYS","Dubai Tourist Visa","VISA IN 2-3 DAYS","58 DAYS VALIDITY","330");
-        dvProductList.add(dvProduct);
+    DubaiVisaProductTask.DubaiVisaProductResponseCallback dubaiVisaProductResponseCallback = new DubaiVisaProductTask.DubaiVisaProductResponseCallback() {
+        @Override
+        public void onSuccessDubaiVisaProductResponse(String response) {
+            try {
+                JSONObject jsonObject = new JSONObject(response);
 
-        dvProduct = new DVProduct("14","DAYS","Dubai Tourist Visa","VISA IN 2-3 DAYS","14 DAYS VALIDITY","330");
-        dvProductList.add(dvProduct);
+                JSONObject contentObject = (JSONObject) jsonObject.get(ApiUtils.CONTENT);
 
-        dvProduct = new DVProduct("96","HOURS","Dubai Transit Visa","VISA IN 2-3 DAYS","30 DAYS VALIDITY","210");
-        dvProductList.add(dvProduct);
+                JSONArray data = (JSONArray) contentObject.get(ApiUtils.RESULT_SET);
 
-        dvProduct = new DVProduct("90","DAYS","Dubai Tourist Visa","VISA IN 2-3 DAYS","58 DAYS VALIDITY","1030");
-        dvProductList.add(dvProduct);
+                DVProduct dvProduct;
+                if (data.length() > 0) {
+                    JSONObject dataObject;
+                    for (int i = 0; i < data.length(); i++) {
+                        dataObject = data.getJSONObject(i);
+                        String product_id = dataObject.getString(PRODUCT_ID);
+                        String product_name = dataObject.getString(PRODUCT_NAME);
+                        String product_validity = dataObject.getString(PRODUCT_VALIDITY);
+                        String product_type = dataObject.getString(PRODUCT_TYPE);
+                        String currency = dataObject.getString(CURRENCY);
+                        String productCurrency = currency.substring(0);
+                        String adult_price = dataObject.getString(ADULT_PRICE);
+                        String child_price = dataObject.getString(CHILD_PRICE);
+                        String infant_price = dataObject.getString(INFANT_PRICE);
+                        dvProduct = new DVProduct(product_id, product_name, product_validity, product_type, currency, adult_price, child_price, infant_price);
+                        dvProduct.setProduct_id(product_id);
+                        dvProduct.setProduct_name(product_name);
+                        dvProduct.setProduct_validity(product_validity);
+                        dvProduct.setProduct_type(product_type);
+                        dvProduct.setCurrency(productCurrency);
+                        dvProduct.setAdult_price(adult_price);
+                        dvProduct.setChild_price(child_price);
+                        dvProduct.setInfant_price(infant_price);
+                        dvProductList.add(dvProduct);
+                    }
+                    dubaiVisaAdapter.notifyDataSetChanged();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
-        dubaiVisaAdapter.notifyDataSetChanged();
-    }
+        @Override
+        public void onFailureDubaiVisaProductResponse(String response) {
+
+        }
+    };
 }

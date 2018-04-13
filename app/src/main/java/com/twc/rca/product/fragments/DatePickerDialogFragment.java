@@ -31,6 +31,7 @@ public class DatePickerDialogFragment extends DialogFragment {
         View v = LayoutInflater.from(getActivity())
                 .inflate(R.layout.layout_date_picker, null);
         datePicker = (DatePicker) v.findViewById(R.id.dialog_date_picker);
+        datePicker.setMinDate(System.currentTimeMillis() - 1000);
         Bundle bundle = this.getArguments();
         final int id = bundle.getInt("id");
 

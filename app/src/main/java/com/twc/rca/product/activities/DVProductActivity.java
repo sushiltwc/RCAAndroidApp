@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.twc.rca.R;
 import com.twc.rca.activities.BaseActivity;
 import com.twc.rca.product.fragments.DatePickerDialogFragment;
+import com.twc.rca.product.model.DVProduct;
 import com.twc.rca.product.model.Transaction;
 import com.twc.rca.utils.ApiUtils;
 
@@ -39,6 +40,8 @@ public class DVProductActivity extends BaseActivity implements View.OnClickListe
     CharSequence list_nationality[] = new CharSequence[]{"India", "Pakistan", "Others"};
 
     private static final String DIALOG_DATE = "DatePickerDialogFragment";
+
+    DVProduct dvProduct;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,10 +81,16 @@ public class DVProductActivity extends BaseActivity implements View.OnClickListe
         tv_dv_nationality.setOnClickListener(this);
         btn_book_now.setOnClickListener(this);
 
-        if(Transaction.getmTransactionInstance().getNoOfAdults()==0) {
+        Bundle bundle = getIntent().getExtras();
+        dvProduct = bundle.getParcelable("item");
+        getSupportActionBar().setTitle(dvProduct.getProduct_name());
+        tv_dv_amount.setText(dvProduct.getCurrency() + " " + dvProduct.getAdult_price());
+        tv_dv_visa_validity.setText(dvProduct.getProduct_validity());
+
+       /* if(Transaction.getmTransactionInstance().getNoOfAdults()==0) {
             Transaction.getmTransactionInstance().setNoOfAdults(1);
             Transaction.getmTransactionInstance().setNoOfPassengers(1);
-        }
+        }*/
     }
 
     @Override
@@ -119,8 +128,7 @@ public class DVProductActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home)
-        {
+        if (item.getItemId() == android.R.id.home) {
             finish();
         }
         return super.onOptionsItemSelected(item);
