@@ -23,20 +23,21 @@ public class ApplicantListAdapter extends RecyclerView.Adapter<ApplicantListAdap
 
     private List<ApplicantModel> applicantModelList;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView tv_applicant_name, tv_applicant_type;
 
         public MyViewHolder(View view) {
             super(view);
             tv_applicant_name = (TextView) view.findViewById(R.id.tv_applicant_name);
             tv_applicant_type = (TextView) view.findViewById(R.id.tv_applicant_type);
-            view.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-            Intent intent = new Intent(context, ApplicantActivity.class);
-            view.getContext().startActivity(intent);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, ApplicantActivity.class);
+                    intent.putExtra("applicant_type", applicantModelList.get(getAdapterPosition()).getApplicantType());
+                    view.getContext().startActivity(intent);
+                }
+            });
         }
     }
 

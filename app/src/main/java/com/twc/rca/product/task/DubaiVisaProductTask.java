@@ -2,6 +2,7 @@ package com.twc.rca.product.task;
 
 import android.content.Context;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -33,7 +34,7 @@ public class DubaiVisaProductTask extends ApiUtils {
     }
 
     public void getDubaiVisaProduct(final DubaiVisaProductResponseCallback dubaiVisaProductResponseCallback) {
-        JsonObjectRequest loginRequest = new JsonObjectRequest(Request.Method.POST, BASE_APP_URL, new JSONObject(getParams(context)), new Response.Listener<JSONObject>() {
+        JsonObjectRequest productListRequest = new JsonObjectRequest(Request.Method.POST, BASE_APP_URL, new JSONObject(getParams(context)), new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -50,7 +51,10 @@ public class DubaiVisaProductTask extends ApiUtils {
                 dubaiVisaProductResponseCallback.onFailureDubaiVisaProductResponse(NetworkErrorHelper.getErrorStatus(error).getErrorMessage());
             }
         });
-        VolleySingleTon.getInstance(context).addToRequestQueue(loginRequest);
+        VolleySingleTon.getInstance(context).addToRequestQueue(productListRequest);
+        productListRequest.setRetryPolicy(new DefaultRetryPolicy(25000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
     protected Map<String, Object> getParams(Context context) {

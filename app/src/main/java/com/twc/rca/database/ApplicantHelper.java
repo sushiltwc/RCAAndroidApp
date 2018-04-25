@@ -2,11 +2,13 @@ package com.twc.rca.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 
+import com.twc.rca.applicant.model.PassportBackModel;
 import com.twc.rca.applicant.model.PassportFrontModel;
 import com.twc.rca.utils.ILog;
 
@@ -65,6 +67,69 @@ public class ApplicantHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
+    }
+
+    public boolean isApplicantExist(Context context, String applicantId) {
+        String[] columns = {ApplicantProvider.ApplicantList.KEY_AID};
+        String selection = ApplicantProvider.ApplicantList.KEY_AID + " =?";
+        String[] selectionArgs = {applicantId};
+        String limit = "1";
+
+        Cursor cursor = myDataBase.query(ApplicantProvider.ApplicantList.TABLE_NAME, columns, selection, selectionArgs, null, null, null, limit);
+        boolean exists = (cursor.getCount() > 0);
+        cursor.close();
+        return exists;
+    }
+
+    public static int insertOrUpdatePF(Context context, PassportFrontModel passportFrontModel, String applicantId, boolean isUpdate) {
+        int rowID = -1;
+        String selection = ApplicantProvider.ApplicantList.KEY_AID + " =?";
+        String[] selectionArgs = {applicantId};
+        ContentValues values = new ContentValues();
+
+        values.put(ApplicantProvider.ApplicantList.KEY_SNAME, passportFrontModel.getSurname());
+        values.put(ApplicantProvider.ApplicantList.KEY_GNAME, passportFrontModel.getName());
+        values.put(ApplicantProvider.ApplicantList.KEY_NATIONALITY, passportFrontModel.getNationality());
+        values.put(ApplicantProvider.ApplicantList.KEY_GENDER, passportFrontModel.getGender());
+        values.put(ApplicantProvider.ApplicantList.KEY_DOB, passportFrontModel.getDob());
+        values.put(ApplicantProvider.ApplicantList.KEY_PP_ISSUE_GOVT, passportFrontModel.getIssueCountry());
+        values.put(ApplicantProvider.ApplicantList.KEY_DOI, passportFrontModel.getDoi());
+        values.put(ApplicantProvider.ApplicantList.KEY_DOE, passportFrontModel.getDoe());
+
+        if (isUpdate) {
+            rowID = context.getContentResolver().update(ApplicantProvider.ApplicantList.CONTENT_URI, values, selection, selectionArgs);
+        } else {
+            Uri uri = context.getContentResolver().insert(ApplicantProvider.ApplicantList.CONTENT_URI, values);
+            if (uri != null) {
+                rowID = 1;
+                ILog.d("Applicant Created Successfully", String.valueOf(rowID));
+            }
+        }
+        return rowID;
+    }
+
+    public static int insertOrUpdatePB(Context context, PassportBackModel passportBackModel, String applicantId, boolean isUpdate) {
+        int rowID = -1;
+        String selection = ApplicantProvider.ApplicantList.KEY_AID + " =?";
+        String[] selectionArgs = {applicantId};
+        ContentValues values = new ContentValues();
+
+        values.put(ApplicantProvider.ApplicantList.KEY_FNAME, passportBackModel.getfName());
+        values.put(ApplicantProvider.ApplicantList.KEY_MNAME, passportBackModel.getmName());
+        values.put(ApplicantProvider.ApplicantList.KEY_HNAME, passportBackModel.gethName());
+        values.put(ApplicantProvider.ApplicantList.KEY_ADD1, passportBackModel.getAddLine1());
+        values.put(ApplicantProvider.ApplicantList.KEY_ADD2, passportBackModel.getAddLine2());
+
+        if (isUpdate) {
+            rowID = context.getContentResolver().update(ApplicantProvider.ApplicantList.CONTENT_URI, values, selection, selectionArgs);
+        } else {
+            Uri uri = context.getContentResolver().insert(ApplicantProvider.ApplicantList.CONTENT_URI, values);
+            if (uri != null) {
+                rowID = 1;
+                ILog.d("Applicant Created Successfully", String.valueOf(rowID));
+            }
+        }
+        return rowID;
     }
 
     public static int createOrUpdateApplicant(Context context, PassportFrontModel passportFrontModel, boolean isUpdate) {

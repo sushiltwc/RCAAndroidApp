@@ -4,7 +4,6 @@ package com.twc.rca.product.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +11,6 @@ import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.twc.rca.R;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 
 /**
  * Created by TWC on 21-02-2018.
@@ -29,7 +25,21 @@ public class MNAFragment extends Fragment {
             " <div class=\"row\">\n" +
             " <div class=\"col-md-12 col-lg-8 col-xl-8\">\n" +
             " \n" +
-            " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget ipsum quam. Sed gravida convallis elit in rhoncus. Duis tempor erat quis libero hendrerit, a pulvinar nibh pellentesque. Suspendisse potenti. Mauris aliquet augue auctor turpis dignissim, non laoreet tortor rutrum. Mauris pulvinar tempor ipsum nec vulputate. Morbi vitae hendrerit enim, nec porttitor velit. Aliquam eu lectus nec urna blandit euismod nec sit amet tellus.\n" +
+            " 96 Hours Dubai Tourist Visa<br>\n" +
+            " Short Term Single Entry<br>\n" +
+            " 96 hours Transit Visa allows you to enter UAE and stay for a maximum of 96 hours (4 days). This visa is applicable only to passengers who have a stopover at Dubai International Airport.<br><br>\n" +
+            " \n" +
+            " 14 Days Dubai Tourist Visa<br>\n" +
+            " Short Term Single Entry<br>\n" +
+            " 14 Days Visa allows passengers to stay in UAE for upto 14 days. This visa is ideal for tourists and business travelers.<br><br>\n" +
+            " \n" +
+            " 30 Days Dubai Tourist Visa<br>\n" +
+            " Short Term Single Entry<br>\n" +
+            " 30 Days Visa allows passengers to stay in UAE for upto 30 days. This visa is ideal for tourists, business travelers or people visiting family &amp; relatives.<br><br>\n" +
+            " \n" +
+            " 90 Days Dubai Tourist Visa<br>\n" +
+            " Long Term Single Entry<br>\n" +
+            " 90 Days Visa allows passengers to stay in UAE for upto 90 days. This visa is ideal for passengers who wish to stay for a longer period either to visit their family or relatives.<br><br>\n" +
             " \n" +
             " </div>\n" +
             " </div>\n" +
@@ -51,7 +61,7 @@ public class MNAFragment extends Fragment {
             " </ul>\n" +
             " </div>\n" +
             " </div>\n" +
-            " <h1>Why Red Carpet Assist</h1>\n" +
+            " <h1>Why RedCarpet Assist</h1>\n" +
             " <div class=\"row\">\n" +
             " <div class=\"col-md-12 col-lg-8 col-xl-8\">\n" +
             " \n" +
@@ -68,7 +78,7 @@ public class MNAFragment extends Fragment {
             " \n" +
             " </div>\n" +
             " </div>\n" +
-            " [testimonial_rotator id=\"18218\"]\n" +
+            " [testimonial_rotator id=\"1771\"]\n" +
             " <h1>Notes</h1>\n" +
             " <div class=\"row\">\n" +
             " <div class=\"col-md-12 col-lg-8 col-xl-8\">\n" +
@@ -85,17 +95,7 @@ public class MNAFragment extends Fragment {
             " <div class=\"col-md-12 col-lg-10 col-xl-10\">\n" +
             " <h1>FAQs</h1>\n" +
             " [WPSM_FAQ id=18197]\n" +
-            " <div id=\"accordion\" class=\"card-collapse\" role=\"tablist\" aria-multiselectable=\"true\">\n" +
-            " <div class=\"card card-plain\">\n" +
-            " <div id=\"collapse\" class=\"collapse\" role=\"tabpanel\" aria-labelledby=\"headin\">\n" +
-            " <div class=\"card-body\">\n" +
             " \n" +
-            " &nbsp;\n" +
-            " \n" +
-            " </div>\n" +
-            " </div>\n" +
-            " </div>\n" +
-            " </div>\n" +
             " </div>\n" +
             " </div>";
 
@@ -104,7 +104,7 @@ public class MNAFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mna, container, false);
         tv_content = (TextView) view.findViewById(R.id.tv_content);
-        webView=(WebView)view.findViewById(R.id.webView);
+        webView = (WebView) view.findViewById(R.id.webView);
         //tv_content.setText(Html.fromHtml(content));
         webView.loadDataWithBaseURL(null, content, "text/html", "utf-8", null);
 

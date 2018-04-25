@@ -26,12 +26,15 @@ public class ApplicantActivity extends BaseActivity {
 
     ApplicantionFragment mAplicantFragment;
 
+    String applicantType;
+
     public static final int VISA_DOCUMENT = 0, APPLICANT = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_applicant);
+        applicantType = getIntent().getStringExtra("applicant_type");
         initView();
     }
 
@@ -51,16 +54,24 @@ public class ApplicantActivity extends BaseActivity {
 
         @Override
         public Fragment getItem(int position) {
+            Fragment fragment = null;
+            Bundle bundle = new Bundle();
+            bundle.putString("applicant_type", applicantType);
             switch (position) {
                 case VISA_DOCUMENT:
-                    return mDocumentFragment = DocumentFragment.getInstance();
+                    fragment = DocumentFragment.getInstance();
+                    fragment.setArguments(bundle);
+                    break;
 
                 case APPLICANT:
-                    return mAplicantFragment = ApplicantionFragment.getInstance();
+                    fragment = ApplicantionFragment.newInstance();
+                    break;
 
                 default:
-                    return null;
+                    fragment = null;
+                    break;
             }
+            return fragment;
         }
 
         @Override
@@ -86,11 +97,9 @@ public class ApplicantActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home)
-        {
+        if (item.getItemId() == android.R.id.home) {
             finish();
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

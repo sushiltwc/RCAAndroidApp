@@ -7,13 +7,16 @@ import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.twc.rca.R;
 import com.twc.rca.background.OTPVerificationTask;
 import com.twc.rca.utils.ApiUtils;
 import com.twc.rca.utils.OtpTextWatcher;
 import com.twc.rca.utils.PreferenceUtils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,9 +56,9 @@ public class OtpActivity extends BaseActivity implements View.OnClickListener {
         et_otp_3 = (AppCompatEditText) findViewById(R.id.et_otp_digit_3);
         et_otp_4 = (AppCompatEditText) findViewById(R.id.et_otp_digit_4);
 
-        String str= String.valueOf(otpNumber);
+        String str = String.valueOf(otpNumber);
 
-        Toast.makeText(this,str,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,str,Toast.LENGTH_SHORT).show();
 
         tv_otp_mailId.setText(emailId);
        /* et_otp_1.setText(Integer.toString(otp1));
@@ -103,11 +106,28 @@ public class OtpActivity extends BaseActivity implements View.OnClickListener {
         @Override
         public void onSucceseOTPVerificationResponse(String response) {
             dismissProgressDialog();
-            PreferenceUtils.setIsRegistered(OtpActivity.this);
-            Intent intent = new Intent(OtpActivity.this, VerificationActivity.class);
-            intent.putExtra(PreferenceUtils.EMAILID,emailId);
-            startActivity(intent);
-            finish();
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+
+                JSONObject contentObject = (JSONObject) jsonObject.get(ApiUtils.CONTENT);
+
+                JSONArray data = (JSONArray) contentObject.get(ApiUtils.RESULT_SET);
+
+                JSONObject jsonobject = data.getJSONObject(0);
+
+                String user_Id = jsonobject.getString(PreferenceUtils.USERID);
+                String email_Id = jsonobject.getString(PreferenceUtils.EMAILID);
+                String mobile_No = jsonobject.getString(PreferenceUtils.MOBILE_NO);
+
+                PreferenceUtils.saveProfileInfo(getApplicationContext(), user_Id, email_Id, mobile_No);
+                Intent intent = new Intent(OtpActivity.this, VerificationActivity.class);
+                intent.putExtra(PreferenceUtils.EMAILID, emailId);
+                startActivity(intent);
+                finish();
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
         @Override

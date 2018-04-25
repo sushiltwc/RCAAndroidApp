@@ -32,6 +32,7 @@ public class SearchFieldActivity extends BaseActivity implements SearchView.OnQu
     ListView list_search;
     ImageButton btn_close;
     TextView tv_title;
+    public static String SEARCHLIST = "searchList",TITLE="title";
 
     public static ArrayList<String> list_item;
     private SearchViewAdapter searchViewAdapter;
@@ -57,7 +58,7 @@ public class SearchFieldActivity extends BaseActivity implements SearchView.OnQu
             toolbar.setPadding(0, 0, 0, 0);
 
             tv_title = (TextView) viewActionBar.findViewById(R.id.tv_title);
-            tv_title.setText(getIntent().getStringExtra(ApplicationAdapter.TITLE));
+            tv_title.setText(getIntent().getStringExtra(TITLE));
 
             btn_close = (ImageButton) viewActionBar.findViewById(R.id.btn_close);
             btn_close.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +78,7 @@ public class SearchFieldActivity extends BaseActivity implements SearchView.OnQu
         search_app_field.clearFocus();
 
         list_item = new ArrayList<>();
-        list_item = getIntent().getStringArrayListExtra(ApplicationAdapter.SEARCHLIST);
+        list_item = getIntent().getStringArrayListExtra(SEARCHLIST);
 
         searchViewAdapter = new SearchViewAdapter(this);
         list_search.setAdapter(searchViewAdapter);

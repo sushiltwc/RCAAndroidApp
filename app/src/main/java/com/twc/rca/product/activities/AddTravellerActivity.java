@@ -85,6 +85,7 @@ public class AddTravellerActivity extends BaseActivity {
         }
 
         final TravellerAdapter adapter = new TravellerAdapter(this, ls_traveller, ls_age_group);
+        list_add_travellers.setItemsCanFocus(true);
         list_add_travellers.setFocusable(false);
         list_add_travellers.setFocusableInTouchMode(false);
         list_add_travellers.setClickable(false);
@@ -202,6 +203,7 @@ public class AddTravellerActivity extends BaseActivity {
                         viewHolder.tv_count.setText(String.valueOf(count));
                     }
                 });
+                view.setTag(viewHolder);
             }
             return view;
         }

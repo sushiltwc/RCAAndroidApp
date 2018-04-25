@@ -10,6 +10,7 @@ import android.widget.DatePicker;
 
 import com.twc.rca.R;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -31,7 +32,12 @@ public class DatePickerDialogFragment extends DialogFragment {
         View v = LayoutInflater.from(getActivity())
                 .inflate(R.layout.layout_date_picker, null);
         datePicker = (DatePicker) v.findViewById(R.id.dialog_date_picker);
-        datePicker.setMinDate(System.currentTimeMillis() - 1000);
+        Calendar calendar = Calendar.getInstance();
+        Date today = calendar.getTime();
+
+        calendar.add(Calendar.DAY_OF_YEAR, 2);
+        Date tomorrow = calendar.getTime();
+        datePicker.setMinDate(tomorrow.getTime() - 1000);
         Bundle bundle = this.getArguments();
         final int id = bundle.getInt("id");
 

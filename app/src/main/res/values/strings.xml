@@ -201,6 +201,16 @@
     <string name="departure_time_hr">Departure Time (Hour)*</string>
     <string name="departure_time_min">Departure Time (Min)*</string>
 
+    <string name="arrival_dt_hint">Date of Arrival</string>
+    <string name="arrival_time_hint">Time of Arrival</string>
+    <string name="airport_of_arrival_hint">Airport of Arrival</string>
+    <string name="airport_of_departure_hint">Airport of Departure</string>
+    <string name="dt_of_departure_hint">Date of Departure</string>
+    <string name="time_of_departure_hint">Time of Departure</string>
+    <string name="coming_from_hint">Coming From</string>
+    <string name="going_to_hint">Going To</string>
+    <string name="book_now">Book Now</string>
+
     <!--SearchView Page-->
     <string name="select_country_birth">Select Country of Birth</string>
     <string name="select_marital_status">Select Marital Status</string>
@@ -208,6 +218,8 @@
     <string name="select_language">Select Language Spoken</string>
     <string name="select_profession">Select Profession</string>
     <string name="select_passport_type">Select Passport Type</string>
+    <string name="select_country_coming_from">Select Country Coming From</string>
+    <string name="select_country_going_to">Select Country Going To</string>
 
     <!--Lables-->
     <string name="visa_info_documents_lable">VISA INFO &amp; DOCUMENTS</string>

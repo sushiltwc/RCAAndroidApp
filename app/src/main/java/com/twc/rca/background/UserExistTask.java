@@ -3,6 +3,7 @@ package com.twc.rca.background;
 import android.content.Context;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -80,6 +81,9 @@ public class UserExistTask extends ApiUtils {
 
         };
         VolleySingleTon.getInstance(context).addToRequestQueue(postRequest);
+        postRequest.setRetryPolicy(new DefaultRetryPolicy(25000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ILog.d(TAG,json.toString());
     }
 

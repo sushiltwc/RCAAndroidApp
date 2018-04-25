@@ -3,7 +3,6 @@ package com.twc.rca.product.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
 import com.twc.rca.R;
+import com.twc.rca.activities.BaseFragment;
+import com.twc.rca.applicant.model.PassportBackModel;
+import com.twc.rca.applicant.model.PassportFrontModel;
 import com.twc.rca.product.adapter.ApplicationAdapter;
 
 import java.util.ArrayList;
@@ -21,7 +23,7 @@ import java.util.Map;
  * Created by Sushil on 06-03-2018.
  */
 
-public class ApplicantionFragment extends Fragment {
+public class ApplicantionFragment extends BaseFragment {
 
     ExpandableListView ex_application;
     AppCompatButton btn_submit_application;
@@ -29,12 +31,21 @@ public class ApplicantionFragment extends Fragment {
     ArrayList<Integer> listDataHeader_icon;
     ArrayList<Integer> list_child;
     Map<String, ArrayList<Integer>> formCollection;
+    PassportFrontModel passportFrontModel;
+    PassportBackModel passportBackModel;
 
-    ApplicationAdapter applicationAdapter;
+    public ApplicationAdapter applicationAdapter;
+
+    static ApplicantionFragment applicantionFragment;
 
     public static ApplicantionFragment getInstance() {
-        ApplicantionFragment applicantFragment = new ApplicantionFragment();
-        return applicantFragment;
+        //ApplicantionFragment applicantFragment = new ApplicantionFragment();
+        return applicantionFragment;
+    }
+
+    public static ApplicantionFragment newInstance() {
+        applicantionFragment = new ApplicantionFragment();
+        return applicantionFragment;
     }
 
     @Nullable
@@ -55,11 +66,22 @@ public class ApplicantionFragment extends Fragment {
         ex_application.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {
-
+               /* if(groupPosition==0){
+                    applicationAdapter.setPersonalData();
+                }
+                else if(groupPosition==1){
+                    applicationAdapter.setPassportData();
+                }*/
             }
         });
 
         return view;
+    }
+
+    public void putData(Bundle args) {
+        passportFrontModel = (PassportFrontModel) args.getSerializable("pf");
+        passportBackModel = (PassportBackModel) args.getSerializable("pb");
+        applicationAdapter.setCustomerData(passportFrontModel, passportBackModel);
     }
 
     void prepareListData() {

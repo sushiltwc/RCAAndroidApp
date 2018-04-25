@@ -1,10 +1,12 @@
 package com.twc.rca.applicant.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Sushil on 10-04-2018.
  */
 
-public class PassportFrontModel {
+public class PassportFrontModel implements Serializable {
 
     String surname;
     String name;

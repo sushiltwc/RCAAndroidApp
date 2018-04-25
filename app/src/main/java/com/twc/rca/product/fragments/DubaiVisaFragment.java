@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.twc.rca.R;
+import com.twc.rca.activities.BaseFragment;
 import com.twc.rca.product.adapter.DubaiVisaAdapter;
 import com.twc.rca.product.model.DVProduct;
 import com.twc.rca.product.task.DubaiVisaProductTask;
@@ -27,7 +28,7 @@ import java.util.List;
  * Created by Sushil on 21-02-2018.
  */
 
-public class DubaiVisaFragment extends Fragment {
+public class DubaiVisaFragment extends BaseFragment {
 
     public static String PRODUCT_ID = "product_id", PRODUCT_NAME = "product_name", PRODUCT_VALIDITY = "product_validity", PRODUCT_TYPE = "product_type", CURRENCY = "currency", ADULT_PRICE = "adult_price", CHILD_PRICE = "child_price", INFANT_PRICE = "infant_price";
 
@@ -56,6 +57,7 @@ public class DubaiVisaFragment extends Fragment {
         list_dv_product.setItemAnimator(new DefaultItemAnimator());
         list_dv_product.setAdapter(dubaiVisaAdapter);
 
+        showProgressDialog(getString(R.string.please_wait));
         new DubaiVisaProductTask(getContext()).getDubaiVisaProduct(dubaiVisaProductResponseCallback);
 
         return view;
@@ -64,6 +66,7 @@ public class DubaiVisaFragment extends Fragment {
     DubaiVisaProductTask.DubaiVisaProductResponseCallback dubaiVisaProductResponseCallback = new DubaiVisaProductTask.DubaiVisaProductResponseCallback() {
         @Override
         public void onSuccessDubaiVisaProductResponse(String response) {
+            dismissProgressDialog();
             try {
                 JSONObject jsonObject = new JSONObject(response);
 
@@ -105,7 +108,7 @@ public class DubaiVisaFragment extends Fragment {
 
         @Override
         public void onFailureDubaiVisaProductResponse(String response) {
-
+            dismissProgressDialog();
         }
     };
 }

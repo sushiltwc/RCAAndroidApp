@@ -19,6 +19,8 @@ import android.widget.TextView;
 
 import com.twc.rca.R;
 import com.twc.rca.applicant.activities.SearchFieldActivity;
+import com.twc.rca.applicant.model.PassportBackModel;
+import com.twc.rca.applicant.model.PassportFrontModel;
 import com.twc.rca.database.CountryHelper;
 import com.twc.rca.database.LanguageHelper;
 import com.twc.rca.database.MaritalHelper;
@@ -49,8 +51,6 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
     Context context;
 
     public int REQUEST_FOR_ACTIVITY_CODE = 100;
-
-    public static String SEARCHLIST = "searchList",TITLE="title";
 
     Fragment applicantionFragment;
 
@@ -85,6 +85,9 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
     ArrayList<String> list_header_title;
     ArrayList<Integer> list_header_icon;
     Map<String, ArrayList<Integer>> formCollection;
+
+    PassportFrontModel passportFrontModel;
+    PassportBackModel passportBackModel;
 
     ProcessForm processForm;
 
@@ -326,6 +329,40 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
         return CHILD_TYPE_1;
     }
 
+    public void setCustomerData(PassportFrontModel pfModel, PassportBackModel pbModel){
+        passportFrontModel=pfModel;
+        passportBackModel=pbModel;
+    }
+
+    public void setPersonalData() {
+        if(passportFrontModel!=null && passportBackModel!=null) {
+            et_surname.setText(passportFrontModel.getSurname());
+            et_given_name.setText(passportFrontModel.getName());
+            et_nationality.setText(passportFrontModel.getNationality());
+            et_gender.setText(passportFrontModel.getGender());
+            et_dob.setText(passportFrontModel.getDob());
+            et_father_name.setText(passportBackModel.getfName());
+            et_mother_name.setText(passportBackModel.getmName());
+            et_husband_name.setText(passportBackModel.gethName());
+        }
+    }
+
+    public void setPassportData(){
+        if(passportFrontModel!=null && passportBackModel!=null) {
+            et_pp_no.setText(passportFrontModel.getPassportNo());
+            et_pp_issue_govt.setText(passportFrontModel.getIssueCountry());
+            et_pp_doi.setText(passportFrontModel.getDoi());
+            et_pp_doe.setText(passportFrontModel.getDoe());
+        }
+    }
+
+    public void setContactData(){
+        if(passportFrontModel!=null && passportBackModel!=null) {
+            et_address_line1.setText(passportBackModel.getAddLine1());
+            et_address_line2.setText(passportBackModel.getAddLine2());
+        }
+    }
+
     void initPersonalDetails(View convertView) {
         et_surname = (AppCompatEditText) convertView.findViewById(R.id.et_pd_surname);
         et_given_name = (AppCompatEditText) convertView.findViewById(R.id.et_pd_given_names);
@@ -353,6 +390,8 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
 
         et_cob.setInputType(InputType.TYPE_NULL);
         et_marital_status.setInputType(InputType.TYPE_NULL);
+
+        setPersonalData();
 
         countryModelArrayList = new ArrayList<>();
         languageModelArrayList = new ArrayList<>();
@@ -479,13 +518,15 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
     void initPassportDetails(View convertView) {
         et_pp_no = (AppCompatEditText) convertView.findViewById(R.id.et_ppd_passport_no);
         et_pp_type = (AppCompatEditText) convertView.findViewById(R.id.et_ppd_passport_type);
-        et_pp_issue_govt = (AppCompatEditText) convertView.findViewById(R.id.et_ppd_passport_type);
+        et_pp_issue_govt = (AppCompatEditText) convertView.findViewById(R.id.et_ppd_passport_issuing_govt);
         et_pp_place_issue = (AppCompatEditText) convertView.findViewById(R.id.et_ppd_place_issue);
         et_pp_doi = (AppCompatEditText) convertView.findViewById(R.id.et_ppd_dt_issue);
         et_pp_doe = (AppCompatEditText) convertView.findViewById(R.id.et_ppd_dt_expiry);
 
         et_pp_doi.setOnClickListener(this);
         et_pp_doe.setOnClickListener(this);
+
+        setPassportData();
 
         et_pp_no.addTextChangedListener(new FormValidator(et_pp_no) {
             @Override
@@ -561,6 +602,8 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
         et_telephone_no = (AppCompatEditText) convertView.findViewById(R.id.et_cd_telephone);
 
         et_country.setOnClickListener(this);
+
+        setContactData();
 
         et_address_line1.addTextChangedListener(new FormValidator(et_address_line1) {
             @Override
@@ -644,8 +687,8 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
                     searchNameList.add(countryModelArrayList.get(i).getCountryName());
                 }
                 intent = new Intent(context, SearchFieldActivity.class);
-                intent.putExtra(TITLE,context.getString(R.string.select_country_birth));
-                intent.putStringArrayListExtra(SEARCHLIST, searchNameList);
+                intent.putExtra(SearchFieldActivity.TITLE,context.getString(R.string.select_country_birth));
+                intent.putStringArrayListExtra(SearchFieldActivity.SEARCHLIST, searchNameList);
                 applicantionFragment.startActivityForResult(intent, REQUEST_FOR_ACTIVITY_CODE);
                 break;
 
@@ -656,8 +699,8 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
                     searchNameList.add(maritalModelArrayList.get(i).getMaritalName());
                 }
                 intent = new Intent(context, SearchFieldActivity.class);
-                intent.putExtra(TITLE,context.getString(R.string.select_marital_status));
-                intent.putStringArrayListExtra(SEARCHLIST, searchNameList);
+                intent.putExtra(SearchFieldActivity.TITLE,context.getString(R.string.select_marital_status));
+                intent.putStringArrayListExtra(SearchFieldActivity.SEARCHLIST, searchNameList);
                 applicantionFragment.startActivityForResult(intent, REQUEST_FOR_ACTIVITY_CODE);
                 break;
 
@@ -668,8 +711,8 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
                     searchNameList.add(religionModelArrayList.get(i).getReligionName());
                 }
                 intent = new Intent(context, SearchFieldActivity.class);
-                intent.putExtra(TITLE,context.getString(R.string.select_religion));
-                intent.putStringArrayListExtra(SEARCHLIST, searchNameList);
+                intent.putExtra(SearchFieldActivity.TITLE,context.getString(R.string.select_religion));
+                intent.putStringArrayListExtra(SearchFieldActivity.SEARCHLIST, searchNameList);
                 applicantionFragment.startActivityForResult(intent, REQUEST_FOR_ACTIVITY_CODE);
                 break;
 
@@ -680,8 +723,8 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
                     searchNameList.add(languageModelArrayList.get(i).getLanguageName());
                 }
                 intent = new Intent(context, SearchFieldActivity.class);
-                intent.putExtra(TITLE,context.getString(R.string.select_language));
-                intent.putStringArrayListExtra(SEARCHLIST, searchNameList);
+                intent.putExtra(SearchFieldActivity.TITLE,context.getString(R.string.select_language));
+                intent.putStringArrayListExtra(SearchFieldActivity.SEARCHLIST, searchNameList);
                 applicantionFragment.startActivityForResult(intent, REQUEST_FOR_ACTIVITY_CODE);
                 break;
 
@@ -692,8 +735,8 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
                     searchNameList.add(professionModelArrayList.get(i).getProfessionName());
                 }
                 intent = new Intent(context, SearchFieldActivity.class);
-                intent.putExtra(TITLE,context.getString(R.string.select_profession));
-                intent.putStringArrayListExtra(SEARCHLIST, searchNameList);
+                intent.putExtra(SearchFieldActivity.TITLE,context.getString(R.string.select_profession));
+                intent.putStringArrayListExtra(SearchFieldActivity.SEARCHLIST, searchNameList);
                 applicantionFragment.startActivityForResult(intent, REQUEST_FOR_ACTIVITY_CODE);
                 break;
 

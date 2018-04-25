@@ -1,5 +1,8 @@
 package com.twc.rca.utils;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.util.Log;
 import android.util.Patterns;
 
@@ -29,6 +32,8 @@ public class ApiUtils {
     public static final String CONTENT_TYPE = "Content-Type";
 
     public static final String ACCESS_TOKEN = "access_token";
+
+    public static final String USER_ID = "userId", APPLICANT_ID = "applicantId", APPLICANT_TYPE="applicant_type";
 
     public static final String METHOD = "method";
 
@@ -151,6 +156,17 @@ public class ApiUtils {
             age--;
         }
         return age;
+    }
+
+    public static Bitmap StringToBitMap(String encodedString){
+        try{
+            byte [] encodeByte=Base64.decode(encodedString, Base64.DEFAULT);
+            Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        }catch(Exception e){
+            e.getMessage();
+            return null;
+        }
     }
 
     public static boolean isValidResponse(String response) {

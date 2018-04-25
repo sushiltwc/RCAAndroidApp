@@ -6,6 +6,7 @@ package com.twc.rca.applicant.model;
 
 public class ApplicantModel {
 
+    String applicantId;
     String applicantName;
     String applicantType;
 
@@ -51,6 +52,14 @@ public class ApplicantModel {
     String applicantDeptTimeMin;
 
     //Personal Fields
+    public String getApplicantId() {
+        return applicantId;
+    }
+
+    public void setApplicantId(String applicantId) {
+        this.applicantId = applicantId;
+    }
+
     public String getApplicantSurname() {
         return applicantSurname;
     }
