@@ -5,14 +5,20 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -37,7 +43,11 @@ import java.util.Date;
 
 public class DVProductActivity extends BaseActivity implements View.OnClickListener, DatePickerDialogFragment.DateDialogListener, TimePickerDialogFragment.TimeDialogListener {
 
-    TextView tv_dv_amount, tv_dv_processing_time, tv_dv_visa_validity, tv_dv_traveller_count, tv_dv_travel_date, tv_dv_nationality;
+    TextView tv_dv_product, tv_dv_amount, tv_dv_processing_time, tv_dv_visa_validity, tv_dv_traveller_count, tv_dv_travel_date, tv_dv_nationality;
+
+    TextView tv_actionbar_title;
+
+    ImageButton img_button_back;
 
     EditText et_dv_traveller_count, et_dv_travel_date, et_dv_nationality;
 
@@ -68,7 +78,34 @@ public class DVProductActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dv_product_input_form);
+        setContentView(R.layout.activity_input_form);
+
+        final ActionBar actionBar = getSupportActionBar();
+        if(actionBar !=null)
+        {
+            View viewActionBar = getLayoutInflater().inflate(R.layout.layout_actionbar, null);
+            ActionBar.LayoutParams params = new ActionBar.LayoutParams(
+                    ActionBar.LayoutParams.MATCH_PARENT,
+                    ActionBar.LayoutParams.WRAP_CONTENT,
+                    Gravity.CENTER);
+            tv_actionbar_title = (TextView) viewActionBar.findViewById(R.id.tv_actionbar_title);
+            img_button_back=(ImageButton)viewActionBar.findViewById(R.id.img_btn_back);
+            img_button_back.setVisibility(View.VISIBLE);
+            actionBar.setCustomView(viewActionBar, params);
+            actionBar.setDisplayShowCustomEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(false);
+            Toolbar toolbar=(Toolbar)actionBar.getCustomView().getParent();
+            toolbar.setContentInsetsAbsolute(0, 0);
+            toolbar.getContentInsetEnd();
+            toolbar.setPadding(0, 0, 0, 0);
+
+            img_button_back.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    finish();
+                }
+            });
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = this.getWindow();
@@ -85,8 +122,14 @@ public class DVProductActivity extends BaseActivity implements View.OnClickListe
         initView();
     }
 
+    @Override
+    protected boolean isHomeAsUpEnabled() {
+        return false;
+    }
+
     void initView() {
-        tv_dv_amount = (TextView) findViewById(R.id.tv_dv_amount);
+        tv_dv_product = (TextView) findViewById(R.id.tv_product_name);
+        tv_dv_amount = (TextView) findViewById(R.id.tv_amount);
         tv_dv_processing_time = (TextView) findViewById(R.id.tv_dv_processing_time);
         tv_dv_visa_validity = (TextView) findViewById(R.id.tv_dv_visa_validity);
 
@@ -95,7 +138,14 @@ public class DVProductActivity extends BaseActivity implements View.OnClickListe
 
         Bundle bundle = getIntent().getExtras();
         dvProduct = bundle.getParcelable("item");
-        getSupportActionBar().setTitle(dvProduct.getProduct_name());
+        tv_actionbar_title.setText(dvProduct.getProduct_name());
+        String str[] = dvProduct.getProduct_name().split(" ");
+        SpannableString ss1 = new SpannableString(str[0]);
+        ss1.setSpan(new RelativeSizeSpan(2.5f), 0, 1, 0);
+        if (dvProduct.getProduct_id().equalsIgnoreCase("1"))
+            tv_dv_product.setText("   " + ss1 + "\n" + str[1]);
+        else
+            tv_dv_product.setText("  " + ss1 + "\n" + str[1]);
         tv_dv_amount.setText(dvProduct.getCurrency() + " " + dvProduct.getAdult_price());
         tv_dv_visa_validity.setText(dvProduct.getProduct_validity());
 
@@ -133,7 +183,7 @@ public class DVProductActivity extends BaseActivity implements View.OnClickListe
             et_dv_nationality.setOnClickListener(this);
         }
 
-        btn_book_now = (AppCompatButton) findViewById(R.id.btn_book_now);
+        btn_book_now = (AppCompatButton) findViewById(R.id.btn_bk_now);
 
         btn_book_now.setOnClickListener(this);
 
@@ -234,14 +284,14 @@ public class DVProductActivity extends BaseActivity implements View.OnClickListe
                 break;
 
 
-            case R.id.btn_book_now:
+            case R.id.btn_bk_now:
                 if (btn_book_now.isEnabled()) {
                     Intent intent_book_now = new Intent(this, OrderDetailActivity.class);
                     intent_book_now.putExtra("productDetails", dvProduct);
                     intent_book_now.putExtra(TOTAL_PRICE, total_amount);
                     if (dvProduct.getProduct_id().equalsIgnoreCase("1")) {
-                        intent_book_now.putExtra(TRAVELLER_COUNT,noOfPassengers);
-                        intent_book_now.putExtra(NATIONALITY,et_nationality.getText().toString());
+                        intent_book_now.putExtra(TRAVELLER_COUNT, noOfPassengers);
+                        intent_book_now.putExtra(NATIONALITY, et_nationality.getText().toString());
                         intent_book_now.putExtra(ARRIVAL_DT, et_dt_arrival.getText().toString());
                         intent_book_now.putExtra(ARRIVAL_TM, et_tm_arrival.getText().toString());
                         intent_book_now.putExtra(DEPT_DT, et_dt_dept.getText().toString());
@@ -252,8 +302,8 @@ public class DVProductActivity extends BaseActivity implements View.OnClickListe
                         intent_book_now.putExtra(AIRPORT_GOING_TO, et_going_to.getText().toString());
                     } else {
                         intent_book_now.putExtra(TRAVEL_DT, et_dv_travel_date.getText().toString());
-                        intent_book_now.putExtra(TRAVELLER_COUNT,noOfPassengers);
-                        intent_book_now.putExtra(NATIONALITY,et_dv_nationality.getText().toString());
+                        intent_book_now.putExtra(TRAVELLER_COUNT, noOfPassengers);
+                        intent_book_now.putExtra(NATIONALITY, et_dv_nationality.getText().toString());
                     }
                     startActivity(intent_book_now);
                 }

@@ -93,7 +93,7 @@
     <string name="add_traveller">Add Travelers</string>
 
     <!--Booking Detail Page-->
-    <string name="review_booking_details">Review Booking Details</string>
+    <string name="order_review">Order Review</string>
     <string name="proceed_to_pay">PROCEED TO PAY </string>
     <string name="meet_assist_lable"><b>Travelling with family?</b>\nCheck our Meet &amp; Assist for family </string>
 
@@ -222,7 +222,7 @@
     <string name="select_country_going_to">Select Country Going To</string>
 
     <!--Lables-->
-    <string name="visa_info_documents_lable">VISA INFO &amp; DOCUMENTS</string>
+    <string name="visa_info_documents_lable">VISA Info &amp; Documents</string>
 
     <!--Progress Dialog Messages-->
     <string name="please_wait">Please Wait...</string>

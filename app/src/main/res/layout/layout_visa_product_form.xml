@@ -18,7 +18,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginLeft="@dimen/large_widget_spacing">
+                android:layout_marginLeft="@dimen/basic_widget_spacing">
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/et_dv_traveller_count"
@@ -27,7 +27,6 @@
                     android:clickable="true"
                     android:editable="false"
                     android:focusable="false"
-                    android:background="@null"
                     android:hint="@string/traveller_hint"
                     android:textSize="@dimen/medium_text_size"/>
             </android.support.design.widget.TextInputLayout>
@@ -36,13 +35,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginLeft="@dimen/large_widget_spacing">
+                android:layout_marginLeft="@dimen/basic_widget_spacing">
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/et_dv_nationality"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@null"
                     android:clickable="true"
                     android:editable="false"
                     android:focusable="false"
@@ -52,10 +50,10 @@
 
         </LinearLayout>
 
-        <View
+      <!--  <View
             android:layout_width="fill_parent"
             android:layout_height="2dp"
-            android:background="#c0c0c0"/>
+            android:background="#c0c0c0"/>-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -67,13 +65,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginLeft="@dimen/large_widget_spacing">
+                android:layout_marginLeft="@dimen/basic_widget_spacing">
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/et_travel_dt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@null"
                     android:clickable="true"
                     android:editable="false"
                     android:focusable="false"

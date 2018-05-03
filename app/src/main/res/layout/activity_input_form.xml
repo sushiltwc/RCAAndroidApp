@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7FAFB">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/extra_larger_widget_spacing"
+        android:scrollbars="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/card_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/large_widget_spacing"
+                android:layout_marginRight="@dimen/large_widget_spacing"
+                android:layout_marginTop="50dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/large_widget_spacing"
+                        android:paddingTop="@dimen/larger_widget_spacing">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tv_amount"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="₹ 3669"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/larger_text_size"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/medium_widget_spacing"
+                                android:text="All inclusive price" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="@dimen/large_widget_spacing"
+                            android:text="@string/visa_info_documents_lable"
+                            android:textColor="#249BEB"
+                            android:textStyle="bold" />
+
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_margin="@dimen/medium_widget_spacing"
+                        android:background="@color/colorGray" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/extra_larger_widget_spacing"
+                        android:layout_marginTop="@dimen/large_widget_spacing">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/larger_widget_spacing"
+                            android:orientation="horizontal">
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_visa_processing" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/medium_widget_spacing"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tv_dv_processing_time"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="2/3 Days"
+                                    android:textColor="@color/text_color"
+                                    android:textSize="@dimen/medium_text_size"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Visa processing" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/extra_larger_widget_spacing"
+                            android:orientation="horizontal">
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_visa_validity" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/medium_widget_spacing"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tv_dv_visa_validity"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="30 Days"
+                                    android:textColor="@color/text_color"
+                                    android:textSize="@dimen/medium_text_size"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Visa validity" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                android:id="@+id/layout_96hr_dv_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/card_1"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <include
+                    layout="@layout/layout_96_hrs_product_form"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/large_widget_spacing"
+                    android:layout_marginLeft="@dimen/large_widget_spacing"
+                    android:layout_marginRight="@dimen/large_widget_spacing"
+                    android:layout_marginTop="@dimen/basic_widget_spacing" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_dv_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/card_1"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <include
+                    layout="@layout/layout_visa_product_form"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/large_widget_spacing"
+                    android:layout_marginLeft="@dimen/large_widget_spacing"
+                    android:layout_marginRight="@dimen/large_widget_spacing"
+                    android:layout_marginTop="@dimen/basic_widget_spacing" />
+
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/btn_product_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/large_widget_spacing"
+                android:background="@drawable/circle"
+                android:elevation="@dimen/small_widget_spacing" />
+
+            <TextView
+                android:id="@+id/tv_product_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/larger_widget_spacing"
+                android:elevation="@dimen/small_widget_spacing"
+                android:text="@android:string/ok"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/large_text_size"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btn_bk_now"
+        style="@style/BottomGrayButtonStyle"
+        android:enabled="false"
+        android:text="@string/book_now" />
+
+</RelativeLayout>

@@ -46,6 +46,15 @@
         <item name="android:textSize">@dimen/large_text_size</item>
     </style>
 
+    <style name="BottomGrayButtonStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:background">@color/colorGray</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">@dimen/large_text_size</item>
+    </style>
+
     <style name="FullScreenDialog" parent="Theme.AppCompat.Light">
         <item name="android:windowFrame">@null</item>
     </style>
