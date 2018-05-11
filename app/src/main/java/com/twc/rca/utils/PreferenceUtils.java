@@ -64,9 +64,9 @@ public class PreferenceUtils {
         return preferences.getBoolean(PreferenceUtils.IS_PAYMENT_DONE, false);
     }
 
-    public static void setIsPFUploaded(Context context, boolean isPaymentDone) {
+    public static void setIsPFUploaded(Context context, boolean isPFUploaded) {
         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
-        editor.putBoolean(IS_PF_UPLOADED, isPaymentDone).apply();
+        editor.putBoolean(IS_PF_UPLOADED, isPFUploaded).apply();
     }
 
     public static boolean isPFUploaded(Context context){
@@ -77,9 +77,9 @@ public class PreferenceUtils {
         return preferences.getBoolean(PreferenceUtils.IS_PF_UPLOADED, false);
     }
 
-    public static void setIsPBUploaded(Context context, boolean isPaymentDone) {
+    public static void setIsPBUploaded(Context context, boolean isPBUploaded) {
         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
-        editor.putBoolean(IS_PB_UPLOADED, isPaymentDone).apply();
+        editor.putBoolean(IS_PB_UPLOADED, isPBUploaded).apply();
     }
 
     public static boolean isPBUploaded(Context context){

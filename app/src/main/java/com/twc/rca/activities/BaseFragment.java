@@ -43,6 +43,8 @@ public class BaseFragment extends Fragment {
     protected void initProgressDialog() {
         if (mProgressDialog != null) return;
         mProgressDialog = new ProgressDialog(getActivity());
+        //      mProgressDialog.setIndeterminate(true);
+        //      mProgressDialog.setIndeterminateDrawable(getResources().getDrawable(R.drawable.progress_dialog_icon_drawable_animation));
     }
 
     protected void dismissProgressDialog() {

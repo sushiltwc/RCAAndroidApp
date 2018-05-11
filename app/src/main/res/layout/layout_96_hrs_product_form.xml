@@ -62,6 +62,84 @@
                 android:layout_marginLeft="@dimen/medium_widget_spacing">
 
                 <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/et_arrival_airport"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:hint="@string/airport_of_arrival_hint"
+                    android:textSize="@dimen/medium_text_size"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/large_widget_spacing">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/et_departure_airport"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:hint="@string/airport_of_departure_hint"
+                    android:textSize="@dimen/medium_text_size"/>
+            </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/medium_widget_spacing"
+            android:weightSum="2">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/medium_widget_spacing">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/et_arrival_airline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/arrival_airlines"
+                    android:textSize="@dimen/medium_text_size"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/large_widget_spacing">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/et_td_arrival_flight_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/arrival_flight_no"
+                    android:textSize="@dimen/medium_text_size"/>
+            </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/medium_widget_spacing"
+            android:weightSum="2">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/medium_widget_spacing">
+
+                <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/et_dt_arrival"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -104,13 +182,10 @@
                 android:layout_marginLeft="@dimen/medium_widget_spacing">
 
                 <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/et_arrival_airport"
+                    android:id="@+id/et_departure_airline"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:editable="false"
-                    android:focusable="false"
-                    android:hint="@string/airport_of_arrival_hint"
+                    android:hint="@string/departure_airlines"
                     android:textSize="@dimen/medium_text_size"/>
             </android.support.design.widget.TextInputLayout>
 
@@ -121,17 +196,15 @@
                 android:layout_marginLeft="@dimen/large_widget_spacing">
 
                 <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/et_departure_airport"
+                    android:id="@+id/et_td_departure_flight_no"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:editable="false"
-                    android:focusable="false"
-                    android:hint="@string/airport_of_departure_hint"
+                    android:hint="@string/departure_flight_no"
                     android:textSize="@dimen/medium_text_size"/>
             </android.support.design.widget.TextInputLayout>
 
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"

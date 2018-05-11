@@ -17,10 +17,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
 import com.twc.rca.R;
 import com.twc.rca.applicant.model.DocumentModel;
 import com.twc.rca.applicant.model.PassportBackModel;
 import com.twc.rca.applicant.model.PassportFrontModel;
+import com.twc.rca.applicant.model.ReceiveDocumentModel;
 import com.twc.rca.applicant.task.DocumentUploadTask;
 import com.twc.rca.product.fragments.DocumentFragment;
 import com.twc.rca.utils.ApiUtils;
@@ -53,9 +55,13 @@ public class DocumentAdapter extends BaseAdapter {
 
     List<DocumentModel> docList;
 
+    List<ReceiveDocumentModel> docReceiveList;
+
     ProgressDialog progressDialog;
 
     DocumentUploadCallback documentUploadCallback;
+
+    String applicantId;
 
     public interface DocumentUploadCallback {
         void pfCallback(PassportFrontModel passportFrontModel);
@@ -63,9 +69,11 @@ public class DocumentAdapter extends BaseAdapter {
         void pbCalback(PassportBackModel passportBackModel);
     }
 
-    public DocumentAdapter(Context context, DocumentFragment fragment, List<DocumentModel> docList, DocumentUploadCallback documentUploadCallback) {
+    public DocumentAdapter(Context context, DocumentFragment fragment, String applicantId, List<ReceiveDocumentModel> docReceiveList, List<DocumentModel> docList, DocumentUploadCallback documentUploadCallback) {
         this.context = context;
         documentFragment = fragment;
+        this.applicantId = applicantId;
+        this.docReceiveList = docReceiveList;
         this.docList = docList;
         this.documentUploadCallback = documentUploadCallback;
         progressDialog = new ProgressDialog(context);
@@ -97,6 +105,14 @@ public class DocumentAdapter extends BaseAdapter {
             tv_doc_name = (TextView) view.findViewById(R.id.tv_doc_name);
             img_doc = (ImageView) view.findViewById(R.id.img_doc);
             img_doc.setTag(new Integer(position));
+            if (docReceiveList.size() > 0) {
+                for (int i = 0; i < docList.size(); i++) {
+                    for (int j = 0; j < docReceiveList.size(); j++) {
+                        if (docList.get(position).getDoc_type_name().equalsIgnoreCase(docReceiveList.get(j).getDoc_type()))
+                            Picasso.with(context).load(docReceiveList.get(j).getDoc_url()).into(img_doc);
+                    }
+                }
+            }
             tv_doc_name.setText(docList.get(position).getDoc_type_name().replace("_", " "));
         }
         return view;
@@ -133,7 +149,7 @@ public class DocumentAdapter extends BaseAdapter {
 
                 progressDialog.setMessage(context.getString(R.string.please_wait));
                 progressDialog.show();
-                new DocumentUploadTask(context, "", docList.get(position).doc_type_name, filename, fileFormat, base64ImageData).documentUpload(documentUploadResposeCallback, view, position);
+                new DocumentUploadTask(context, applicantId, docList.get(position).doc_type_name, filename, fileFormat, base64ImageData).documentUpload(documentUploadResposeCallback, view, position);
 
             } catch (IOException e) {
                 e.printStackTrace();

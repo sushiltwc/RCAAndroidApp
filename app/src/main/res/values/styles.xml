@@ -43,6 +43,7 @@
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:background">@color/colorPrimary</item>
         <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/large_text_size</item>
     </style>
 
@@ -52,6 +53,7 @@
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:background">@color/colorGray</item>
         <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/large_text_size</item>
     </style>
 

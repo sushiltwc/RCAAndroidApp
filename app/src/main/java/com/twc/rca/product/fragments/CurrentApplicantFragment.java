@@ -2,7 +2,6 @@ package com.twc.rca.product.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,9 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.twc.rca.R;
+import com.twc.rca.activities.BaseFragment;
 import com.twc.rca.applicant.adapter.ApplicantListAdapter;
 import com.twc.rca.applicant.model.ApplicantModel;
+import com.twc.rca.applicant.task.ApplicantTask;
 import com.twc.rca.product.model.Transaction;
+import com.twc.rca.utils.ApiUtils;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +30,7 @@ import static android.graphics.drawable.ClipDrawable.HORIZONTAL;
  * Created by Sushil on 15-03-2018.
  */
 
-public class CurrentApplicantFragment extends Fragment {
+public class CurrentApplicantFragment extends BaseFragment {
 
     RecyclerView list_current_applicant;
 
@@ -50,17 +55,69 @@ public class CurrentApplicantFragment extends Fragment {
         DividerItemDecoration itemDecor = new DividerItemDecoration(getContext(), HORIZONTAL);
         list_current_applicant.addItemDecoration(itemDecor);
 
-        prepareApplicantList();
-
-        applicantListAdapter = new ApplicantListAdapter(this.getActivity(), applicantList);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
-        list_current_applicant.setLayoutManager(mLayoutManager);
-        list_current_applicant.setItemAnimator(new DefaultItemAnimator());
-        list_current_applicant.setAdapter(applicantListAdapter);
-
-
+        showProgressDialog();
+        new ApplicantTask(getContext()).getApplicantList(applicantListResposeCallback);
         return view;
     }
+
+    ApplicantTask.ApplicantListResposeCallback applicantListResposeCallback = new ApplicantTask.ApplicantListResposeCallback() {
+        @Override
+        public void onSuccessApplicantListResponse(String response) {
+
+            dismissProgressDialog();
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+
+                JSONObject contentObject = (JSONObject) jsonObject.get(ApiUtils.CONTENT);
+
+                ApplicantModel applicantModel;
+
+                JSONArray data = (JSONArray) contentObject.get(ApiUtils.RESULT_SET);
+
+                if (data.length() > 0) {
+                    for (int i = 0; i < data.length(); i++) {
+                        applicantModel = new ApplicantModel();
+                        JSONObject jObject = data.getJSONObject(i);
+                        applicantModel.applicantId = jObject.getString("profile_id");
+                        applicantModel.applicantGivenName = jObject.getString("username");
+                        applicantModel.applicantSurname = jObject.getString("surname");
+                        applicantModel.applicantNationality = jObject.getString("nationality");
+                        applicantModel.applicantGender = jObject.getString("gender");
+                        applicantModel.applicantDOB = jObject.getString("dob");
+                        applicantModel.applicantPOB = jObject.getString("place_of_birth");
+                        applicantModel.is_Submitted = jObject.getString("is_submitted");
+
+                        JSONObject jsonApplicantTypeArr = (JSONObject) jObject.get("applicant_type_arr");
+                        applicantModel.applicantType = jsonApplicantTypeArr.getString("applicant_type_desc");
+                        applicantList.add(applicantModel);
+                    }
+                }
+
+                applicantListAdapter = new ApplicantListAdapter(getContext(), applicantList);
+                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+                list_current_applicant.setLayoutManager(mLayoutManager);
+                list_current_applicant.setItemAnimator(new DefaultItemAnimator());
+                list_current_applicant.setAdapter(applicantListAdapter);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onFailureApplicantListResponse(String response) {
+
+            dismissProgressDialog();
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+
+                JSONObject contentObject = (JSONObject) jsonObject.get(ApiUtils.CONTENT);
+
+                showToast(contentObject.getString("message"));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
 
     void prepareApplicantList() {
 

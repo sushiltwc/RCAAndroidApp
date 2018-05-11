@@ -38,5 +38,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void createTable(SQLiteDatabase db) {
+        db.execSQL(ApplicantProvider.ApplicantList.CREATE_TABLE);
+        db.execSQL(OrderProvider.OrderList.CREATE_TABLE);
     }
 }

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.DatePicker;
 
 import com.twc.rca.R;
+import com.twc.rca.utils.ApiUtils;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -23,7 +24,7 @@ public class DatePickerDialogFragment extends DialogFragment {
     private DatePicker datePicker;
 
     public interface DateDialogListener {
-        void onFinishDialog(Date date,int id);
+        void onFinishDialog(Date date, int id);
     }
 
     @Override
@@ -32,12 +33,19 @@ public class DatePickerDialogFragment extends DialogFragment {
         View v = LayoutInflater.from(getActivity())
                 .inflate(R.layout.layout_date_picker, null);
         datePicker = (DatePicker) v.findViewById(R.id.dialog_date_picker);
-        Calendar calendar = Calendar.getInstance();
-        Date today = calendar.getTime();
 
-        calendar.add(Calendar.DAY_OF_YEAR, 2);
-        Date tomorrow = calendar.getTime();
-        datePicker.setMinDate(tomorrow.getTime() - 1000);
+        Calendar cal = new GregorianCalendar();
+
+        // add the working days
+        int workingDaysToAdd = 5;
+        for (int i = 0; i < workingDaysToAdd; i++)
+            do {
+                cal.add(Calendar.DAY_OF_MONTH, 1);
+            } while (!ApiUtils.isWorkingDay(cal));
+
+        Date workingDay = cal.getTime();
+
+        datePicker.setMinDate(workingDay.getTime());
         Bundle bundle = this.getArguments();
         final int id = bundle.getInt("id");
 
@@ -52,11 +60,12 @@ public class DatePickerDialogFragment extends DialogFragment {
                                 int mon = datePicker.getMonth();
                                 int day = datePicker.getDayOfMonth();
                                 Date date = new GregorianCalendar(year, mon, day).getTime();
-                                DateDialogListener activity = (DateDialogListener) getActivity();
-                                activity.onFinishDialog(date,id);
+                                DateDialogListener activity = (DateDialogListener) getContext();
+                                activity.onFinishDialog(date, id);
                                 dismiss();
                             }
                         })
                 .create();
     }
+
 }

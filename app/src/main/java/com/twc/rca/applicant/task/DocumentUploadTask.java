@@ -70,7 +70,7 @@ public class DocumentUploadTask extends ApiUtils {
         Map<String, Object> map = new LinkedHashMap<>();
         map.put(ApiUtils.ACCESS_TOKEN, "Ramukaka");
         map.put(ApiUtils.USER_ID, PreferenceUtils.getUserid(context));
-        map.put(ApiUtils.APPLICANT_ID, "29");
+        map.put(ApiUtils.APPLICANT_ID, applicantId);
         map.put(DOC_TYPE, docType);
         map.put(FILE_NAME, fileName);
         map.put(BASE64IMAGEDATA, "data:image/" + fileFormat + ";base64," + base64ImageData);

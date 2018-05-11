@@ -2,6 +2,7 @@ package com.twc.rca.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Base64;
 import android.util.Log;
 import android.util.SparseArray;
 
@@ -18,6 +19,10 @@ import com.twc.rca.mrz.MrzParser;
 import com.twc.rca.mrz.MrzRange;
 import com.twc.rca.mrz.MrzSex;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -123,10 +128,6 @@ public class GVPassportUtils {
         passportBackModel.sethName(str_HName);
         passportBackModel.setAddLine1(str_Address_line1);
         passportBackModel.setAddLine2(str_Address_line2);
-       /* if (ApplicantHelper.getInstance(context).isApplicantExist(context, "29"))
-            ApplicantHelper.insertOrUpdatePB(context, passportBackModel, "29", true);
-        else
-            ApplicantHelper.insertOrUpdatePB(context, passportBackModel, "29", false);*/
         return passportBackModel;
     }
 
@@ -373,5 +374,25 @@ public class GVPassportUtils {
 
     public boolean isAlpha(String name) {
         return name.matches("[ A-Z]+");
+    }
+
+    public static String getByteArrayFromImageURL(String url) {
+
+        try {
+            URL imageUrl = new URL(url);
+            URLConnection ucon = imageUrl.openConnection();
+            InputStream is = ucon.getInputStream();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            byte[] buffer = new byte[1024];
+            int read = 0;
+            while ((read = is.read(buffer, 0, buffer.length)) != -1) {
+                baos.write(buffer, 0, read);
+            }
+            baos.flush();
+            return Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+        } catch (Exception e) {
+            Log.d("Error", e.toString());
+        }
+        return null;
     }
 }

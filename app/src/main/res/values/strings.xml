@@ -37,20 +37,21 @@
     <string name="password_mismatch_msg">Password &amp; Reenter Password Mismatch!</string>
     <string name="empty_name_msg">Please enter user name</string>
     <string name="empty_mobile_msg">Please enter valid mobile number</string>
-    <string name="need_to_verify">Need to Verify</string>
-    <string name="sign_up_link">New User? Go to <font fgcolor="#4A90E2">SIGN UP</font></string>
-    <string name="login_link">Already have an account? Go to <font fgcolor="#4A90E2">LOG IN</font></string>
+    <string name="need_to_verify">Need to Verify</string>\
+    <string name="sign_up_link">New User? Go to <font fgcolor="#66A1E7">SIGN UP</font></string>
+    <string name="login_link">Already have an account? Go to <font fgcolor="#66A1E7">LOG IN</font></string>
     <string name="forgot_password">Forgot Password</string>
 
     <!--Forgot Password Screen-->
     <string name="reset_msg">After pressing NEXT a link will be sent to your email ID, \n using that linkyou can reset your Password</string>
-    <string name="forget_pswd_login_link">Go back to <font fgcolor="#4A90E2">LOG IN</font></string>
+    <string name="forget_pswd_login_link">Go back to <font fgcolor="#66A1E7">LOG IN</font></string>
 
     <!--Reset Password Screen-->
     <string name="reset_password">Reset Password</string>
     <string name="create_new_password">Create New Password</string>
     <string name="confirm_password">Confirm Password</string>
-    <string name="reset_pswd_link">Entered a wrong eMail ID? <font fgcolor="#4A90E2">Go Back</font></string>
+    <string name="invalid_otp">Please enter valid OTP</string>
+    <string name="reset_pswd_link">Entered a wrong eMail ID? <font fgcolor="#66A1E7">Go Back</font></string>
 
     <!--OTP Screen-->
     <string name="otp_lable_1">We have sent you OTP on your email ID</string>
@@ -205,6 +206,10 @@
     <string name="arrival_time_hint">Time of Arrival</string>
     <string name="airport_of_arrival_hint">Airport of Arrival</string>
     <string name="airport_of_departure_hint">Airport of Departure</string>
+    <string name="arrival_airline_hint">Arrival Airline</string>
+    <string name="arrival_flight_no_hint">Arrival Flight No</string>
+    <string name="dept_airline_hint">Departure Airline</string>
+    <string name="dept_flight_no_hint">Departure Flight No</string>
     <string name="dt_of_departure_hint">Date of Departure</string>
     <string name="time_of_departure_hint">Time of Departure</string>
     <string name="coming_from_hint">Coming From</string>
@@ -220,6 +225,7 @@
     <string name="select_passport_type">Select Passport Type</string>
     <string name="select_country_coming_from">Select Country Coming From</string>
     <string name="select_country_going_to">Select Country Going To</string>
+    <string name="select_country">Select Country</string>
 
     <!--Lables-->
     <string name="visa_info_documents_lable">VISA Info &amp; Documents</string>

@@ -51,7 +51,7 @@ public class DVProductActivity extends BaseActivity implements View.OnClickListe
 
     EditText et_dv_traveller_count, et_dv_travel_date, et_dv_nationality;
 
-    EditText et_traveller_count, et_nationality, et_dt_arrival, et_tm_arrival, et_dt_dept, et_tm_dept, et_airport_arrival, et_airport_dept, et_coming_from, et_going_to;
+    EditText et_traveller_count, et_nationality, et_dt_arrival, et_tm_arrival, et_dt_dept, et_tm_dept, et_airport_arrival, et_airport_dept, et_arrival_airline, et_arrival_flight_no, et_dept_airline, et_dept_flight_no, et_coming_from, et_going_to;
 
     Button btn_book_now;
 
@@ -65,7 +65,7 @@ public class DVProductActivity extends BaseActivity implements View.OnClickListe
 
     private static final String DIALOG_DATE = "DatePickerDialogFragment", DIALOG_TIME = "TimePickerDialogFragment";
 
-    public static String TOTAL_PRICE = "total_price", TRAVELLER_COUNT = "traveller_count", TRAVEL_DT = "travel_dt", NATIONALITY = "nationality", ARRIVAL_DT = "arrival_dt", ARRIVAL_TM = "arrival_tm", DEPT_DT = "dept_dt", DEPT_TM = "dept_tm", ARRIVING_AIRPORT = "arriving_airport", DEPT_AIRPORT = "dept_airport", AIRPORT_COMING_FROM = "airport_coming_from", AIRPORT_GOING_TO = "airport_going_to";
+    public static String PRODUCT_NAME = "product_name", TOTAL_PRICE = "total_price", TRAVELLER_COUNT = "traveller_count", TRAVEL_DT = "travel_dt", NATIONALITY = "nationality", ARRIVAL_AIRLINE = "arrival_airline", ARRIVAL_FLIGHT_NO = "arrival_flight_no", DEPT_AIRLINE = "dept_airline", DEPT_FLIGHT_NO = "dept_flight_no", ARRIVAL_DT = "arrival_dt", ARRIVAL_TM = "arrival_tm", DEPT_DT = "dept_dt", DEPT_TM = "dept_tm", ARRIVING_AIRPORT = "arriving_airport", DEPT_AIRPORT = "dept_airport", AIRPORT_COMING_FROM = "airport_coming_from", AIRPORT_GOING_TO = "airport_going_to";
 
     ArrayList<CountryModel> countryModelArrayList;
 
@@ -81,20 +81,19 @@ public class DVProductActivity extends BaseActivity implements View.OnClickListe
         setContentView(R.layout.activity_input_form);
 
         final ActionBar actionBar = getSupportActionBar();
-        if(actionBar !=null)
-        {
+        if (actionBar != null) {
             View viewActionBar = getLayoutInflater().inflate(R.layout.layout_actionbar, null);
             ActionBar.LayoutParams params = new ActionBar.LayoutParams(
                     ActionBar.LayoutParams.MATCH_PARENT,
                     ActionBar.LayoutParams.WRAP_CONTENT,
                     Gravity.CENTER);
             tv_actionbar_title = (TextView) viewActionBar.findViewById(R.id.tv_actionbar_title);
-            img_button_back=(ImageButton)viewActionBar.findViewById(R.id.img_btn_back);
+            img_button_back = (ImageButton) viewActionBar.findViewById(R.id.img_btn_back);
             img_button_back.setVisibility(View.VISIBLE);
             actionBar.setCustomView(viewActionBar, params);
             actionBar.setDisplayShowCustomEnabled(true);
             actionBar.setDisplayShowTitleEnabled(false);
-            Toolbar toolbar=(Toolbar)actionBar.getCustomView().getParent();
+            Toolbar toolbar = (Toolbar) actionBar.getCustomView().getParent();
             toolbar.setContentInsetsAbsolute(0, 0);
             toolbar.getContentInsetEnd();
             toolbar.setPadding(0, 0, 0, 0);
@@ -157,6 +156,10 @@ public class DVProductActivity extends BaseActivity implements View.OnClickListe
             et_tm_arrival = (EditText) findViewById(R.id.et_tm_arrival);
             et_airport_arrival = (EditText) findViewById(R.id.et_arrival_airport);
             et_airport_dept = (EditText) findViewById(R.id.et_departure_airport);
+            et_arrival_airline = (EditText) findViewById(R.id.et_arrival_airline);
+            et_arrival_flight_no = (EditText) findViewById(R.id.et_td_arrival_flight_no);
+            et_dept_airline = (EditText) findViewById(R.id.et_departure_airline);
+            et_dept_flight_no = (EditText) findViewById(R.id.et_td_departure_flight_no);
             et_dt_dept = (EditText) findViewById(R.id.et_dt_departure);
             et_tm_dept = (EditText) findViewById(R.id.et_tm_departure);
             et_coming_from = (EditText) findViewById(R.id.et_coming_from);
@@ -290,10 +293,15 @@ public class DVProductActivity extends BaseActivity implements View.OnClickListe
                     intent_book_now.putExtra("productDetails", dvProduct);
                     intent_book_now.putExtra(TOTAL_PRICE, total_amount);
                     if (dvProduct.getProduct_id().equalsIgnoreCase("1")) {
+                        intent_book_now.putExtra(PRODUCT_NAME, dvProduct.getProduct_name().toString());
                         intent_book_now.putExtra(TRAVELLER_COUNT, noOfPassengers);
                         intent_book_now.putExtra(NATIONALITY, et_nationality.getText().toString());
+                        intent_book_now.putExtra(ARRIVAL_AIRLINE,et_arrival_airline.getText().toString());
+                        intent_book_now.putExtra(ARRIVAL_FLIGHT_NO,et_arrival_flight_no.getText().toString());
                         intent_book_now.putExtra(ARRIVAL_DT, et_dt_arrival.getText().toString());
                         intent_book_now.putExtra(ARRIVAL_TM, et_tm_arrival.getText().toString());
+                        intent_book_now.putExtra(DEPT_AIRLINE,et_dept_airline.getText().toString());
+                        intent_book_now.putExtra(DEPT_FLIGHT_NO,et_dept_flight_no.getText().toString());
                         intent_book_now.putExtra(DEPT_DT, et_dt_dept.getText().toString());
                         intent_book_now.putExtra(DEPT_TM, et_tm_dept.getText().toString());
                         intent_book_now.putExtra(ARRIVING_AIRPORT, et_airport_arrival.getText().toString());
@@ -301,6 +309,7 @@ public class DVProductActivity extends BaseActivity implements View.OnClickListe
                         intent_book_now.putExtra(AIRPORT_COMING_FROM, et_coming_from.getText().toString());
                         intent_book_now.putExtra(AIRPORT_GOING_TO, et_going_to.getText().toString());
                     } else {
+                        intent_book_now.putExtra(PRODUCT_NAME, dvProduct.getProduct_name().toString());
                         intent_book_now.putExtra(TRAVEL_DT, et_dv_travel_date.getText().toString());
                         intent_book_now.putExtra(TRAVELLER_COUNT, noOfPassengers);
                         intent_book_now.putExtra(NATIONALITY, et_dv_nationality.getText().toString());
@@ -348,8 +357,9 @@ public class DVProductActivity extends BaseActivity implements View.OnClickListe
         builder.setItems(list, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (id == R.id.et_arrival_airport)
+                if (id == R.id.et_arrival_airport) {
                     et_airport_arrival.setText(list[which]);
+                }
                 if (id == R.id.et_departure_airport)
                     et_airport_dept.setText(list[which]);
                 if (id == R.id.et_dv_nationality)
@@ -402,7 +412,7 @@ public class DVProductActivity extends BaseActivity implements View.OnClickListe
                     et_traveller_count.setText(noOfPassengers);
                 total_amount = Transaction.getmTransactionInstance().getNoOfAdults() * Double.parseDouble(dvProduct.getAdult_price()) + Transaction.getmTransactionInstance().getNoOfChildrens() * Double.parseDouble(dvProduct.getChild_price()) + Transaction.getmTransactionInstance().getNoOfInfants() * Double.parseDouble(dvProduct.getInfant_price());
 
-                tv_dv_amount.setText(total_amount.toString());
+                tv_dv_amount.setText(dvProduct.getCurrency() + " " + total_amount.toString());
                 isAllFormFilled();
             }
         } catch (Exception e) {

@@ -1,55 +1,200 @@
 package com.twc.rca.applicant.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Sushil on 15-03-2018.
  */
 
-public class ApplicantModel {
+public class ApplicantModel implements Parcelable {
 
-    String applicantId;
-    String applicantName;
-    String applicantType;
+    @SerializedName("applicantId")
+    public String applicantId;
 
-    String applicantSurname;
-    String applicantGivenName;
-    String applicantNationality;
-    String applicantGender;
-    String applicantDOB;
-    String applicantPOB;
-    String applicantCOB;
-    String applicantMaritalStatus;
-    String applicantReligion;
-    String applicantLangSpoken;
-    String applicantProfession;
-    String applicantFName;
-    String applicantMName;
+    @SerializedName("applicantName")
+    public String applicantName;
 
-    String applicantPPNo;
-    String applicantPPType;
-    String applicantPPIssueGovt;
-    String applicantPPIssuePlace;
-    String applicantPPDOI;
-    String applicantPPDOE;
+    @SerializedName("applicantType")
+    public String applicantType;
 
-    String applicantAddressLine1;
-    String applicantAddressLine2;
-    String applicantAddressLine3;
-    String applicantCity;
-    String applicantCountry;
-    String applicantTelephone;
+    @SerializedName("applicantSurname")
+    public String applicantSurname;
 
-    String applicantArrivalAirline;
-    String applicantArrivalFlightNo;
-    String applicantArrivalComingFrom;
-    String applicantDtOfArrival;
-    String applicantArrivalTimeHr;
-    String applicantArribalTimeMin;
-    String applicantDeptAirline;
-    String applicantDeptFlightNo;
-    String applicantDeptLeavingTo;
-    String applicantDtOfDept;
-    String applicantDeptTimeHr;
-    String applicantDeptTimeMin;
+    @SerializedName("applicantGivenName")
+    public String applicantGivenName;
+
+    @SerializedName("applicantNationality")
+    public String applicantNationality;
+
+    @SerializedName("applicantGender")
+    public String applicantGender;
+
+    @SerializedName("applicantDOB")
+    public String applicantDOB;
+
+    @SerializedName("applicantPOB")
+    public String applicantPOB;
+
+    @SerializedName("applicantCOB")
+    public String applicantCOB;
+
+    @SerializedName("applicantMaritalStatus")
+    public String applicantMaritalStatus;
+
+    @SerializedName("applicantReligion")
+    public String applicantReligion;
+
+    @SerializedName("applicantLangSpoken")
+    public String applicantLangSpoken;
+
+    @SerializedName("applicantProfession")
+    public String applicantProfession;
+
+    @SerializedName("applicantFName")
+    public String applicantFName;
+
+    @SerializedName("applicantMName")
+    public String applicantMName;
+
+    @SerializedName("applicantPPNo")
+    public String applicantPPNo;
+
+    @SerializedName("applicantPPType")
+    public String applicantPPType;
+
+    @SerializedName("applicantPPIssueGovt")
+    public String applicantPPIssueGovt;
+
+    @SerializedName("applicantPPIssuePlace")
+    public String applicantPPIssuePlace;
+
+    @SerializedName("applicantPPDOI")
+    public String applicantPPDOI;
+
+    @SerializedName("applicantPPDOE")
+    public String applicantPPDOE;
+
+    @SerializedName("applicantAddressLine1")
+    public String applicantAddressLine1;
+
+    @SerializedName("applicantAddressLine2")
+    public String applicantAddressLine2;
+
+    @SerializedName("applicantAddressLine3")
+    public String applicantAddressLine3;
+
+    @SerializedName("applicantCity")
+    public String applicantCity;
+
+    @SerializedName("applicantCountry")
+    public String applicantCountry;
+
+    @SerializedName("applicantTelephone")
+    public String applicantTelephone;
+
+    @SerializedName("applicantArrivalAirline")
+    public String applicantArrivalAirline;
+
+    @SerializedName("applicantArrivalFlightNo")
+    public String applicantArrivalFlightNo;
+
+    @SerializedName("applicantArrivalComingFrom")
+    public String applicantArrivalComingFrom;
+
+    @SerializedName("applicantDtOfArrival")
+    public String applicantDtOfArrival;
+
+    @SerializedName("applicantArrivalTimeHr")
+    public String applicantArrivalTimeHr;
+
+    @SerializedName("applicantArribalTimeMin")
+    public String applicantArribalTimeMin;
+
+    @SerializedName("applicantDeptAirline")
+    public String applicantDeptAirline;
+
+    @SerializedName("applicantDeptFlightNo")
+    public String applicantDeptFlightNo;
+
+    @SerializedName("applicantDeptLeavingTo")
+    public String applicantDeptLeavingTo;
+
+    @SerializedName("applicantDtOfDept")
+    public String applicantDtOfDept;
+
+    @SerializedName("applicantDeptTimeHr")
+    public String applicantDeptTimeHr;
+
+    @SerializedName("applicantDeptTimeMin")
+    public String applicantDeptTimeMin;
+
+    @SerializedName("is_Submitted")
+    public String is_Submitted;
+
+    public ApplicantModel(Parcel in) {
+        applicantId = in.readString();
+        applicantName = in.readString();
+        applicantType = in.readString();
+        applicantSurname = in.readString();
+        applicantGivenName = in.readString();
+        applicantNationality = in.readString();
+        applicantGender = in.readString();
+        applicantDOB = in.readString();
+        applicantPOB = in.readString();
+        applicantCOB = in.readString();
+        applicantMaritalStatus = in.readString();
+        applicantReligion = in.readString();
+        applicantLangSpoken = in.readString();
+        applicantProfession = in.readString();
+        applicantFName = in.readString();
+        applicantMName = in.readString();
+        applicantPPNo = in.readString();
+        applicantPPType = in.readString();
+        applicantPPIssueGovt = in.readString();
+        applicantPPIssuePlace = in.readString();
+        applicantPPDOI = in.readString();
+        applicantPPDOE = in.readString();
+        applicantAddressLine1 = in.readString();
+        applicantAddressLine2 = in.readString();
+        applicantAddressLine3 = in.readString();
+        applicantCity = in.readString();
+        applicantCountry = in.readString();
+        applicantTelephone = in.readString();
+        applicantArrivalAirline = in.readString();
+        applicantArrivalFlightNo = in.readString();
+        applicantArrivalComingFrom = in.readString();
+        applicantDtOfArrival = in.readString();
+        applicantArrivalTimeHr = in.readString();
+        applicantArribalTimeMin = in.readString();
+        applicantDeptAirline = in.readString();
+        applicantDeptFlightNo = in.readString();
+        applicantDeptLeavingTo = in.readString();
+        applicantDtOfDept = in.readString();
+        applicantDeptTimeHr = in.readString();
+        applicantDeptTimeMin = in.readString();
+        applicantHName = in.readString();
+        is_Submitted = in.readString();
+    }
+
+    public static final Creator<ApplicantModel> CREATOR = new Creator<ApplicantModel>() {
+        @Override
+        public ApplicantModel createFromParcel(Parcel in) {
+            return new ApplicantModel(in);
+        }
+
+        @Override
+        public ApplicantModel[] newArray(int size) {
+            return new ApplicantModel[size];
+        }
+    };
+
+    public ApplicantModel() {
+
+    }
+
 
     //Personal Fields
     public String getApplicantId() {
@@ -385,5 +530,63 @@ public class ApplicantModel {
 
     public void setApplicantDeptTimeMin(String applicantDeptTimeMin) {
         this.applicantDeptTimeMin = applicantDeptTimeMin;
+    }
+
+    public String getIs_Submitted() {
+        return is_Submitted;
+    }
+
+    public void setIs_Submitted(String is_Submitted) {
+        this.is_Submitted = is_Submitted;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(applicantId);
+        parcel.writeString(applicantName);
+        parcel.writeString(applicantType);
+        parcel.writeString(applicantGivenName);
+        parcel.writeString(applicantSurname);
+        parcel.writeString(applicantNationality);
+        parcel.writeString(applicantGender);
+        parcel.writeString(applicantPOB);
+        parcel.writeString(applicantCOB);
+        parcel.writeString(applicantDOB);
+        parcel.writeString(applicantMaritalStatus);
+        parcel.writeString(applicantReligion);
+        parcel.writeString(applicantLangSpoken);
+        parcel.writeString(applicantProfession);
+        parcel.writeString(applicantFName);
+        parcel.writeString(applicantMName);
+        parcel.writeString(applicantPPNo);
+        parcel.writeString(applicantPPType);
+        parcel.writeString(applicantPPIssueGovt);
+        parcel.writeString(applicantPPIssuePlace);
+        parcel.writeString(applicantPPDOI);
+        parcel.writeString(applicantPPDOE);
+        parcel.writeString(applicantAddressLine1);
+        parcel.writeString(applicantAddressLine2);
+        parcel.writeString(applicantAddressLine3);
+        parcel.writeString(applicantCity);
+        parcel.writeString(applicantCountry);
+        parcel.writeString(applicantTelephone);
+        parcel.writeString(applicantArrivalAirline);
+        parcel.writeString(applicantArrivalFlightNo);
+        parcel.writeString(applicantArrivalComingFrom);
+        parcel.writeString(applicantDtOfArrival);
+        parcel.writeString(applicantArrivalTimeHr);
+        parcel.writeString(applicantArribalTimeMin);
+        parcel.writeString(applicantDeptAirline);
+        parcel.writeString(applicantDeptFlightNo);
+        parcel.writeString(applicantDeptLeavingTo);
+        parcel.writeString(applicantDeptTimeHr);
+        parcel.writeString(applicantDeptTimeMin);
+        parcel.writeString(applicantHName);
+        parcel.writeString(is_Submitted);
     }
 }

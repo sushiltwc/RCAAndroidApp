@@ -11,8 +11,10 @@ import android.view.MenuItem;
 
 import com.twc.rca.R;
 import com.twc.rca.activities.BaseActivity;
+import com.twc.rca.applicant.model.ApplicantModel;
 import com.twc.rca.product.fragments.ApplicantionFragment;
 import com.twc.rca.product.fragments.DocumentFragment;
+import com.twc.rca.utils.ILog;
 
 /**
  * Created by Sushil on 06-03-2018.
@@ -22,11 +24,7 @@ public class ApplicantActivity extends BaseActivity {
 
     ViewPager mViewPager;
 
-    DocumentFragment mDocumentFragment;
-
-    ApplicantionFragment mAplicantFragment;
-
-    String applicantType;
+    ApplicantModel applicantModel;
 
     public static final int VISA_DOCUMENT = 0, APPLICANT = 1;
 
@@ -34,16 +32,32 @@ public class ApplicantActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_applicant);
-        applicantType = getIntent().getStringExtra("applicant_type");
+        applicantModel = (ApplicantModel) getIntent().getParcelableExtra("applicant");
         initView();
     }
 
     void initView() {
         mViewPager = (ViewPager) findViewById(R.id.applicant_pager);
-        FragmentStatePagerAdapter manager = new ApplicantPagerAdapter(this.getSupportFragmentManager());
+        ApplicantPagerAdapter manager = new ApplicantPagerAdapter(this.getSupportFragmentManager());
         mViewPager.setAdapter(manager);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.applicant_tabs);
         tabLayout.setupWithViewPager(mViewPager);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                ILog.d("TAB", "SELCTED");
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     class ApplicantPagerAdapter extends FragmentStatePagerAdapter {
@@ -56,7 +70,7 @@ public class ApplicantActivity extends BaseActivity {
         public Fragment getItem(int position) {
             Fragment fragment = null;
             Bundle bundle = new Bundle();
-            bundle.putString("applicant_type", applicantType);
+            bundle.putParcelable("applicant", applicantModel);
             switch (position) {
                 case VISA_DOCUMENT:
                     fragment = DocumentFragment.getInstance();
@@ -65,6 +79,7 @@ public class ApplicantActivity extends BaseActivity {
 
                 case APPLICANT:
                     fragment = ApplicantionFragment.newInstance();
+                    fragment.setArguments(bundle);
                     break;
 
                 default:

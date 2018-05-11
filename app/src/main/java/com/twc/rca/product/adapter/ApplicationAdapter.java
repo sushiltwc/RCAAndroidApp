@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.twc.rca.R;
 import com.twc.rca.applicant.activities.SearchFieldActivity;
+import com.twc.rca.applicant.model.ApplicantModel;
 import com.twc.rca.applicant.model.PassportBackModel;
 import com.twc.rca.applicant.model.PassportFrontModel;
 import com.twc.rca.database.CountryHelper;
@@ -88,6 +89,7 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
 
     PassportFrontModel passportFrontModel;
     PassportBackModel passportBackModel;
+    ApplicantModel applicantModel;
 
     ProcessForm processForm;
 
@@ -329,13 +331,17 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
         return CHILD_TYPE_1;
     }
 
-    public void setCustomerData(PassportFrontModel pfModel, PassportBackModel pbModel){
-        passportFrontModel=pfModel;
-        passportBackModel=pbModel;
+    public void setCustomerData(PassportFrontModel pfModel, PassportBackModel pbModel) {
+        passportFrontModel = pfModel;
+        passportBackModel = pbModel;
+    }
+
+    public void setCustomerData(ApplicantModel appModel) {
+        applicantModel = appModel;
     }
 
     public void setPersonalData() {
-        if(passportFrontModel!=null && passportBackModel!=null) {
+        if (passportFrontModel != null && passportBackModel != null) {
             et_surname.setText(passportFrontModel.getSurname());
             et_given_name.setText(passportFrontModel.getName());
             et_nationality.setText(passportFrontModel.getNationality());
@@ -344,22 +350,39 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
             et_father_name.setText(passportBackModel.getfName());
             et_mother_name.setText(passportBackModel.getmName());
             et_husband_name.setText(passportBackModel.gethName());
+        } else if (applicantModel != null) {
+            et_surname.setText(applicantModel.getApplicantSurname());
+            et_given_name.setText(applicantModel.getApplicantGivenName());
+            et_nationality.setText(applicantModel.getApplicantNationality());
+            et_gender.setText(applicantModel.getApplicantGender());
+            et_dob.setText(applicantModel.getApplicantDOB());
+            et_father_name.setText(applicantModel.getApplicantFName());
+            et_mother_name.setText(applicantModel.getApplicantMName());
+            et_husband_name.setText(applicantModel.getApplicantHName());
         }
     }
 
-    public void setPassportData(){
-        if(passportFrontModel!=null && passportBackModel!=null) {
+    public void setPassportData() {
+        if (passportFrontModel != null && passportBackModel != null) {
             et_pp_no.setText(passportFrontModel.getPassportNo());
             et_pp_issue_govt.setText(passportFrontModel.getIssueCountry());
             et_pp_doi.setText(passportFrontModel.getDoi());
             et_pp_doe.setText(passportFrontModel.getDoe());
+        } else if (applicantModel != null) {
+            et_pp_no.setText(applicantModel.getApplicantPPNo());
+            et_pp_issue_govt.setText(applicantModel.getApplicantPPIssueGovt());
+            et_pp_doi.setText(applicantModel.getApplicantPPDOI());
+            et_pp_doe.setText(applicantModel.getApplicantPPDOE());
         }
     }
 
-    public void setContactData(){
-        if(passportFrontModel!=null && passportBackModel!=null) {
+    public void setContactData() {
+        if (passportFrontModel != null && passportBackModel != null) {
             et_address_line1.setText(passportBackModel.getAddLine1());
             et_address_line2.setText(passportBackModel.getAddLine2());
+        } else if (applicantModel != null) {
+            et_address_line1.setText(applicantModel.getApplicantAddressLine1());
+            et_address_line2.setText(applicantModel.getApplicantAddressLine2());
         }
     }
 
@@ -419,6 +442,7 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
             public void validate(TextView textView, String text) {
                 if (!ApiUtils.isValidateGivenName(et_given_name.getText().toString()))
                     et_given_name.setError(context.getResources().getString(R.string.invalid_name));
+                checkRequiredFields(processForm);
             }
         });
 
@@ -427,6 +451,7 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
             public void validate(TextView textView, String text) {
                 if (ApiUtils.isValidStringValue(et_pob.getText().toString()))
                     et_pob.setError(context.getResources().getString(R.string.invalid_pob));
+                checkRequiredFields(processForm);
             }
         });
 
@@ -435,6 +460,7 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
             public void validate(TextView textView, String text) {
                 if (!ApiUtils.isValidateGivenName(et_father_name.getText().toString()))
                     et_father_name.setError(context.getResources().getString(R.string.invalid_father_name));
+                checkRequiredFields(processForm);
             }
         });
 
@@ -443,6 +469,7 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
             public void validate(TextView textView, String text) {
                 if (!ApiUtils.isValidateGivenName(et_mother_name.getText().toString()))
                     et_mother_name.setError(context.getResources().getString(R.string.invalid_mother_name));
+                checkRequiredFields(processForm);
             }
         });
 
@@ -451,6 +478,7 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
             public void validate(TextView textView, String text) {
                 if (!ApiUtils.isValidateGivenName(et_husband_name.getText().toString()))
                     et_husband_name.setError(context.getResources().getString(R.string.invalid_husband_name));
+                checkRequiredFields(processForm);
             }
         });
     }
@@ -523,6 +551,7 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
         et_pp_doi = (AppCompatEditText) convertView.findViewById(R.id.et_ppd_dt_issue);
         et_pp_doe = (AppCompatEditText) convertView.findViewById(R.id.et_ppd_dt_expiry);
 
+        et_pp_issue_govt.setOnClickListener(this);
         et_pp_doi.setOnClickListener(this);
         et_pp_doe.setOnClickListener(this);
 
@@ -531,62 +560,76 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
         et_pp_no.addTextChangedListener(new FormValidator(et_pp_no) {
             @Override
             public void validate(TextView textView, String text) {
-                if (!ApiUtils.isValidStringValue(et_pp_no.getText().toString()))
+                if (ApiUtils.isValidStringValue(et_pp_no.getText().toString()))
                     et_pp_no.setError(context.getResources().getString(R.string.invalid_pp_no));
+                checkRequiredFields(processForm);
             }
         });
 
         et_pp_type.addTextChangedListener(new FormValidator(et_pp_type) {
             @Override
             public void validate(TextView textView, String text) {
-                if (!ApiUtils.isValidStringValue(et_pp_type.getText().toString()))
+                if (ApiUtils.isValidStringValue(et_pp_type.getText().toString()))
                     et_pp_type.setError(context.getResources().getString(R.string.invalid_pp_type));
+                checkRequiredFields(processForm);
             }
         });
 
         et_pp_issue_govt.addTextChangedListener(new FormValidator(et_pp_issue_govt) {
             @Override
             public void validate(TextView textView, String text) {
-                if (!ApiUtils.isValidStringValue(et_pp_issue_govt.getText().toString()))
+                if (ApiUtils.isValidStringValue(et_pp_issue_govt.getText().toString()))
                     et_pp_issue_govt.setError(context.getResources().getString(R.string.invalid_pp_issue_govt));
+                checkRequiredFields(processForm);
             }
         });
 
         et_pp_place_issue.addTextChangedListener(new FormValidator(et_pp_place_issue) {
             @Override
             public void validate(TextView textView, String text) {
-                if (!ApiUtils.isValidStringValue(et_pp_place_issue.getText().toString()))
+                if (ApiUtils.isValidStringValue(et_pp_place_issue.getText().toString()))
                     et_pp_place_issue.setError(context.getResources().getString(R.string.invalid_pp_poi));
+                checkRequiredFields(processForm);
             }
         });
 
         et_pp_doi.addTextChangedListener(new FormValidator(et_pp_doi) {
             @Override
             public void validate(TextView textView, String text) {
-                if (!ApiUtils.isValidStringValue(et_pp_place_issue.getText().toString()))
+                if (ApiUtils.isValidStringValue(et_pp_doi.getText().toString()))
                     et_pp_place_issue.setError(context.getResources().getString(R.string.invalid_pp_poi));
+                checkRequiredFields(processForm);
+            }
+        });
+
+        et_pp_doe.addTextChangedListener(new FormValidator(et_pp_doe) {
+            @Override
+            public void validate(TextView textView, String text) {
+                if (ApiUtils.isValidStringValue(et_pp_doe.getText().toString()))
+                    et_pp_doe.setError(context.getResources().getString(R.string.date_of_expiry));
+                checkRequiredFields(processForm);
             }
         });
     }
 
     boolean validatePassportDetails() {
-        if (!ApiUtils.isValidateSurName(et_pp_no.getText().toString())) {
+        if (!ApiUtils.isValidStringValue(et_pp_no.getText().toString())) {
             et_pp_no.setError(context.getResources().getString(R.string.invalid_pp_no));
             return false;
         }
-        if (!ApiUtils.isValidateSurName(et_pp_type.getText().toString())) {
+        if (!ApiUtils.isValidStringValue(et_pp_type.getText().toString())) {
             et_pp_type.setError(context.getResources().getString(R.string.invalid_pp_type));
             return false;
         }
-        if (!ApiUtils.isValidateSurName(et_pp_issue_govt.getText().toString())) {
+        if (!ApiUtils.isValidStringValue(et_pp_issue_govt.getText().toString())) {
             et_pp_issue_govt.setError(context.getResources().getString(R.string.invalid_pp_issue_govt));
             return false;
         }
-        if (!ApiUtils.isValidateSurName(et_pp_doi.getText().toString())) {
+        if (!ApiUtils.isValidStringValue(et_pp_doi.getText().toString())) {
             et_pp_doi.setError(context.getResources().getString(R.string.invalid_pp_doi));
             return false;
         }
-        if (!ApiUtils.isValidateSurName(et_pp_doe.getText().toString())) {
+        if (!ApiUtils.isValidStringValue(et_pp_doe.getText().toString())) {
             et_pp_doe.setError(context.getResources().getString(R.string.invalid_pp_doe));
             return false;
         }
@@ -603,21 +646,44 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
 
         et_country.setOnClickListener(this);
 
+        countryModelArrayList = new ArrayList<>();
+        countryModelArrayList = CountryHelper.getInstance(context).getCountryList();
+
         setContactData();
 
         et_address_line1.addTextChangedListener(new FormValidator(et_address_line1) {
             @Override
             public void validate(TextView textView, String text) {
-                if (!ApiUtils.isValidStringValue(et_address_line1.getText().toString()))
+                if (ApiUtils.isValidStringValue(et_address_line1.getText().toString()))
                     et_address_line1.setError(context.getResources().getString(R.string.invalid_address_line1));
+                checkRequiredFields(processForm);
+            }
+        });
+
+        et_city.addTextChangedListener(new FormValidator(et_city) {
+            @Override
+            public void validate(TextView textView, String text) {
+                if (ApiUtils.isValidStringValue(et_city.getText().toString()))
+                    et_city.setError(context.getResources().getString(R.string.invalid_city));
+                checkRequiredFields(processForm);
+            }
+        });
+
+        et_country.addTextChangedListener(new FormValidator(et_country) {
+            @Override
+            public void validate(TextView textView, String text) {
+                if (ApiUtils.isValidStringValue(et_country.getText().toString()))
+                    et_country.setError(context.getResources().getString(R.string.invalid_country));
+                checkRequiredFields(processForm);
             }
         });
 
         et_telephone_no.addTextChangedListener(new FormValidator(et_telephone_no) {
             @Override
             public void validate(TextView textView, String text) {
-                if (!ApiUtils.isValidMobileNumber(et_telephone_no.getText().toString()))
+                if (ApiUtils.isValidMobileNumber(et_telephone_no.getText().toString()))
                     et_telephone_no.setError(context.getResources().getString(R.string.invalid_mob_no));
+                checkRequiredFields(processForm);
             }
         });
     }
@@ -687,7 +753,7 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
                     searchNameList.add(countryModelArrayList.get(i).getCountryName());
                 }
                 intent = new Intent(context, SearchFieldActivity.class);
-                intent.putExtra(SearchFieldActivity.TITLE,context.getString(R.string.select_country_birth));
+                intent.putExtra(SearchFieldActivity.TITLE, context.getString(R.string.select_country_birth));
                 intent.putStringArrayListExtra(SearchFieldActivity.SEARCHLIST, searchNameList);
                 applicantionFragment.startActivityForResult(intent, REQUEST_FOR_ACTIVITY_CODE);
                 break;
@@ -699,7 +765,7 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
                     searchNameList.add(maritalModelArrayList.get(i).getMaritalName());
                 }
                 intent = new Intent(context, SearchFieldActivity.class);
-                intent.putExtra(SearchFieldActivity.TITLE,context.getString(R.string.select_marital_status));
+                intent.putExtra(SearchFieldActivity.TITLE, context.getString(R.string.select_marital_status));
                 intent.putStringArrayListExtra(SearchFieldActivity.SEARCHLIST, searchNameList);
                 applicantionFragment.startActivityForResult(intent, REQUEST_FOR_ACTIVITY_CODE);
                 break;
@@ -711,7 +777,7 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
                     searchNameList.add(religionModelArrayList.get(i).getReligionName());
                 }
                 intent = new Intent(context, SearchFieldActivity.class);
-                intent.putExtra(SearchFieldActivity.TITLE,context.getString(R.string.select_religion));
+                intent.putExtra(SearchFieldActivity.TITLE, context.getString(R.string.select_religion));
                 intent.putStringArrayListExtra(SearchFieldActivity.SEARCHLIST, searchNameList);
                 applicantionFragment.startActivityForResult(intent, REQUEST_FOR_ACTIVITY_CODE);
                 break;
@@ -723,7 +789,7 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
                     searchNameList.add(languageModelArrayList.get(i).getLanguageName());
                 }
                 intent = new Intent(context, SearchFieldActivity.class);
-                intent.putExtra(SearchFieldActivity.TITLE,context.getString(R.string.select_language));
+                intent.putExtra(SearchFieldActivity.TITLE, context.getString(R.string.select_language));
                 intent.putStringArrayListExtra(SearchFieldActivity.SEARCHLIST, searchNameList);
                 applicantionFragment.startActivityForResult(intent, REQUEST_FOR_ACTIVITY_CODE);
                 break;
@@ -735,7 +801,7 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
                     searchNameList.add(professionModelArrayList.get(i).getProfessionName());
                 }
                 intent = new Intent(context, SearchFieldActivity.class);
-                intent.putExtra(SearchFieldActivity.TITLE,context.getString(R.string.select_profession));
+                intent.putExtra(SearchFieldActivity.TITLE, context.getString(R.string.select_profession));
                 intent.putStringArrayListExtra(SearchFieldActivity.SEARCHLIST, searchNameList);
                 applicantionFragment.startActivityForResult(intent, REQUEST_FOR_ACTIVITY_CODE);
                 break;
@@ -755,6 +821,19 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
                 dialog.setArguments(args);
                 dialog.show(applicantionFragment.getActivity().getSupportFragmentManager(), DIALOG_DATE);
                 break;
+
+            case R.id.et_cd_country:
+                Transaction.getmTransactionInstance().setTransaction_type(Transaction.COUNTRY);
+                searchNameList = new ArrayList<>();
+                for (int i = 0; i < countryModelArrayList.size(); i++) {
+                    searchNameList.add(countryModelArrayList.get(i).getCountryName());
+                }
+                intent = new Intent(context, SearchFieldActivity.class);
+                intent.putExtra(SearchFieldActivity.TITLE, context.getString(R.string.select_country));
+                intent.putStringArrayListExtra(SearchFieldActivity.SEARCHLIST, searchNameList);
+                applicantionFragment.startActivityForResult(intent, REQUEST_FOR_ACTIVITY_CODE);
+                break;
+
         }
     }
 

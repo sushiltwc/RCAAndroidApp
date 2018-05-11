@@ -54,8 +54,6 @@ public class MyApplication extends Application {
         new DatabaseCreater(this, passportTypeHelper, passportTypeHelper.DB_NAME, passportTypeHelper.DB_VERSION).createDataBase();
         new DatabaseCreater(this, professionHelper, professionHelper.DB_NAME, professionHelper.DB_VERSION).createDataBase();
         new DatabaseCreater(this, religionHelper, religionHelper.DB_NAME, religionHelper.DB_VERSION).createDataBase();
-      //  new DatabaseCreater(this, orderHelper, OrderHelper.DB_NAME, OrderHelper.DB_VERSION).createDataBase();
-      //  new DatabaseCreater(this, applicantHelper, ApplicantHelper.DB_NAME, ApplicantHelper.DB_VERSION).createDataBase();
 
         countryHelper.openDataBase();
         languageHelper.openDataBase();
@@ -63,7 +61,5 @@ public class MyApplication extends Application {
         passportTypeHelper.openDataBase();
         professionHelper.openDataBase();
         religionHelper.openDataBase();
-        orderHelper.openDataBase();
-        applicantHelper.openDataBase();
     }
 }

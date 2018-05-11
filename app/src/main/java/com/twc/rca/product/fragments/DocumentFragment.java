@@ -23,10 +23,13 @@ import android.widget.TextView;
 
 import com.twc.rca.R;
 import com.twc.rca.activities.BaseFragment;
+import com.twc.rca.applicant.model.ApplicantModel;
 import com.twc.rca.applicant.model.DocumentModel;
 import com.twc.rca.applicant.model.PassportBackModel;
 import com.twc.rca.applicant.model.PassportFrontModel;
+import com.twc.rca.applicant.model.ReceiveDocumentModel;
 import com.twc.rca.applicant.task.DocumentListTask;
+import com.twc.rca.applicant.task.DocumentReceiveTask;
 import com.twc.rca.permissions.PermissionDialogUtil;
 import com.twc.rca.permissions.RunTimePermissionWrapper;
 import com.twc.rca.product.adapter.DocumentAdapter;
@@ -62,6 +65,8 @@ public class DocumentFragment extends BaseFragment {
 
     List<DocumentModel> doc_list = new ArrayList<>();
 
+    List<ReceiveDocumentModel> receive_doc_list = new ArrayList<>();
+
     public DocumentAdapter documentAdapter;
 
     PassportFrontModel passportFrontModel;
@@ -71,6 +76,8 @@ public class DocumentFragment extends BaseFragment {
     View docView;
 
     int docPosition;
+
+    ApplicantModel applicantModel;
 
     String applicant_type;
 
@@ -89,26 +96,80 @@ public class DocumentFragment extends BaseFragment {
         btn_next = view.findViewById(R.id.btn_doc_next);
 
         Bundle bundle = getArguments();
-        applicant_type = bundle.getString("applicant_type").replaceAll("[0-9]", "").replace(" ", "");
+        applicantModel = bundle.getParcelable("applicant");
+        applicant_type = applicantModel.getApplicantType().replaceAll("[0-9]", "").replace(" ", "");
         if (applicant_type.equalsIgnoreCase("Infant"))
             applicant_type = "Child";
 
         showProgressDialog(getString(R.string.please_wait));
-        new DocumentListTask(getContext(), applicant_type).getDocList(documentListResposeCallback);
+        new DocumentReceiveTask(getContext(), applicantModel.getApplicantId()).documentReceive(documentReceiveResposeCallback);
 
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle b=new Bundle();
-                b.putSerializable("pf",passportFrontModel);
-                b.putSerializable("pb",passportBackModel);
-                ApplicantionFragment.getInstance().putData(b);
+                Bundle b = new Bundle();
+                if (passportFrontModel != null && passportBackModel != null) {
+                    b.putSerializable("pf", passportFrontModel);
+                    b.putSerializable("pb", passportBackModel);
+                    ApplicantionFragment.getInstance().putData(b);
+                } else {
+                    ApplicantionFragment.getInstance().putData(receive_doc_list);
+                }
                 viewPager.setCurrentItem(1);
             }
         });
 
         return view;
     }
+
+    DocumentReceiveTask.DocumentReceiveResposeCallback documentReceiveResposeCallback = new DocumentReceiveTask.DocumentReceiveResposeCallback() {
+        @Override
+        public void onSuccessDocumentReceeiveResponse(String response) {
+            dismissProgressDialog();
+            try {
+                ReceiveDocumentModel receiveDocumentModel;
+
+                JSONObject jsonObject = new JSONObject(response);
+
+                JSONObject contentObject = (JSONObject) jsonObject.get(ApiUtils.CONTENT);
+
+                JSONArray data = (JSONArray) contentObject.get(ApiUtils.RESULT_SET);
+
+                if (data.length() > 0) {
+                    for (int i = 0; i < data.length(); i++) {
+                        receiveDocumentModel = new ReceiveDocumentModel();
+                        JSONObject jsonobject = data.getJSONObject(i);
+                        receiveDocumentModel.doc_id = jsonobject.getString("doc_id");
+                        receiveDocumentModel.doc_type = jsonobject.getString("doc_type");
+                        receiveDocumentModel.doc_mime_type = jsonobject.getString("doc_mime_type");
+                        receiveDocumentModel.doc_url = jsonobject.getString("doc_url");
+
+                        if (receiveDocumentModel.getDoc_type().equalsIgnoreCase("PASSPORT_FRONT")) {
+                            PreferenceUtils.setIsPFUploaded(getContext(), true);
+                            changeStatus();
+                        }
+                        if (receiveDocumentModel.getDoc_type().equalsIgnoreCase("PASSPORT_BACK")) {
+                            PreferenceUtils.setIsPBUploaded(getContext(), true);
+                            changeStatus();
+                        }
+                        receive_doc_list.add(receiveDocumentModel);
+                    }
+                }
+
+                showProgressDialog(getString(R.string.please_wait));
+                new DocumentListTask(getContext(), applicant_type).getDocList(documentListResposeCallback);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onFailureDocumentReceiveResponse(String response) {
+            dismissProgressDialog();
+            showProgressDialog(getString(R.string.please_wait));
+            new DocumentListTask(getContext(), applicant_type).getDocList(documentListResposeCallback);
+        }
+    };
 
     DocumentListTask.DocumentListResposeCallback documentListResposeCallback = new DocumentListTask.DocumentListResposeCallback() {
         @Override
@@ -133,7 +194,7 @@ public class DocumentFragment extends BaseFragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            documentAdapter = new DocumentAdapter(getContext(), DocumentFragment.this, doc_list,documentUploadCallback);
+            documentAdapter = new DocumentAdapter(getContext(), DocumentFragment.this, applicantModel.getApplicantId(), receive_doc_list, doc_list, documentUploadCallback);
             document_grid.setAdapter(documentAdapter);
 
             document_grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -224,8 +285,15 @@ public class DocumentFragment extends BaseFragment {
     }
 
     public void uploadDocPrefs() {
-        PreferenceManager.getDefaultSharedPreferences(context)
+        PreferenceManager.getDefaultSharedPreferences(getContext())
                 .registerOnSharedPreferenceChangeListener(mPreferenceChangeListener);
+    }
+
+    void changeStatus() {
+        if (PreferenceUtils.isPFUploaded(getContext()) && PreferenceUtils.isPBUploaded(getContext())) {
+            btn_next.setEnabled(true);
+            btn_next.setBackgroundColor(getContext().getResources().getColor(R.color.colorPrimary));
+        }
     }
 
     SharedPreferences.OnSharedPreferenceChangeListener mPreferenceChangeListener = new
@@ -242,17 +310,17 @@ public class DocumentFragment extends BaseFragment {
                 }
             };
 
-   DocumentAdapter.DocumentUploadCallback documentUploadCallback=new DocumentAdapter.DocumentUploadCallback() {
-       @Override
-       public void pfCallback(PassportFrontModel pfModel) {
-            passportFrontModel=pfModel;
-       }
+    DocumentAdapter.DocumentUploadCallback documentUploadCallback = new DocumentAdapter.DocumentUploadCallback() {
+        @Override
+        public void pfCallback(PassportFrontModel pfModel) {
+            passportFrontModel = pfModel;
+            changeStatus();
+        }
 
-       @Override
-       public void pbCalback(PassportBackModel pbModel) {
-            passportBackModel=pbModel;
-           btn_next.setEnabled(true);
-           btn_next.setBackgroundColor(getContext().getResources().getColor(R.color.colorPrimary));
-       }
-   };
+        @Override
+        public void pbCalback(PassportBackModel pbModel) {
+            passportBackModel = pbModel;
+            changeStatus();
+        }
+    };
 }

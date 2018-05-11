@@ -34,7 +34,7 @@ public class ApplicantListAdapter extends RecyclerView.Adapter<ApplicantListAdap
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(context, ApplicantActivity.class);
-                    intent.putExtra("applicant_type", applicantModelList.get(getAdapterPosition()).getApplicantType());
+                    intent.putExtra("applicant", applicantModelList.get(getAdapterPosition()));
                     view.getContext().startActivity(intent);
                 }
             });
@@ -57,7 +57,11 @@ public class ApplicantListAdapter extends RecyclerView.Adapter<ApplicantListAdap
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         ApplicantModel applicantModel = applicantModelList.get(position);
-        holder.tv_applicant_name.setText(applicantModel.getApplicantName());
+        if (applicantModel.getApplicantSurname().equalsIgnoreCase("null"))
+            holder.tv_applicant_name.setText(applicantModel.getApplicantGivenName());
+        else
+            holder.tv_applicant_name.setText(applicantModel.getApplicantGivenName() + " " + applicantModel.getApplicantSurname());
+
         holder.tv_applicant_type.setText(applicantModel.getApplicantType());
     }
 

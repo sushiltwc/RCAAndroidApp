@@ -11,10 +11,12 @@ import com.twc.rca.BuildConfig;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,7 +35,7 @@ public class ApiUtils {
 
     public static final String ACCESS_TOKEN = "access_token";
 
-    public static final String USER_ID = "userId", APPLICANT_ID = "applicantId", APPLICANT_TYPE="applicant_type";
+    public static final String USER_ID = "userId", APPLICANT_ID = "applicantId", APPLICANT_TYPE = "applicant_type";
 
     public static final String METHOD = "method";
 
@@ -93,6 +95,21 @@ public class ApiUtils {
         return hireDate;
     }
 
+    public static String formatDate(String dt) {
+        String outputDateStr = null;
+        try {
+            if (dt != null) {
+                DateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
+                DateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date date = inputFormat.parse(dt);
+                outputDateStr = outputFormat.format(date);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return outputDateStr;
+    }
+
     public static String getDate(String dt) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
                 "dd/MM/yy");
@@ -128,6 +145,19 @@ public class ApiUtils {
         return yesterdayAsString;
     }
 
+    public static Date getDate(String dt, String tm) {
+        dt = dt + "T" + tm + "Z";
+        Date date = null;
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy'T'HH:mm:ss'Z'");
+        try {
+            date = format.parse(dt);
+            System.out.println(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
+
     public static int getAge(String dobString) {
 
         Date date = null;
@@ -158,12 +188,12 @@ public class ApiUtils {
         return age;
     }
 
-    public static Bitmap StringToBitMap(String encodedString){
-        try{
-            byte [] encodeByte=Base64.decode(encodedString, Base64.DEFAULT);
-            Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+    public static Bitmap StringToBitMap(String encodedString) {
+        try {
+            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
             return bitmap;
-        }catch(Exception e){
+        } catch (Exception e) {
             e.getMessage();
             return null;
         }
@@ -179,5 +209,55 @@ public class ApiUtils {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public static void timeDifference(Date startDate, Date endDate) {
+        //milliseconds
+        long different = endDate.getTime() - startDate.getTime();
+
+        System.out.println("startDate : " + startDate);
+        System.out.println("endDate : " + endDate);
+        System.out.println("different : " + different);
+
+        long secondsInMilli = 1000;
+        long minutesInMilli = secondsInMilli * 60;
+        long hoursInMilli = minutesInMilli * 60;
+        long daysInMilli = hoursInMilli * 24;
+
+        long elapsedDays = different / daysInMilli;
+        different = different % daysInMilli;
+
+        long elapsedHours = different / hoursInMilli;
+        different = different % hoursInMilli;
+
+        long elapsedMinutes = different / minutesInMilli;
+        different = different % minutesInMilli;
+
+        long elapsedSeconds = different / secondsInMilli;
+
+        System.out.printf(
+                "%d days, %d hours, %d minutes, %d seconds%n",
+                elapsedDays, elapsedHours, elapsedMinutes, elapsedSeconds);
+    }
+
+    public static void getNextDay() {
+        Calendar cal = new GregorianCalendar();
+        // cal now contains current date
+        System.out.println(cal.getTime());
+
+        // add the working days
+        int workingDaysToAdd = 5;
+        for (int i = 0; i < workingDaysToAdd; i++)
+            do {
+                cal.add(Calendar.DAY_OF_MONTH, 1);
+            } while (!isWorkingDay(cal));
+        System.out.println(cal.getTime());
+    }
+
+    public static boolean isWorkingDay(Calendar cal) {
+        int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+        if (dayOfWeek == Calendar.SUNDAY || dayOfWeek == Calendar.SATURDAY)
+            return false;
+        return true;
     }
 }
