@@ -33,8 +33,8 @@ public class ForgotPswdTask extends ApiUtils {
 
     String emailId;
 
-    public ForgotPswdTask(Context context,String emailId) {
-        this.context=context;
+    public ForgotPswdTask(Context context, String emailId) {
+        this.context = context;
         this.emailId = emailId;
     }
 
@@ -44,7 +44,7 @@ public class ForgotPswdTask extends ApiUtils {
 
             @Override
             public void onResponse(JSONObject response) {
-                ILog.d(TAG, response.toString());
+                // ILog.d(TAG, response.toString());
                 if (isValidResponse(response.toString()))
                     forgotPswdResponseCallback.onSuccessForgotPswdResponse(response.toString());
                 else
@@ -58,6 +58,9 @@ public class ForgotPswdTask extends ApiUtils {
             }
         });
         VolleySingleTon.getInstance(context).addToRequestQueue(forgotPswdRequest);
+        forgotPswdRequest.setRetryPolicy(new DefaultRetryPolicy(25000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
     protected Map<String, Object> getParams(Context context) {

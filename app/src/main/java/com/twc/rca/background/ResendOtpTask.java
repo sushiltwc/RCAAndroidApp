@@ -2,6 +2,7 @@ package com.twc.rca.background;
 
 import android.content.Context;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -32,8 +33,8 @@ public class ResendOtpTask extends ApiUtils {
 
     String emailId;
 
-    public ResendOtpTask(Context context,String emailId) {
-        this.context=context;
+    public ResendOtpTask(Context context, String emailId) {
+        this.context = context;
         this.emailId = emailId;
     }
 
@@ -57,6 +58,9 @@ public class ResendOtpTask extends ApiUtils {
             }
         });
         VolleySingleTon.getInstance(context).addToRequestQueue(resendOtpRequest);
+        resendOtpRequest.setRetryPolicy(new DefaultRetryPolicy(25000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
     protected Map<String, Object> getParams(Context context) {
