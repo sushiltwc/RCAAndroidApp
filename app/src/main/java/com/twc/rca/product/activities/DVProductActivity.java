@@ -25,7 +25,9 @@ import android.widget.TextView;
 import com.twc.rca.R;
 import com.twc.rca.activities.BaseActivity;
 import com.twc.rca.applicant.activities.SearchFieldActivity;
+import com.twc.rca.database.AirlineHelper;
 import com.twc.rca.database.CountryHelper;
+import com.twc.rca.model.AirlineModel;
 import com.twc.rca.model.CountryModel;
 import com.twc.rca.product.fragments.DatePickerDialogFragment;
 import com.twc.rca.product.fragments.TimePickerDialogFragment;
@@ -69,11 +71,13 @@ public class DVProductActivity extends BaseActivity implements View.OnClickListe
 
     ArrayList<CountryModel> countryModelArrayList;
 
+    ArrayList<AirlineModel> airlineModelArrayList;
+
     DVProduct dvProduct;
 
     Double total_amount;
 
-    public int COMING_FROM_CODE = 1, GOING_TO_CODE = 2;
+    public int COMING_FROM_CODE = 1, GOING_TO_CODE = 2, ARR_AIRLINE = 3, DEPARTURE_AIRLINE = 4;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -171,6 +175,8 @@ public class DVProductActivity extends BaseActivity implements View.OnClickListe
             et_tm_arrival.setOnClickListener(this);
             et_airport_arrival.setOnClickListener(this);
             et_airport_dept.setOnClickListener(this);
+            et_arrival_airline.setOnClickListener(this);
+            et_dept_airline.setOnClickListener(this);
             et_dt_dept.setOnClickListener(this);
             et_tm_dept.setOnClickListener(this);
             et_coming_from.setOnClickListener(this);
@@ -258,6 +264,34 @@ public class DVProductActivity extends BaseActivity implements View.OnClickListe
                 popupDialog("Select Aitport", list_airport, view.getId());
                 break;
 
+            case R.id.et_arrival_airline:
+                Transaction.getmTransactionInstance().setTransaction_type(Transaction.ARRIVAL_AIRLINE);
+                airlineModelArrayList = new ArrayList<>();
+                airlineModelArrayList = AirlineHelper.getInstance(getApplicationContext()).getAirlineList();
+                searchList = new ArrayList<>();
+                for (int i = 0; i < airlineModelArrayList.size(); i++) {
+                    searchList.add(airlineModelArrayList.get(i).getAirlineName());
+                }
+                searchIntent = new Intent(getApplicationContext(), SearchFieldActivity.class);
+                searchIntent.putExtra(SearchFieldActivity.TITLE, getApplicationContext().getString(R.string.select_arrival_airline));
+                searchIntent.putStringArrayListExtra(SearchFieldActivity.SEARCHLIST, searchList);
+                startActivityForResult(searchIntent, ARR_AIRLINE);
+                break;
+
+            case R.id.et_departure_airline:
+                Transaction.getmTransactionInstance().setTransaction_type(Transaction.DEPT_AIRLINE);
+                airlineModelArrayList = new ArrayList<>();
+                airlineModelArrayList = AirlineHelper.getInstance(getApplicationContext()).getAirlineList();
+                searchList = new ArrayList<>();
+                for (int i = 0; i < airlineModelArrayList.size(); i++) {
+                    searchList.add(airlineModelArrayList.get(i).getAirlineName());
+                }
+                searchIntent = new Intent(getApplicationContext(), SearchFieldActivity.class);
+                searchIntent.putStringArrayListExtra(SearchFieldActivity.SEARCHLIST, searchList);
+                searchIntent.putExtra(SearchFieldActivity.TITLE, getApplicationContext().getString(R.string.select_departure_airline));
+                startActivityForResult(searchIntent, DEPARTURE_AIRLINE);
+                break;
+
             case R.id.et_coming_from:
                 Transaction.getmTransactionInstance().setTransaction_type(Transaction.COUNTRY);
                 countryModelArrayList = new ArrayList<>();
@@ -296,12 +330,12 @@ public class DVProductActivity extends BaseActivity implements View.OnClickListe
                         intent_book_now.putExtra(PRODUCT_NAME, dvProduct.getProduct_name().toString());
                         intent_book_now.putExtra(TRAVELLER_COUNT, noOfPassengers);
                         intent_book_now.putExtra(NATIONALITY, et_nationality.getText().toString());
-                        intent_book_now.putExtra(ARRIVAL_AIRLINE,et_arrival_airline.getText().toString());
-                        intent_book_now.putExtra(ARRIVAL_FLIGHT_NO,et_arrival_flight_no.getText().toString());
+                        intent_book_now.putExtra(ARRIVAL_AIRLINE, et_arrival_airline.getText().toString());
+                        intent_book_now.putExtra(ARRIVAL_FLIGHT_NO, et_arrival_flight_no.getText().toString());
                         intent_book_now.putExtra(ARRIVAL_DT, et_dt_arrival.getText().toString());
                         intent_book_now.putExtra(ARRIVAL_TM, et_tm_arrival.getText().toString());
-                        intent_book_now.putExtra(DEPT_AIRLINE,et_dept_airline.getText().toString());
-                        intent_book_now.putExtra(DEPT_FLIGHT_NO,et_dept_flight_no.getText().toString());
+                        intent_book_now.putExtra(DEPT_AIRLINE, et_dept_airline.getText().toString());
+                        intent_book_now.putExtra(DEPT_FLIGHT_NO, et_dept_flight_no.getText().toString());
                         intent_book_now.putExtra(DEPT_DT, et_dt_dept.getText().toString());
                         intent_book_now.putExtra(DEPT_TM, et_tm_dept.getText().toString());
                         intent_book_now.putExtra(ARRIVING_AIRPORT, et_airport_arrival.getText().toString());
@@ -453,6 +487,10 @@ public class DVProductActivity extends BaseActivity implements View.OnClickListe
             et_coming_from.setText(Transaction.getmTransactionInstance().getCountry());
         } else if (requestCode == GOING_TO_CODE) {
             et_going_to.setText(Transaction.getmTransactionInstance().getCountry());
+        } else if (requestCode == ARR_AIRLINE) {
+            et_arrival_airline.setText(Transaction.getmTransactionInstance().getArrival_airline());
+        } else if (requestCode == DEPARTURE_AIRLINE) {
+            et_dept_airline.setText(Transaction.getmTransactionInstance().getDept_airline());
         }
         isAllFormFilled();
     }

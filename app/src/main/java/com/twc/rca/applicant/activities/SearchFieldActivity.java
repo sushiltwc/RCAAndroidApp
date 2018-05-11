@@ -17,7 +17,6 @@ import android.widget.TextView;
 import com.twc.rca.R;
 import com.twc.rca.activities.BaseActivity;
 import com.twc.rca.applicant.adapter.SearchViewAdapter;
-import com.twc.rca.product.adapter.ApplicationAdapter;
 import com.twc.rca.product.model.Transaction;
 
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ public class SearchFieldActivity extends BaseActivity implements SearchView.OnQu
     ListView list_search;
     ImageButton btn_close;
     TextView tv_title;
-    public static String SEARCHLIST = "searchList",TITLE="title";
+    public static String SEARCHLIST = "searchList", TITLE = "title";
 
     public static ArrayList<String> list_item;
     private SearchViewAdapter searchViewAdapter;
@@ -43,7 +42,7 @@ public class SearchFieldActivity extends BaseActivity implements SearchView.OnQu
         setContentView(R.layout.activity_search_application_fields);
 
         final ActionBar actionBar = getSupportActionBar();
-        if(actionBar !=null) {
+        if (actionBar != null) {
             View viewActionBar = getLayoutInflater().inflate(R.layout.layout_traveller_actionbar, null);
             ActionBar.LayoutParams params = new ActionBar.LayoutParams(
                     ActionBar.LayoutParams.MATCH_PARENT,
@@ -115,6 +114,17 @@ public class SearchFieldActivity extends BaseActivity implements SearchView.OnQu
                     case 6:
                         Transaction.getmTransactionInstance().setReligion(strName);
                         break;
+
+                    case 7:
+                        Transaction.getmTransactionInstance().setPassportType(strName);
+                        break;
+
+                    case 8:
+                        Transaction.getmTransactionInstance().setArrival_airline(strName);
+                        break;
+
+                    case 9:
+                        Transaction.getmTransactionInstance().setDept_airline(strName);
                 }
                 InputMethodManager inputMethodManager = (InputMethodManager) SearchFieldActivity.this.getSystemService(Activity.INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(SearchFieldActivity.this.getCurrentFocus().getWindowToken(), 0);

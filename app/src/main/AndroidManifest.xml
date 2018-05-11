@@ -81,10 +81,6 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".product.activities.DVInputActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
             android:name=".product.activities.DVProductActivity"
             android:screenOrientation="portrait" />
 

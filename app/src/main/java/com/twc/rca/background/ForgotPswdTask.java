@@ -44,7 +44,7 @@ public class ForgotPswdTask extends ApiUtils {
 
             @Override
             public void onResponse(JSONObject response) {
-                // ILog.d(TAG, response.toString());
+                ILog.d(TAG, response.toString());
                 if (isValidResponse(response.toString()))
                     forgotPswdResponseCallback.onSuccessForgotPswdResponse(response.toString());
                 else

@@ -65,7 +65,7 @@
     <string name="verification_msg1">Thank you for \n verifying your eMail ID</string>
     <string name="verification_msg2">You\'re logged in</string>
     <string name="verification_msg3">Thanks for joining \n Let\'s continue our journey!</string>
-    
+
     <!--Home Screen-->
     <string name="dubai_visa">DUBAI VISA</string>
     <string name="meet_assist">MEET &amp; ASSIST</string>
@@ -157,7 +157,7 @@
     <string name="invalid_father_name">Please enter Father Name</string>
     <string name="invalid_mother_name">Please enter Mother Name</string>
     <string name="invalid_husband_name">Please enter Husband Name</string>
-    
+
     <!--Passport Validation Message-->
     <string name="invalid_pp_no">Please enter valid passport no</string>
     <string name="invalid_pp_type">Please enter valid passport type</string>
@@ -224,6 +224,8 @@
     <string name="select_profession">Select Profession</string>
     <string name="select_passport_type">Select Passport Type</string>
     <string name="select_country_coming_from">Select Country Coming From</string>
+    <string name="select_arrival_airline">Select Arrival Airline</string>
+    <string name="select_departure_airline">Select Departure Airline</string>
     <string name="select_country_going_to">Select Country Going To</string>
     <string name="select_country">Select Country</string>
 

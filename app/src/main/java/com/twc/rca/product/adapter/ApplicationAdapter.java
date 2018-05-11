@@ -25,6 +25,7 @@ import com.twc.rca.applicant.model.PassportFrontModel;
 import com.twc.rca.database.CountryHelper;
 import com.twc.rca.database.LanguageHelper;
 import com.twc.rca.database.MaritalHelper;
+import com.twc.rca.database.PassportTypeHelper;
 import com.twc.rca.database.ProfessionHelper;
 import com.twc.rca.database.ReligionHelper;
 import com.twc.rca.model.CountryModel;
@@ -551,9 +552,12 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
         et_pp_doi = (AppCompatEditText) convertView.findViewById(R.id.et_ppd_dt_issue);
         et_pp_doe = (AppCompatEditText) convertView.findViewById(R.id.et_ppd_dt_expiry);
 
+        et_pp_type.setOnClickListener(this);
         et_pp_issue_govt.setOnClickListener(this);
         et_pp_doi.setOnClickListener(this);
         et_pp_doe.setOnClickListener(this);
+
+        passportTypeModelArrayList = PassportTypeHelper.getInstance(context).getPassportTypeList();
 
         setPassportData();
 
@@ -747,7 +751,7 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
         Intent intent;
         switch (view.getId()) {
             case R.id.et_pd_cob:
-                Transaction.getmTransactionInstance().setTransaction_type(Transaction.COUNTRY);
+                Transaction.getmTransactionInstance().setTransaction_type(Transaction.COUNTRY_BIRTH);
                 searchNameList = new ArrayList<>();
                 for (int i = 0; i < countryModelArrayList.size(); i++) {
                     searchNameList.add(countryModelArrayList.get(i).getCountryName());
@@ -834,6 +838,18 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
                 applicantionFragment.startActivityForResult(intent, REQUEST_FOR_ACTIVITY_CODE);
                 break;
 
+            case R.id.et_ppd_passport_type:
+                Transaction.getmTransactionInstance().setTransaction_type(Transaction.PASSPORTTYPE);
+                searchNameList = new ArrayList<>();
+                for (int i = 0; i < passportTypeModelArrayList.size(); i++) {
+                    searchNameList.add(passportTypeModelArrayList.get(i).getPassportTypeName());
+                }
+                intent = new Intent(context, SearchFieldActivity.class);
+                intent.putExtra(SearchFieldActivity.TITLE, context.getString(R.string.select_passport_type));
+                intent.putStringArrayListExtra(SearchFieldActivity.SEARCHLIST, searchNameList);
+                applicantionFragment.startActivityForResult(intent, REQUEST_FOR_ACTIVITY_CODE);
+                break;
+
         }
     }
 
@@ -843,18 +859,24 @@ public class ApplicationAdapter extends BaseExpandableListAdapter implements Vie
             if (Transaction.getmTransactionInstance().getTransaction_type() == 1) {
                 inputMethodManager.hideSoftInputFromWindow(et_cob.getWindowToken(), 0);
                 et_cob.setText(Transaction.getmTransactionInstance().getCountry());
-            } else if (Transaction.getmTransactionInstance().getTransaction_type() == 3) {
-                inputMethodManager.hideSoftInputFromWindow(et_marital_status.getWindowToken(), 0);
-                et_marital_status.setText(Transaction.getmTransactionInstance().getMaritalStatus());
-            } else if (Transaction.getmTransactionInstance().getTransaction_type() == 6) {
-                inputMethodManager.hideSoftInputFromWindow(et_religion.getWindowToken(), 0);
-                et_religion.setText(Transaction.getmTransactionInstance().getReligion());
             } else if (Transaction.getmTransactionInstance().getTransaction_type() == 2) {
                 inputMethodManager.hideSoftInputFromWindow(et_language.getWindowToken(), 0);
                 et_language.setText(Transaction.getmTransactionInstance().getLanguage());
+            } else if (Transaction.getmTransactionInstance().getTransaction_type() == 3) {
+                inputMethodManager.hideSoftInputFromWindow(et_marital_status.getWindowToken(), 0);
+                et_marital_status.setText(Transaction.getmTransactionInstance().getMaritalStatus());
+            } else if (Transaction.getmTransactionInstance().getTransaction_type() == 4) {
+                inputMethodManager.hideSoftInputFromWindow(et_pp_type.getWindowToken(), 0);
+                et_pp_type.setText(Transaction.getmTransactionInstance().getPassportType());
             } else if (Transaction.getmTransactionInstance().getTransaction_type() == 5) {
                 inputMethodManager.hideSoftInputFromWindow(et_profession.getWindowToken(), 0);
                 et_profession.setText(Transaction.getmTransactionInstance().getProfession());
+            } else if (Transaction.getmTransactionInstance().getTransaction_type() == 6) {
+                inputMethodManager.hideSoftInputFromWindow(et_religion.getWindowToken(), 0);
+                et_religion.setText(Transaction.getmTransactionInstance().getReligion());
+            } else if (Transaction.getmTransactionInstance().getTransaction_type() == 7) {
+                inputMethodManager.hideSoftInputFromWindow(et_cob.getWindowToken(), 0);
+                et_cob.setText(Transaction.getmTransactionInstance().getCountry_birth());
             }
         }
     }

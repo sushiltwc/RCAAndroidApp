@@ -12,6 +12,9 @@ public class Transaction {
     public static final int PASSPORTTYPE = 4;
     public static final int PROFESSION = 5;
     public static final int RELIGION = 6;
+    public static final int COUNTRY_BIRTH = 7;
+    public static final int ARRIVAL_AIRLINE = 8;
+    public static final int DEPT_AIRLINE = 9;
 
     private int noOfPassengers;
     private int noOfAdults;
@@ -20,11 +23,14 @@ public class Transaction {
 
     private String visaType;
     private String country;
+    private String country_birth;
     private String language;
     private String maritalStatus;
     private String passportType;
     private String profession;
     private String religion;
+    private String arrival_airline;
+    private String dept_airline;
 
     private int transaction_type;  //stores the current transaction type
 
@@ -135,4 +141,29 @@ public class Transaction {
     public void setTransaction_type(int transaction_type) {
         this.transaction_type = transaction_type;
     }
+
+    public String getCountry_birth() {
+        return country_birth;
+    }
+
+    public void setCountry_birth(String country_birth) {
+        this.country_birth = country_birth;
+    }
+
+    public String getArrival_airline() {
+        return arrival_airline;
+    }
+
+    public void setArrival_airline(String arrival_airline) {
+        this.arrival_airline = arrival_airline;
+    }
+
+    public String getDept_airline() {
+        return dept_airline;
+    }
+
+    public void setDept_airline(String dept_airline) {
+        this.dept_airline = dept_airline;
+    }
+
 }
