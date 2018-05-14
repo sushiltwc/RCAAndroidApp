@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/larger_widget_spacing"
+        android:weightSum="2"
+        android:orientation="vertical">
+
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="200dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/large_widget_spacing"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_failure" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium_widget_spacing"
+            android:gravity="center"
+            android:textSize="@dimen/extra_large_text_size"
+            android:textColor="@color/text_color"
+            android:textStyle="bold"
+            android:text="@string/payment_failed"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/extra_larger_widget_spacing"
+            android:gravity="center"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/medium_text_size"
+            android:text="@string/payment_failure_msg"/>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btn_go_back"
+        style="@style/BottomButtonStyle"
+        android:text="@string/go_back" />
+
+</RelativeLayout>

@@ -101,12 +101,18 @@
     <!--Payment Page-->
     <string name="securely_pay_visa">Securely Pay for Visa</string>
     <string name="pay_now">PAY NOW</string>
+    <string name="payment_cancel_confirm">Do you want to cancel payment?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
     <!--Payment Receipt Page-->
     <string name="payment_receipt">Payment Receipt</string>
     <string name="lets_start">LET\'S START</string>
     <string name="total_amt_paid">Total Amount Paid</string>
     <string name="payment_receipt_msg">Thanks for being awesome \n we hope your journey is seamless so far!</string>
+    <string name="payment_failed">Payment failed!</string>
+    <string name="payment_failure_msg">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;We are sorry \n\n Something went wrong while processing \n\n &#160;&#160;&#160;&#160; your request</string>
+    <string name="go_back">GO BACK</string>
 
     <!--Applicant Page-->
     <string name="your_applicants">Your Applicants</string>

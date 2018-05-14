@@ -33,7 +33,7 @@ import org.json.JSONObject;
 
 public class OrderDetailActivity extends BaseActivity {
 
-    public static String ORDER_ID = "order_id", APPLICANT_PROFILE_IDS = "applicant_profile_ids";
+    public static String PAYMENT_URL = "payment_url", ORDER_ID = "order_id", APPLICANT_PROFILE_IDS = "applicant_profile_ids";
 
     AppCompatButton btn_pay;
 
@@ -141,10 +141,10 @@ public class OrderDetailActivity extends BaseActivity {
             dept_tm = getIntent().getStringExtra(DVProductActivity.DEPT_TM);
             arriving_airport = getIntent().getStringExtra(DVProductActivity.ARRIVING_AIRPORT);
             dept_airport = getIntent().getStringExtra(DVProductActivity.DEPT_AIRPORT);
-            arriving_airline=getIntent().getStringExtra(DVProductActivity.ARRIVAL_AIRLINE);
-            arriving_flight_no=getIntent().getStringExtra(DVProductActivity.ARRIVAL_FLIGHT_NO);
-            dept_airline=getIntent().getStringExtra(DVProductActivity.DEPT_AIRLINE);
-            dept_flight_no=getIntent().getStringExtra(DVProductActivity.DEPT_FLIGHT_NO);
+            arriving_airline = getIntent().getStringExtra(DVProductActivity.ARRIVAL_AIRLINE);
+            arriving_flight_no = getIntent().getStringExtra(DVProductActivity.ARRIVAL_FLIGHT_NO);
+            dept_airline = getIntent().getStringExtra(DVProductActivity.DEPT_AIRLINE);
+            dept_flight_no = getIntent().getStringExtra(DVProductActivity.DEPT_FLIGHT_NO);
             airport_coming_from = getIntent().getStringExtra(DVProductActivity.AIRPORT_COMING_FROM);
             airport_going_to = getIntent().getStringExtra(DVProductActivity.AIRPORT_GOING_TO);
         } else {
@@ -169,10 +169,10 @@ public class OrderDetailActivity extends BaseActivity {
             tv_od_airport_dept = (TextView) findViewById(R.id.tv_od_departure_airports);
             tv_od_dt_dept = (TextView) findViewById(R.id.tv_od_departure_dts);
             tv_od_tm_dept = (TextView) findViewById(R.id.tv_od_departure_tm);
-            tv_od_arrival_airline=(TextView)findViewById(R.id.tv_od_arriving_airline);
-            tv_od_arrival_flight_no=(TextView)findViewById(R.id.tv_od_arriving_flight_no);
-            tv_od_dept_airline=(TextView)findViewById(R.id.tv_od_dept_airline);
-            tv_od_dept_flight_no=(TextView)findViewById(R.id.tv_od_dept_flight_no);
+            tv_od_arrival_airline = (TextView) findViewById(R.id.tv_od_arriving_airline);
+            tv_od_arrival_flight_no = (TextView) findViewById(R.id.tv_od_arriving_flight_no);
+            tv_od_dept_airline = (TextView) findViewById(R.id.tv_od_dept_airline);
+            tv_od_dept_flight_no = (TextView) findViewById(R.id.tv_od_dept_flight_no);
             tv_od_coming_from = (TextView) findViewById(R.id.tv_od_airport_coming_froms);
             tv_od_going_to = (TextView) findViewById(R.id.tv_od_traveller_airport_going_tos);
 
@@ -210,7 +210,7 @@ public class OrderDetailActivity extends BaseActivity {
             public void onClick(View view) {
                 showProgressDialog(getString(R.string.please_wait));
                 new OrderTask(getApplicationContext(), dvProduct.getProduct_id().toString(), Transaction.getmTransactionInstance().getNoOfAdults(), Transaction.getmTransactionInstance().getNoOfChildrens(), Transaction.getmTransactionInstance().getNoOfInfants(),
-                        total_price, travel_dt, nationality, arrival_dt, arrival_tm, dept_dt, dept_tm, arriving_airport, dept_airport,arriving_airline,arriving_flight_no,dept_airline,dept_flight_no, "", 0, airport_coming_from, airport_going_to).createOrder(orderResponseCallback);
+                        total_price, travel_dt, nationality, arrival_dt, arrival_tm, dept_dt, dept_tm, arriving_airport, dept_airport, arriving_airline, arriving_flight_no, dept_airline, dept_flight_no, "", 0, airport_coming_from, airport_going_to).createOrder(orderResponseCallback);
             }
         });
     }
@@ -228,11 +228,13 @@ public class OrderDetailActivity extends BaseActivity {
 
                 JSONObject jsonobject = data.getJSONObject(0);
 
+                String payment_url = jsonobject.getString(PAYMENT_URL);
                 String order_id = jsonobject.getString(ORDER_ID);
                 String applicant_profile_ids = jsonobject.getString(APPLICANT_PROFILE_IDS);
                 String[] applicant_ids = applicant_profile_ids.split(",");
 
                 Intent intent = new Intent(OrderDetailActivity.this, PaymentActivity.class);
+                intent.putExtra(PAYMENT_URL,payment_url);
                 intent.putExtra(ORDER_ID, order_id);
                 intent.putExtra(APPLICANT_PROFILE_IDS, applicant_ids);
                 startActivity(intent);
