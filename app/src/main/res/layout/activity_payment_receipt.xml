@@ -6,59 +6,58 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_amount_paid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/larger_text_size"
-            android:textStyle="bold"
             android:textColor="@color/text_color"
-            android:text="₹ 3456"/>
+            android:textSize="@dimen/larger_text_size"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/large_widget_spacing"
-            android:textSize="@dimen/medium_text_size"
-            android:text="@string/total_amt_paid"/>
+            android:text="@string/total_amt_paid"
+            android:textSize="@dimen/medium_text_size" />
 
         <android.support.v7.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/extra_large_widget_spacing"
-            android:src="@drawable/ic_check_mark"/>
+            android:src="@drawable/ic_check_mark" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="You're all set"
             android:textColor="@color/text_color"
             android:textSize="@dimen/larger_text_size"
-            android:textStyle="bold"
-            android:text="You're all set"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
             android:layout_margin="@dimen/extra_large_widget_spacing"
+            android:gravity="center_horizontal"
+            android:text="@string/payment_receipt_msg"
             android:textColor="@color/text_color"
-            android:textSize="@dimen/medium_text_size"
-            android:text="@string/payment_receipt_msg"/>
+            android:textSize="@dimen/medium_text_size" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/extra_large_widget_spacing"
-            android:src="@mipmap/ic_splash_logo"/>
+            android:src="@mipmap/ic_splash_logo" />
 
     </LinearLayout>
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/btn_lets_start"
         style="@style/BottomButtonStyle"
-        android:text="@string/lets_start"/>
+        android:text="@string/lets_start" />
 
 </RelativeLayout>

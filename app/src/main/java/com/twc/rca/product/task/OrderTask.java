@@ -7,6 +7,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.twc.rca.database.CountryHelper;
 import com.twc.rca.utils.ApiUtils;
 import com.twc.rca.utils.ILog;
 import com.twc.rca.utils.PreferenceUtils;
@@ -99,8 +100,8 @@ public class OrderTask extends ApiUtils {
         map.put(ADULT_COUNT, adult_count);
         map.put(CHILD_COUNT, child_count);
         map.put(INFANT_COUNT, infant_count);
-        map.put(NATIONALITY, nationality);
-        map.put(TOTAL_PRICE, total_price);
+        map.put(NATIONALITY, CountryHelper.getInstance(context).getCountryId(nationality.toUpperCase()));
+        map.put(TOTAL_PRICE, "1.0");
         map.put(TRAVEL_DATE, ApiUtils.formatDate(travel_date));
         map.put(ARRIVAL_DATE, ApiUtils.formatDate(arrival_date));
         map.put(ARRIVAL_TIME, arrival_time);

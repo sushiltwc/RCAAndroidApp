@@ -146,9 +146,9 @@ public class ApiUtils {
     }
 
     public static Date getDate(String dt, String tm) {
-        dt = dt + "T" + tm + "Z";
+        dt = dt + " " + tm.replace(" ", "") + ":00";
         Date date = null;
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy'T'HH:mm:ss'Z'");
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         try {
             date = format.parse(dt);
             System.out.println(date);
@@ -211,9 +211,11 @@ public class ApiUtils {
         }
     }
 
-    public static void timeDifference(Date startDate, Date endDate) {
+    public static long timeDifference(Date startDate, Date endDate) {
         //milliseconds
         long different = endDate.getTime() - startDate.getTime();
+
+        long hours = convertMillis(different);
 
         System.out.println("startDate : " + startDate);
         System.out.println("endDate : " + endDate);
@@ -238,6 +240,88 @@ public class ApiUtils {
         System.out.printf(
                 "%d days, %d hours, %d minutes, %d seconds%n",
                 elapsedDays, elapsedHours, elapsedMinutes, elapsedSeconds);
+
+        return hours;
+    }
+
+    public static long convertMillis(long milliseconds) {
+        long seconds, minutes = 0, hours;
+        seconds = milliseconds / 1000;
+        hours = seconds / 3600;
+        seconds = seconds % 3600;
+        seconds = seconds / 60;
+        minutes = minutes % 60;
+        return hours;
+    }
+
+    public static boolean isTravelDateValid(String travelDt, int visaValidity) {
+
+        Date currentDate = Calendar.getInstance().getTime();
+
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+
+        String formattedDate = df.format(currentDate);
+
+        try {
+            currentDate = df.parse(formattedDate);
+
+            Date travelDate = df.parse(travelDt);
+
+            long difference = travelDate.getTime() - currentDate.getTime();
+
+            long secondsInMilli = 1000;
+            long minutesInMilli = secondsInMilli * 60;
+            long hoursInMilli = minutesInMilli * 60;
+            long daysInMilli = hoursInMilli * 24;
+
+            long elapsedDays = difference / daysInMilli;
+
+            if (elapsedDays > visaValidity)
+                return false;
+            else
+                return true;
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean compareDates(String d1, String d2) {
+        try {
+            //1
+            // Create 2 dates starts
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date1 = sdf.parse(d1);
+            Date date2 = sdf.parse(d2);
+
+            System.out.println("Date1" + sdf.format(date1));
+            System.out.println("Date2" + sdf.format(date2));
+            System.out.println();
+
+            // Date object is having 3 methods namely after,before and equals for comparing
+            // after() will return true if and only if date1 is after date 2
+            if (date1.after(date2)) {
+                System.out.println("Date1 is after Date2");
+                return false;
+            }
+            // before() will return true if and only if date1 is before date2
+            if (date1.before(date2)) {
+                System.out.println("Date1 is before Date2");
+                return true;
+            }
+
+            //equals() returns true if both the dates are equal
+            if (date1.equals(date2)) {
+                System.out.println("Date1 is equal Date2");
+                return false;
+            }
+
+            System.out.println();
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+        return false;
     }
 
     public static void getNextDay() {

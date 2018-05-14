@@ -230,13 +230,10 @@ public class OrderDetailActivity extends BaseActivity {
 
                 String payment_url = jsonobject.getString(PAYMENT_URL);
                 String order_id = jsonobject.getString(ORDER_ID);
-                String applicant_profile_ids = jsonobject.getString(APPLICANT_PROFILE_IDS);
-                String[] applicant_ids = applicant_profile_ids.split(",");
 
                 Intent intent = new Intent(OrderDetailActivity.this, PaymentActivity.class);
                 intent.putExtra(PAYMENT_URL,payment_url);
                 intent.putExtra(ORDER_ID, order_id);
-                intent.putExtra(APPLICANT_PROFILE_IDS, applicant_ids);
                 startActivity(intent);
             } catch (JSONException e) {
                 e.printStackTrace();

@@ -25,7 +25,7 @@ import com.twc.rca.volley.utils.VolleySingleTon;
 import java.util.HashMap;
 
 /**
- * Created by TWC on 07-03-2018.
+ * Created by Sushil on 07-03-2018.
  */
 
 public class PaymentActivity extends BaseActivity {
@@ -43,6 +43,7 @@ public class PaymentActivity extends BaseActivity {
     boolean mRedirect = false;
 
     public static String URL;
+
     HashMap<String, String> hashMap;
 
     @Override
@@ -186,28 +187,15 @@ public class PaymentActivity extends BaseActivity {
 
     void getPaymentReceipt(String url) {
         Intent intent = null;
-        if (url.contains("success"))
+        if (url.contains("success")) {
             intent = new Intent(this, PaymentReceiptActivity.class);
-        else if (url.contains("failure"))
+            intent.putExtra(OrderDetailActivity.ORDER_ID, getIntent().getStringExtra(OrderDetailActivity.ORDER_ID));
+        }
+        else if (url.contains("failure")) {
             intent = new Intent(this, PaymentFailureActivity.class);
+            intent.putExtra(OrderDetailActivity.ORDER_ID, getIntent().getStringExtra(OrderDetailActivity.ORDER_ID));
+        }
         startActivity(intent);
-      /*  try {
-            Uri uri = Uri.parse(URLDecoder.decode(url, "UTF-8"));
-            if (uri != null) {
-
-                if (url.indexOf("save") != -1) {
-                    Intent intent = new Intent(this, PaymentStatusActivity.class);
-                    intent.putExtra("quoteDetails", quoteDetail);
-                    intent.putExtra("leadId",leadId);
-                    intent.putExtra("orderId", orderId);
-                    startActivity(intent);
-                    finish();
-                }
-            }
-
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }*/
+        finish();
     }
-
 }

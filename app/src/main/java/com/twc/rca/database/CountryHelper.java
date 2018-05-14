@@ -116,4 +116,23 @@ public class CountryHelper extends SQLiteOpenHelper {
         cur.close();
         return countryName;
     }
+
+    public String getCountryId(String countryName) {
+        String countryId = null;
+
+        String sql = "";
+        sql += "SELECT " + COUNTRY_ID + " FROM " + TABLE_NAME;
+        sql += " WHERE " + COUNTRY_NAME + "='" + countryName + "'";
+
+        Cursor cur = myDataBase.rawQuery(sql, null);
+
+        if (cur != null) {
+            if (cur.getCount() > 0) {
+                cur.moveToFirst();
+                countryId = cur.getString(cur.getColumnIndex(COUNTRY_ID));
+            }
+        }
+        cur.close();
+        return countryId;
+    }
 }
