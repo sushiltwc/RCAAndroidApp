@@ -1,4 +1,4 @@
-package com.twc.rca.product.fragments;
+package com.twc.rca.product.activities;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,19 +7,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 
 import com.twc.rca.R;
+import com.twc.rca.activities.BaseActivity;
+import com.twc.rca.product.fragments.CurrentApplicantFragment;
+import com.twc.rca.product.fragments.MNAFragment;
 
 /**
  * Created by Sushil on 15-03-2018.
  */
 
-public class MyAccountFragment extends Fragment {
+public class OrderApplicantListActivity extends BaseActivity {
 
     ViewPager mViewPager;
 
@@ -27,21 +25,23 @@ public class MyAccountFragment extends Fragment {
 
     MNAFragment mMnAFragment;
 
+    String orderId;
+
     public static final int CURRENT_APPLICANT = 0, ALL_APPLICANT = 1;
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_my_account, container, false);
-        initView(view);
-        return view;
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_order_applicant_list);
+        orderId = getIntent().getStringExtra("orderId");
+        initView();
     }
 
-    void initView(View view) {
-        mViewPager = (ViewPager) view.findViewById(R.id.my_account_pager);
-        FragmentStatePagerAdapter manager = new MyAccountPagerAdapter(getFragmentManager());
+    void initView() {
+        mViewPager = (ViewPager) findViewById(R.id.my_account_pager);
+        FragmentStatePagerAdapter manager = new MyAccountPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(manager);
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.my_account_tabs);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.my_account_tabs);
         tabLayout.setupWithViewPager(mViewPager);
     }
 
@@ -53,16 +53,23 @@ public class MyAccountFragment extends Fragment {
 
         @Override
         public Fragment getItem(int position) {
+            Fragment fragment = null;
             switch (position) {
                 case CURRENT_APPLICANT:
-                    return mCurrentApplicantFragment = CurrentApplicantFragment.getInstance();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("orderId", orderId);
+                    fragment = CurrentApplicantFragment.getInstance();
+                    fragment.setArguments(bundle);
+                    break;
 
                 case ALL_APPLICANT:
-                    return mMnAFragment = MNAFragment.getInstance();
+                    fragment = MNAFragment.getInstance();
+                    break;
 
                 default:
-                    return null;
+                    fragment = null;
             }
+            return fragment;
         }
 
         @Override

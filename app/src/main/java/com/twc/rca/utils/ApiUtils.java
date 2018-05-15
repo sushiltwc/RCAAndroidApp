@@ -126,6 +126,45 @@ public class ApiUtils {
         return finalDate;
     }
 
+    public static Date getDate(String dt, String inputFormat, String outputFormat) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(inputFormat);
+        Date myDate = null;
+        try {
+            myDate = dateFormat.parse(dt);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        SimpleDateFormat timeFormat = new SimpleDateFormat(outputFormat);
+        String finalDate = timeFormat.format(myDate);
+        try {
+            myDate = timeFormat.parse(finalDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return myDate;
+    }
+
+    public static String getFormattedDate(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        //2nd of march 2015
+        int day = cal.get(Calendar.DATE);
+
+        if (!((day > 10) && (day < 19)))
+            switch (day % 10) {
+                case 1:
+                    return new SimpleDateFormat("d'st' MMM yyyy").format(date);
+                case 2:
+                    return new SimpleDateFormat("d'nd' MMM yyyy").format(date);
+                case 3:
+                    return new SimpleDateFormat("d'rd' MMM yyyy").format(date);
+                default:
+                    return new SimpleDateFormat("d'th' MMM yyyy").format(date);
+            }
+        return new SimpleDateFormat("d'th' MMM yyyy").format(date);
+    }
+
     public static String getIssueDate(String indate, String custType) {
         String yesterdayAsString = null;
         try {
@@ -186,6 +225,37 @@ public class ApiUtils {
             age--;
         }
         return age;
+    }
+
+    public static String getNoTravellers(int adultCount, int childCount, int infantCount) {
+        String noOfPassengers, noOfAdults, noOfChildrens, noOfInfants;
+
+        if (adultCount > 1)
+            noOfAdults = adultCount + " Adults";
+        else
+            noOfAdults = adultCount + " Adult";
+
+        if (childCount == 1)
+            noOfChildrens = childCount + " Child";
+        else if (childCount > 1)
+            noOfChildrens = childCount + " Childs";
+        else
+            noOfChildrens = "";
+
+        if (infantCount == 1)
+            noOfInfants = infantCount + " Infant";
+        else if (infantCount > 1)
+            noOfInfants = infantCount + " Infants";
+        else
+            noOfInfants = "";
+
+        noOfPassengers = noOfAdults;
+        if (!ApiUtils.isValidStringValue(noOfChildrens))
+            noOfPassengers = noOfPassengers + "," + noOfChildrens;
+        if (!ApiUtils.isValidStringValue(noOfInfants))
+            noOfPassengers = noOfPassengers + "," + noOfInfants;
+
+        return noOfPassengers;
     }
 
     public static Bitmap StringToBitMap(String encodedString) {

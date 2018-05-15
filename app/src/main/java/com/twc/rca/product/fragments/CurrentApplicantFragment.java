@@ -14,7 +14,7 @@ import com.twc.rca.R;
 import com.twc.rca.activities.BaseFragment;
 import com.twc.rca.applicant.adapter.ApplicantListAdapter;
 import com.twc.rca.applicant.model.ApplicantModel;
-import com.twc.rca.applicant.task.ApplicantTask;
+import com.twc.rca.applicant.task.OrderApplicantTask;
 import com.twc.rca.product.model.Transaction;
 import com.twc.rca.utils.ApiUtils;
 
@@ -40,6 +40,8 @@ public class CurrentApplicantFragment extends BaseFragment {
 
     private ApplicantListAdapter applicantListAdapter;
 
+    String orderId;
+
     public static CurrentApplicantFragment getInstance() {
         CurrentApplicantFragment currentApplicantFragment = new CurrentApplicantFragment();
         return currentApplicantFragment;
@@ -55,14 +57,16 @@ public class CurrentApplicantFragment extends BaseFragment {
         DividerItemDecoration itemDecor = new DividerItemDecoration(getContext(), HORIZONTAL);
         list_current_applicant.addItemDecoration(itemDecor);
 
+        orderId = getArguments().getString("orderId");
+
         showProgressDialog();
-        new ApplicantTask(getContext()).getApplicantList(applicantListResposeCallback);
+        new OrderApplicantTask(getContext(), orderId).getOrderApplicantList(orderApplicantListResposeCallback);
         return view;
     }
 
-    ApplicantTask.ApplicantListResposeCallback applicantListResposeCallback = new ApplicantTask.ApplicantListResposeCallback() {
+    OrderApplicantTask.OrderApplicantListResposeCallback orderApplicantListResposeCallback = new OrderApplicantTask.OrderApplicantListResposeCallback() {
         @Override
-        public void onSuccessApplicantListResponse(String response) {
+        public void onSuccessOrderApplicantListResponse(String response) {
 
             dismissProgressDialog();
             try {
@@ -86,9 +90,10 @@ public class CurrentApplicantFragment extends BaseFragment {
                         applicantModel.applicantDOB = jObject.getString("dob");
                         applicantModel.applicantPOB = jObject.getString("place_of_birth");
                         applicantModel.is_Submitted = jObject.getString("is_submitted");
-
-                        JSONObject jsonApplicantTypeArr = (JSONObject) jObject.get("applicant_type_arr");
-                        applicantModel.applicantType = jsonApplicantTypeArr.getString("applicant_type_desc");
+                        if (jObject.get("applicant_type_arr") != null) {
+                            JSONObject jsonApplicantTypeArr = (JSONObject) jObject.get("applicant_type_arr");
+                            applicantModel.applicantType = jsonApplicantTypeArr.getString("applicant_type_desc");
+                        }
                         applicantList.add(applicantModel);
                     }
                 }
@@ -104,7 +109,7 @@ public class CurrentApplicantFragment extends BaseFragment {
         }
 
         @Override
-        public void onFailureApplicantListResponse(String response) {
+        public void onFailureOrderApplicantListResponse(String response) {
 
             dismissProgressDialog();
             try {

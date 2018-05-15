@@ -34,6 +34,7 @@ import com.twc.rca.product.fragments.TimePickerDialogFragment;
 import com.twc.rca.product.model.DVProduct;
 import com.twc.rca.product.model.Transaction;
 import com.twc.rca.utils.ApiUtils;
+import com.twc.rca.utils.PopupDialog;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -76,6 +77,8 @@ public class DVProductActivity extends BaseActivity implements View.OnClickListe
     DVProduct dvProduct;
 
     Double total_amount;
+
+    int visaValidity;
 
     public int COMING_FROM_CODE = 1, GOING_TO_CODE = 2, ARR_AIRLINE = 3, DEPARTURE_AIRLINE = 4;
 
@@ -141,6 +144,7 @@ public class DVProductActivity extends BaseActivity implements View.OnClickListe
 
         Bundle bundle = getIntent().getExtras();
         dvProduct = bundle.getParcelable("item");
+        visaValidity = Integer.parseInt(dvProduct.getProduct_validity().replaceAll(" Days", "").replaceAll(" Hours", ""));
         tv_actionbar_title.setText(dvProduct.getProduct_name());
         String str[] = dvProduct.getProduct_name().split(" ");
         SpannableString ss1 = new SpannableString(str[0]);
@@ -322,33 +326,48 @@ public class DVProductActivity extends BaseActivity implements View.OnClickListe
 
 
             case R.id.btn_bk_now:
+                PopupDialog popupDialog;
                 if (btn_book_now.isEnabled()) {
                     Intent intent_book_now = new Intent(this, OrderDetailActivity.class);
                     intent_book_now.putExtra("productDetails", dvProduct);
                     intent_book_now.putExtra(TOTAL_PRICE, total_amount);
+
+                    //96Hrs Product Validation
                     if (dvProduct.getProduct_id().equalsIgnoreCase("1")) {
-                        intent_book_now.putExtra(PRODUCT_NAME, dvProduct.getProduct_name().toString());
-                        intent_book_now.putExtra(TRAVELLER_COUNT, noOfPassengers);
-                        intent_book_now.putExtra(NATIONALITY, et_nationality.getText().toString());
-                        intent_book_now.putExtra(ARRIVAL_AIRLINE, et_arrival_airline.getText().toString());
-                        intent_book_now.putExtra(ARRIVAL_FLIGHT_NO, et_arrival_flight_no.getText().toString());
-                        intent_book_now.putExtra(ARRIVAL_DT, et_dt_arrival.getText().toString());
-                        intent_book_now.putExtra(ARRIVAL_TM, et_tm_arrival.getText().toString());
-                        intent_book_now.putExtra(DEPT_AIRLINE, et_dept_airline.getText().toString());
-                        intent_book_now.putExtra(DEPT_FLIGHT_NO, et_dept_flight_no.getText().toString());
-                        intent_book_now.putExtra(DEPT_DT, et_dt_dept.getText().toString());
-                        intent_book_now.putExtra(DEPT_TM, et_tm_dept.getText().toString());
-                        intent_book_now.putExtra(ARRIVING_AIRPORT, et_airport_arrival.getText().toString());
-                        intent_book_now.putExtra(DEPT_AIRPORT, et_airport_dept.getText().toString());
-                        intent_book_now.putExtra(AIRPORT_COMING_FROM, et_coming_from.getText().toString());
-                        intent_book_now.putExtra(AIRPORT_GOING_TO, et_going_to.getText().toString());
-                    } else {
-                        intent_book_now.putExtra(PRODUCT_NAME, dvProduct.getProduct_name().toString());
-                        intent_book_now.putExtra(TRAVEL_DT, et_dv_travel_date.getText().toString());
-                        intent_book_now.putExtra(TRAVELLER_COUNT, noOfPassengers);
-                        intent_book_now.putExtra(NATIONALITY, et_dv_nationality.getText().toString());
+                        long hours = ApiUtils.timeDifference(ApiUtils.getDate(et_dt_arrival.getText().toString(), et_tm_arrival.getText().toString().replace("AM", "").replace("PM", "")), ApiUtils.getDate(et_dt_dept.getText().toString(), et_tm_dept.getText().toString().replace("AM", "").replace("PM", "")));
+
+                        if (hours <= 98) {
+                            // if (ApiUtils.compareDates(et_dt_arrival.getText().toString(), et_dt_dept.getText().toString())) {
+
+                            if (ApiUtils.isTravelDateValid(et_dt_arrival.getText().toString(), visaValidity)) {
+                                if (!et_coming_from.getText().toString().equalsIgnoreCase(et_going_to.getText().toString())) {
+                                    sendDetails();
+                                } else {
+                                    // showToast();
+                                }
+                            } else {
+                                String msg = "Dear applicant, please note that your visa comes with a validity of " + dvProduct.getProduct_validity() + ". Hence your application will be processed " + dvProduct.getProduct_validity() + " prior to your travel date to ensure you have a valid visa at the time of your travel.";
+                                popupDialog = PopupDialog.getInstance(popupDialogInterface, PopupDialog.TRAVEL_DATE_CODE, msg);
+                                popupDialog.show(getFragmentManager(), PopupDialog.TAG);
+                            }
+                            /*} else {
+                                showToast(getString(R.string.arrival_dept_date_error));
+                            }*/
+                        } else {
+                            popupDialog = PopupDialog.getInstance(popupDialogInterface, PopupDialog.TIME_DIFF_CODE, getString(R.string.popup_dialog_96hrs));
+                            popupDialog.show(getFragmentManager(), PopupDialog.TAG);
+                        }
                     }
-                    startActivity(intent_book_now);
+                    //Other Visa Product Validation
+                    else {
+                        if (ApiUtils.isTravelDateValid(et_dv_travel_date.getText().toString(), visaValidity)) {
+                            sendDetails();
+                        } else {
+                            String msg = "Dear applicant, please note that your visa comes with a validity of " + dvProduct.getProduct_validity() + ". Hence your application will be processed " + dvProduct.getProduct_validity() + " prior to your travel date to ensure you have a valid visa at the time of your travel.";
+                            popupDialog = PopupDialog.getInstance(popupDialogInterface, PopupDialog.TRAVEL_DATE_CODE, msg);
+                            popupDialog.show(getFragmentManager(), PopupDialog.TAG);
+                        }
+                    }
                 }
                 break;
         }
@@ -494,4 +513,47 @@ public class DVProductActivity extends BaseActivity implements View.OnClickListe
         }
         isAllFormFilled();
     }
+
+    void sendDetails() {
+        Intent intent_book_now = new Intent(this, OrderDetailActivity.class);
+        intent_book_now.putExtra("productDetails", dvProduct);
+        intent_book_now.putExtra(TOTAL_PRICE, total_amount);
+
+        //96Hrs Product Validation
+        if (dvProduct.getProduct_id().equalsIgnoreCase("1")) {
+            intent_book_now.putExtra(PRODUCT_NAME, dvProduct.getProduct_name().toString());
+            intent_book_now.putExtra(TRAVELLER_COUNT, noOfPassengers);
+            intent_book_now.putExtra(NATIONALITY, et_nationality.getText().toString());
+            intent_book_now.putExtra(ARRIVAL_AIRLINE, et_arrival_airline.getText().toString());
+            intent_book_now.putExtra(ARRIVAL_FLIGHT_NO, et_arrival_flight_no.getText().toString());
+            intent_book_now.putExtra(ARRIVAL_DT, et_dt_arrival.getText().toString());
+            intent_book_now.putExtra(ARRIVAL_TM, et_tm_arrival.getText().toString());
+            intent_book_now.putExtra(DEPT_AIRLINE, et_dept_airline.getText().toString());
+            intent_book_now.putExtra(DEPT_FLIGHT_NO, et_dept_flight_no.getText().toString());
+            intent_book_now.putExtra(DEPT_DT, et_dt_dept.getText().toString());
+            intent_book_now.putExtra(DEPT_TM, et_tm_dept.getText().toString());
+            intent_book_now.putExtra(ARRIVING_AIRPORT, et_airport_arrival.getText().toString());
+            intent_book_now.putExtra(DEPT_AIRPORT, et_airport_dept.getText().toString());
+            intent_book_now.putExtra(AIRPORT_COMING_FROM, et_coming_from.getText().toString());
+            intent_book_now.putExtra(AIRPORT_GOING_TO, et_going_to.getText().toString());
+            startActivity(intent_book_now);
+        } else {
+            intent_book_now.putExtra(PRODUCT_NAME, dvProduct.getProduct_name().toString());
+            intent_book_now.putExtra(TRAVEL_DT, et_dv_travel_date.getText().toString());
+            intent_book_now.putExtra(TRAVELLER_COUNT, noOfPassengers);
+            intent_book_now.putExtra(NATIONALITY, et_dv_nationality.getText().toString());
+            startActivity(intent_book_now);
+        }
+    }
+
+    PopupDialog.PopupDialogInterface popupDialogInterface = new PopupDialog.PopupDialogInterface() {
+        @Override
+        public void onCallBack(int result) {
+            if (result == PopupDialog.TIME_DIFF_CODE) {
+                DVProductActivity.this.finish();
+            } else if (result == PopupDialog.TRAVEL_DATE_CODE) {
+                sendDetails();
+            }
+        }
+    };
 }

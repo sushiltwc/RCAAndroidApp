@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:background="@color/colorWhite">
+    android:background="@color/colorWhite"
+    android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -15,14 +15,14 @@
             android:id="@+id/my_account_tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
             android:elevation="@dimen/basic_widget_spacing"
             app:tabGravity="fill"
-            app:tabMaxWidth="0dp"
-            android:background="@color/colorWhite"
             app:tabIndicatorColor="@color/colorPrimary"
-            app:tabTextColor="@color/colorGray"
+            app:tabMaxWidth="0dp"
             app:tabMode="fixed"
-            app:tabSelectedTextColor="@color/text_color"/>
+            app:tabSelectedTextColor="@color/text_color"
+            app:tabTextColor="@color/colorGray" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -30,6 +30,6 @@
         android:id="@+id/my_account_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </android.support.design.widget.CoordinatorLayout>

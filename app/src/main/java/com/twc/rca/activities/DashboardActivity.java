@@ -16,7 +16,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.twc.rca.R;
 import com.twc.rca.product.fragments.DubaiVisaFragment;
-import com.twc.rca.product.fragments.MyAccountFragment;
+import com.twc.rca.product.fragments.OrderFragment;
 import com.twc.rca.utils.PreferenceUtils;
 
 /**
@@ -40,8 +40,7 @@ public class DashboardActivity extends BaseActivity {
         setContentView(R.layout.activity_dashboard);
 
         final ActionBar actionBar = getSupportActionBar();
-        if(actionBar !=null)
-        {
+        if (actionBar != null) {
             View viewActionBar = getLayoutInflater().inflate(R.layout.layout_actionbar, null);
             ActionBar.LayoutParams params = new ActionBar.LayoutParams(
                     ActionBar.LayoutParams.MATCH_PARENT,
@@ -51,7 +50,7 @@ public class DashboardActivity extends BaseActivity {
             actionBar.setCustomView(viewActionBar, params);
             actionBar.setDisplayShowCustomEnabled(true);
             actionBar.setDisplayShowTitleEnabled(false);
-            Toolbar toolbar=(Toolbar)actionBar.getCustomView().getParent();
+            Toolbar toolbar = (Toolbar) actionBar.getCustomView().getParent();
             toolbar.setContentInsetsAbsolute(0, 0);
             toolbar.getContentInsetEnd();
             toolbar.setPadding(0, 0, 0, 0);
@@ -111,9 +110,9 @@ public class DashboardActivity extends BaseActivity {
 
                 } else if (position == 3) {
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.container, new MyAccountFragment())
+                            .replace(R.id.container, new OrderFragment())
                             .commit();
-                    tv_actionbar_title.setText(getString(R.string.your_applicants));
+                    tv_actionbar_title.setText(getString(R.string.your_orders));
                 }
                 return true;
             }

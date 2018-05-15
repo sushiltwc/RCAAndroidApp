@@ -90,6 +90,11 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".product.activities.OrderApplicantListActivity"
+            android:label="@string/your_applicants"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".product.activities.OrderDetailActivity"
             android:label="@string/order_review"
             android:screenOrientation="portrait" />

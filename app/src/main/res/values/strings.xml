@@ -74,10 +74,7 @@
     <string name="press_back_again_app_name">Press again to close Red Carpet Assist</string>
 
     <!--My Account Screen-->
-    <string name="current">CURRENT</string>
-    <string name="all">ALL</string>
-    <string name="add_applicant_msg">Please add applicant to start your Application</string>
-    <string name="got_it">Got It</string>
+    <string name="your_orders">Your Orders</string>
 
     <!--Dubai Visa Form-->
     <string name="traveller_hint">No. of Travellers</string>
@@ -89,6 +86,13 @@
     <string name="date_of_travel">Date of Travel</string>
     <string name="select_nationality">Select Nationality</string>
     <string name="select_gender">Select Gender</string>
+    <string name="ok">Ok</string>
+    <string name="cont">Continue</string>
+    <string name="alert">Alert!</string>
+    <string name="popup_dialog_96hrs">Dear applicant, your stay in Dubai is more than 96 hours. Please apply for 30 days Visa.</string>
+    <string name="popup_dialog_travel_dt">Dear applicant, please note that your visa comes with a validity of 30 days. Hence your application will be processed 30 days prior to your travel date to ensure you have a valid visa at the time of your travel.</string>
+    <string name="arrival_dept_date_error">Arrival date can not be greater than departure date!</string>
+    <string name="cm_from_going_to_error">“Dear Applicant, Since you are applying for a transit visa, the place where you are coming from in Dubai and the place where you are going to from Dubai cannot be the same. In this case please apply for a 30 days Visa.</string>
 
     <!--Add Traveller Page-->
     <string name="add_traveller">Add Travelers</string>
@@ -115,6 +119,10 @@
     <string name="go_back">GO BACK</string>
 
     <!--Applicant Page-->
+    <string name="current">CURRENT</string>
+    <string name="all">ALL</string>
+    <string name="add_applicant_msg">Please add applicant to start your Application</string>
+    <string name="got_it">Got It</string>
     <string name="your_applicants">Your Applicants</string>
     <string name="visa_document">VISA DOCUMENTS</string>
     <string name="applicantion">APPLICATION</string>
