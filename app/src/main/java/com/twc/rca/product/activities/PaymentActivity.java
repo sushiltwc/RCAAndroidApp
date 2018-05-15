@@ -19,6 +19,7 @@ import android.widget.ProgressBar;
 
 import com.twc.rca.R;
 import com.twc.rca.activities.BaseActivity;
+import com.twc.rca.product.task.PaymentFailureTask;
 import com.twc.rca.utils.ILog;
 import com.twc.rca.volley.utils.VolleySingleTon;
 
@@ -44,6 +45,8 @@ public class PaymentActivity extends BaseActivity {
 
     public static String URL;
 
+    String orderId;
+
     HashMap<String, String> hashMap;
 
     @Override
@@ -51,6 +54,7 @@ public class PaymentActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
         URL = getIntent().getStringExtra(OrderDetailActivity.PAYMENT_URL).replace(" ", "");
+        orderId = getIntent().getStringExtra(OrderDetailActivity.ORDER_ID);
         initView();
         startWebView();
     }
@@ -113,7 +117,8 @@ public class PaymentActivity extends BaseActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 setResult(RESULT_CANCELED);
-                finish();
+                showProgressDialog(getResources().getString(R.string.please_wait));
+                new PaymentFailureTask(getApplicationContext(), orderId).sendPaymentFailure(paymentFailureResponseCallback);
             }
         }).setNegativeButton(R.string.no, null);
         builder.create().show();
@@ -190,12 +195,24 @@ public class PaymentActivity extends BaseActivity {
         if (url.contains("success")) {
             intent = new Intent(this, PaymentReceiptActivity.class);
             intent.putExtra(OrderDetailActivity.ORDER_ID, getIntent().getStringExtra(OrderDetailActivity.ORDER_ID));
-        }
-        else if (url.contains("failure")) {
+        } else if (url.contains("failure")) {
             intent = new Intent(this, PaymentFailureActivity.class);
             intent.putExtra(OrderDetailActivity.ORDER_ID, getIntent().getStringExtra(OrderDetailActivity.ORDER_ID));
         }
         startActivity(intent);
         finish();
     }
+
+    PaymentFailureTask.PaymentFailureResponseCallback paymentFailureResponseCallback = new PaymentFailureTask.PaymentFailureResponseCallback() {
+        @Override
+        public void onSuccessPaymentFailureResponse(String response) {
+            dismissProgressDialog();
+            finish();
+        }
+
+        @Override
+        public void onFailurePaymentFailureResponse(String response) {
+            dismissProgressDialog();
+        }
+    };
 }

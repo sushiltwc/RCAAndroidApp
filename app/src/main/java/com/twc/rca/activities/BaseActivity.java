@@ -54,11 +54,11 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     // Progress dialog common code
-    protected void showProgressDialog() {
+    public void showProgressDialog() {
         showProgressDialog(null);
     }
 
-    protected ProgressDialog showProgressDialog(String message) {
+    public ProgressDialog showProgressDialog(String message) {
         initProgressDialog();
         if (!mProgressDialog.isShowing())
             mProgressDialog.show();
@@ -67,7 +67,7 @@ public class BaseActivity extends AppCompatActivity {
         return mProgressDialog;
     }
 
-    protected void initProgressDialog() {
+    public void initProgressDialog() {
         if (mProgressDialog != null) return;
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setInverseBackgroundForced(true);
@@ -76,7 +76,7 @@ public class BaseActivity extends AppCompatActivity {
 //        mProgressDialog.setIndeterminateDrawable(getResources().getDrawable(R.drawable.progress_dialog_icon_drawable_animation));
     }
 
-    protected void dismissProgressDialog() {
+    public void dismissProgressDialog() {
         if (mProgressDialog == null) return;
         if (mProgressDialog.isShowing())
             mProgressDialog.dismiss();

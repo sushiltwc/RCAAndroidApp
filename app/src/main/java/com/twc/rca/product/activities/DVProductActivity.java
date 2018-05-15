@@ -46,7 +46,7 @@ import java.util.Date;
 
 public class DVProductActivity extends BaseActivity implements View.OnClickListener, DatePickerDialogFragment.DateDialogListener, TimePickerDialogFragment.TimeDialogListener {
 
-    TextView tv_dv_product, tv_dv_amount, tv_dv_processing_time, tv_dv_visa_validity, tv_dv_traveller_count, tv_dv_travel_date, tv_dv_nationality;
+    TextView tv_dv_product, tv_dv_amount, tv_dv_processing_time, tv_dv_visa_validity;
 
     TextView tv_actionbar_title;
 
@@ -62,7 +62,7 @@ public class DVProductActivity extends BaseActivity implements View.OnClickListe
 
     String noOfPassengers, noOfAdults, noOfChildrens, noOfInfants;
 
-    CharSequence list_nationality[] = new CharSequence[]{"India", "Pakistan", "Others"};
+    // CharSequence list_nationality[] = new CharSequence[]{"India", "Pakistan", "Others"};
 
     CharSequence list_airport[] = new CharSequence[]{"Dubai Airport", "Sharjah Airport", "Abu Dhabi Airport", "Al Maktoum Airport"};
 
@@ -173,12 +173,13 @@ public class DVProductActivity extends BaseActivity implements View.OnClickListe
             et_coming_from = (EditText) findViewById(R.id.et_coming_from);
             et_going_to = (EditText) findViewById(R.id.et_going_to);
 
+            et_nationality.setText("India");
+            et_airport_arrival.setText("Dubai Airport");
+            et_airport_dept.setText("Dubai Airport");
+
             et_traveller_count.setOnClickListener(this);
-            et_nationality.setOnClickListener(this);
             et_dt_arrival.setOnClickListener(this);
             et_tm_arrival.setOnClickListener(this);
-            et_airport_arrival.setOnClickListener(this);
-            et_airport_dept.setOnClickListener(this);
             et_arrival_airline.setOnClickListener(this);
             et_dept_airline.setOnClickListener(this);
             et_dt_dept.setOnClickListener(this);
@@ -191,20 +192,15 @@ public class DVProductActivity extends BaseActivity implements View.OnClickListe
             et_dv_traveller_count = (EditText) findViewById(R.id.et_dv_traveller_count);
             et_dv_travel_date = (EditText) findViewById(R.id.et_travel_dt);
             et_dv_nationality = (EditText) findViewById(R.id.et_dv_nationality);
+
+            et_dv_nationality.setText("India");
             et_dv_travel_date.setOnClickListener(this);
             et_dv_traveller_count.setOnClickListener(this);
-            et_dv_nationality.setOnClickListener(this);
         }
 
         btn_book_now = (AppCompatButton) findViewById(R.id.btn_bk_now);
 
         btn_book_now.setOnClickListener(this);
-
-
-       /* if(Transaction.getmTransactionInstance().getNoOfAdults()==0) {
-            Transaction.getmTransactionInstance().setNoOfAdults(1);
-            Transaction.getmTransactionInstance().setNoOfPassengers(1);
-        }*/
     }
 
     @Override
@@ -237,11 +233,6 @@ public class DVProductActivity extends BaseActivity implements View.OnClickListe
                 }
                 Intent intent_count = new Intent(this, AddTravellerActivity.class);
                 startActivity(intent_count);
-                break;
-
-            case R.id.et_dv_nationality:
-            case R.id.et_nationality:
-                popupDialog("Select Nationality", list_nationality, view.getId());
                 break;
 
             case R.id.et_travel_dt:

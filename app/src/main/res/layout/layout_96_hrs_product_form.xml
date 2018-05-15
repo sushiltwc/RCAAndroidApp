@@ -41,6 +41,7 @@
                     android:id="@+id/et_nationality"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clickable="false"
                     android:editable="false"
                     android:focusable="false"
                     android:hint="@string/nationality_hint"
@@ -65,7 +66,7 @@
                     android:id="@+id/et_arrival_airport"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
+                    android:clickable="false"
                     android:editable="false"
                     android:focusable="false"
                     android:hint="@string/airport_of_arrival_hint"
@@ -82,7 +83,7 @@
                     android:id="@+id/et_departure_airport"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
+                    android:clickable="false"
                     android:editable="false"
                     android:focusable="false"
                     android:hint="@string/airport_of_departure_hint"
@@ -95,6 +96,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/medium_widget_spacing"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true"
             android:weightSum="2">
 
             <android.support.design.widget.TextInputLayout
@@ -124,6 +127,7 @@
                     android:id="@+id/et_td_arrival_flight_no"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:cursorVisible="false"
                     android:hint="@string/arrival_flight_no"
                     android:textSize="@dimen/medium_text_size" />
             </android.support.design.widget.TextInputLayout>

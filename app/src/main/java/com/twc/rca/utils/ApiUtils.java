@@ -29,7 +29,7 @@ public class ApiUtils {
 
     protected static final String TAG = ApiUtils.class.getSimpleName();
 
-    public static final String STATUS = "status", SUCCESS = "success", MESSAGE = "message", CONTENT = "content", DATA = "data", RESULT_SET = "result_set";
+    public static final String STATUS = "status", SUCCESS = "success", FAILURE = "failure", MESSAGE = "message", CONTENT = "content", DATA = "data", RESULT_SET = "result_set";
 
     public static final String CONTENT_TYPE = "Content-Type";
 
