@@ -46,7 +46,7 @@ import java.util.Date;
 
 public class DVProductActivity extends BaseActivity implements View.OnClickListener, DatePickerDialogFragment.DateDialogListener, TimePickerDialogFragment.TimeDialogListener {
 
-    TextView tv_dv_product, tv_dv_amount, tv_dv_processing_time, tv_dv_visa_validity;
+    TextView tv_dv_product, tv_dv_amount, tv_dv_processing_time, tv_dv_visa_validity, tv_product_info;
 
     TextView tv_actionbar_title;
 
@@ -138,6 +138,8 @@ public class DVProductActivity extends BaseActivity implements View.OnClickListe
         tv_dv_amount = (TextView) findViewById(R.id.tv_amount);
         tv_dv_processing_time = (TextView) findViewById(R.id.tv_dv_processing_time);
         tv_dv_visa_validity = (TextView) findViewById(R.id.tv_dv_visa_validity);
+        tv_product_info = (TextView) findViewById(R.id.tv_product_info);
+        tv_product_info.setOnClickListener(this);
 
         ll_dv_product = (LinearLayout) findViewById(R.id.layout_dv_product);
         ll_96hr_dv_product = (LinearLayout) findViewById(R.id.layout_96hr_dv_product);
@@ -315,6 +317,12 @@ public class DVProductActivity extends BaseActivity implements View.OnClickListe
                 startActivityForResult(searchIntent, GOING_TO_CODE);
                 break;
 
+            case R.id.tv_product_info:
+                Intent intent_product_info = new Intent(this, ProductInfoActivity.class);
+                intent_product_info.putExtra("product_name", dvProduct.getProduct_name());
+                intent_product_info.putExtra("product_info_url", dvProduct.getProduct_info_url());
+                startActivity(intent_product_info);
+                break;
 
             case R.id.btn_bk_now:
                 PopupDialog popupDialog;
@@ -325,25 +333,30 @@ public class DVProductActivity extends BaseActivity implements View.OnClickListe
 
                     //96Hrs Product Validation
                     if (dvProduct.getProduct_id().equalsIgnoreCase("1")) {
+
                         long hours = ApiUtils.timeDifference(ApiUtils.getDate(et_dt_arrival.getText().toString(), et_tm_arrival.getText().toString().replace("AM", "").replace("PM", "")), ApiUtils.getDate(et_dt_dept.getText().toString(), et_tm_dept.getText().toString().replace("AM", "").replace("PM", "")));
 
+                        //Check time is 96 hours(2 hours extra)
                         if (hours <= 98) {
-                            // if (ApiUtils.compareDates(et_dt_arrival.getText().toString(), et_dt_dept.getText().toString())) {
-
-                            if (ApiUtils.isTravelDateValid(et_dt_arrival.getText().toString(), visaValidity)) {
-                                if (!et_coming_from.getText().toString().equalsIgnoreCase(et_going_to.getText().toString())) {
-                                    sendDetails();
+                            if (ApiUtils.compareDates(et_dt_arrival.getText().toString(), et_dt_dept.getText().toString())) {
+                                if (!ApiUtils.isDateEquals(et_dt_arrival.getText().toString(), et_dt_dept.getText().toString()) && !(hours <= 10)) {
+                                    if (ApiUtils.isTravelDateValid(et_dt_arrival.getText().toString(), visaValidity)) {
+                                        if (!et_coming_from.getText().toString().equalsIgnoreCase(et_going_to.getText().toString())) {
+                                            sendDetails();
+                                        } else {
+                                            showToast(R.string.cm_from_going_to_error);
+                                        }
+                                    } else {
+                                        String msg = "Dear applicant, please note that your visa comes with a validity of " + dvProduct.getProduct_validity() + ". Hence your application will be processed " + dvProduct.getProduct_validity() + " prior to your travel date to ensure you have a valid visa at the time of your travel.";
+                                        popupDialog = PopupDialog.getInstance(popupDialogInterface, PopupDialog.TRAVEL_DATE_CODE, msg);
+                                        popupDialog.show(getFragmentManager(), PopupDialog.TAG);
+                                    }
                                 } else {
-                                    // showToast();
+                                    showToast(getString(R.string.visa_not_applicable));
                                 }
                             } else {
-                                String msg = "Dear applicant, please note that your visa comes with a validity of " + dvProduct.getProduct_validity() + ". Hence your application will be processed " + dvProduct.getProduct_validity() + " prior to your travel date to ensure you have a valid visa at the time of your travel.";
-                                popupDialog = PopupDialog.getInstance(popupDialogInterface, PopupDialog.TRAVEL_DATE_CODE, msg);
-                                popupDialog.show(getFragmentManager(), PopupDialog.TAG);
-                            }
-                            /*} else {
                                 showToast(getString(R.string.arrival_dept_date_error));
-                            }*/
+                            }
                         } else {
                             popupDialog = PopupDialog.getInstance(popupDialogInterface, PopupDialog.TIME_DIFF_CODE, getString(R.string.popup_dialog_96hrs));
                             popupDialog.show(getFragmentManager(), PopupDialog.TAG);

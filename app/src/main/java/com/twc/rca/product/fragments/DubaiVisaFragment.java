@@ -29,7 +29,7 @@ import java.util.List;
 
 public class DubaiVisaFragment extends BaseFragment {
 
-    public static String PRODUCT_ID = "product_id", PRODUCT_NAME = "product_name", PRODUCT_VALIDITY = "product_validity", PRODUCT_TYPE = "product_type", CURRENCY = "currency", ADULT_PRICE = "adult_price", CHILD_PRICE = "child_price", INFANT_PRICE = "infant_price";
+    public static String PRODUCT_ID = "product_id", PRODUCT_NAME = "product_name", PRODUCT_VALIDITY = "product_validity", PRODUCT_TYPE = "product_type",PRODUCT_INFO_URL="product_info_url", CURRENCY = "currency", ADULT_PRICE = "adult_price", CHILD_PRICE = "child_price", INFANT_PRICE = "infant_price";
 
     RecyclerView list_dv_product;
 
@@ -84,12 +84,13 @@ public class DubaiVisaFragment extends BaseFragment {
                         String product_name = dataObject.getString(PRODUCT_NAME);
                         String product_validity = dataObject.getString(PRODUCT_VALIDITY);
                         String product_type = dataObject.getString(PRODUCT_TYPE);
+                        String product_info=dataObject.getString(PRODUCT_INFO_URL);
                         String currency = dataObject.getString(CURRENCY);
                         String productCurrency = currency.substring(0);
                         String adult_price = dataObject.getString(ADULT_PRICE);
                         String child_price = dataObject.getString(CHILD_PRICE);
                         String infant_price = dataObject.getString(INFANT_PRICE);
-                        dvProduct = new DVProduct(product_id, product_name, product_validity, product_type, currency, adult_price, child_price, infant_price);
+                        dvProduct = new DVProduct(product_id, product_name, product_validity, product_type,product_info, currency, adult_price, child_price, infant_price);
                         dvProduct.setProduct_id(product_id);
                         dvProduct.setProduct_name(product_name);
                         dvProduct.setProduct_validity(product_validity);

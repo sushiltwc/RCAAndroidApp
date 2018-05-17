@@ -13,6 +13,7 @@ import com.twc.rca.R;
 import com.twc.rca.activities.BaseActivity;
 import com.twc.rca.applicant.model.ApplicantModel;
 import com.twc.rca.product.fragments.ApplicantionFragment;
+import com.twc.rca.product.fragments.ApplicationFormFragment;
 import com.twc.rca.product.fragments.DocumentFragment;
 import com.twc.rca.utils.ILog;
 
@@ -26,13 +27,15 @@ public class ApplicantActivity extends BaseActivity {
 
     ApplicantModel applicantModel;
 
+    String isApplicantSubmitted;
+
     public static final int VISA_DOCUMENT = 0, APPLICANT = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_applicant);
-        applicantModel = (ApplicantModel) getIntent().getParcelableExtra("applicant");
+        applicantModel = getIntent().getParcelableExtra("applicant");
         initView();
     }
 
@@ -42,22 +45,6 @@ public class ApplicantActivity extends BaseActivity {
         mViewPager.setAdapter(manager);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.applicant_tabs);
         tabLayout.setupWithViewPager(mViewPager);
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                ILog.d("TAB", "SELCTED");
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
     }
 
     class ApplicantPagerAdapter extends FragmentStatePagerAdapter {
@@ -78,7 +65,7 @@ public class ApplicantActivity extends BaseActivity {
                     break;
 
                 case APPLICANT:
-                    fragment = ApplicantionFragment.newInstance();
+                    fragment = ApplicationFormFragment.newInstance();
                     fragment.setArguments(bundle);
                     break;
 

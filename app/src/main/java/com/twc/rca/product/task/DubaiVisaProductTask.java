@@ -9,6 +9,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.twc.rca.utils.ApiUtils;
 import com.twc.rca.utils.ILog;
+import com.twc.rca.utils.PreferenceUtils;
 import com.twc.rca.volley.utils.NetworkErrorHelper;
 import com.twc.rca.volley.utils.VolleySingleTon;
 
@@ -59,8 +60,9 @@ public class DubaiVisaProductTask extends ApiUtils {
 
     protected Map<String, Object> getParams(Context context) {
         Map<String, Object> map = new LinkedHashMap<>();
-        map.put(ApiUtils.ACCESS_TOKEN, "Ramukaka");
-        map.put(ApiUtils.METHOD, METHOD_NAME);
+        map.put(ACCESS_TOKEN, PreferenceUtils.getAccessToken(context));
+        map.put(USER_ID,PreferenceUtils.getUserid(context));
+        map.put(METHOD, METHOD_NAME);
         return map;
     }
 

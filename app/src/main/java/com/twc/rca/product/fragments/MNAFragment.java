@@ -106,8 +106,8 @@ public class MNAFragment extends Fragment {
         tv_content = (TextView) view.findViewById(R.id.tv_content);
         webView = (WebView) view.findViewById(R.id.webView);
         //tv_content.setText(Html.fromHtml(content));
-        webView.loadDataWithBaseURL(null, content, "text/html", "utf-8", null);
-
+       // webView.loadDataWithBaseURL(null, content, "text/html", "utf-8", null);
+        webView.loadUrl("http://dev.redcarpetassist.com/RCA_Webview/30-days-visa.html");
        /* Document htmlDocument = Jsoup.parse(content);
         tv_content.setText(htmlDocument.body().text());
 */

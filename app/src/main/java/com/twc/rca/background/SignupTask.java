@@ -29,7 +29,7 @@ public class SignupTask extends ApiUtils {
 
     public static String METHOD_NAME = "signup";
 
-    public static String EMAILID = "emailId", PHONENO = "phoneNo", USERNAME = "userName", PASSWORD = "password";
+    public static String EMAIL_ID="email_id",PHONE_NO = "phone_no", USER_NAME = "user_name", PASSWORD = "password";
 
     String emailId, phoneNo, userName, password;
 
@@ -67,9 +67,9 @@ public class SignupTask extends ApiUtils {
 
     protected Map<String, Object> getParams(Context context) {
         Map<String, Object> map = new LinkedHashMap<>();
-        map.put(EMAILID, emailId);
-        map.put(PHONENO, phoneNo);
-        map.put(USERNAME, userName);
+        map.put(EMAIL_ID, emailId);
+        map.put(PHONE_NO, phoneNo);
+        map.put(USER_NAME, userName);
         map.put(PASSWORD, password);
         map.put(ApiUtils.ACCESS_TOKEN, "Ramukaka");
         map.put(ApiUtils.METHOD, METHOD_NAME);

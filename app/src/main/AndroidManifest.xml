@@ -85,6 +85,10 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".product.activities.ProductInfoActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".product.activities.AddTravellerActivity"
             android:label="@string/add_traveller"
             android:screenOrientation="portrait" />

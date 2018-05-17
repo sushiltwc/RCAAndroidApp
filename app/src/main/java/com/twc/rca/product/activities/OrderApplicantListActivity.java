@@ -21,10 +21,6 @@ public class OrderApplicantListActivity extends BaseActivity {
 
     ViewPager mViewPager;
 
-    CurrentApplicantFragment mCurrentApplicantFragment;
-
-    MNAFragment mMnAFragment;
-
     String orderId;
 
     public static final int CURRENT_APPLICANT = 0, ALL_APPLICANT = 1;

@@ -10,6 +10,7 @@ import android.view.WindowManager;
 
 import com.twc.rca.R;
 import com.twc.rca.background.OTPVerificationTask;
+import com.twc.rca.database.ProfessionHelper;
 import com.twc.rca.utils.ApiUtils;
 import com.twc.rca.utils.OtpTextWatcher;
 import com.twc.rca.utils.PreferenceUtils;
@@ -118,8 +119,9 @@ public class OtpActivity extends BaseActivity implements View.OnClickListener {
                 String user_Id = jsonobject.getString(PreferenceUtils.USERID);
                 String email_Id = jsonobject.getString(PreferenceUtils.EMAILID);
                 String mobile_No = jsonobject.getString(PreferenceUtils.MOBILE_NO);
+                String access_token=jsonobject.getString(ApiUtils.ACCESS_TOKEN);
 
-                PreferenceUtils.saveProfileInfo(getApplicationContext(), user_Id, email_Id, mobile_No);
+                PreferenceUtils.saveProfileInfo(getApplicationContext(), user_Id, email_Id, mobile_No,access_token);
                 Intent intent = new Intent(OtpActivity.this, VerificationActivity.class);
                 intent.putExtra(PreferenceUtils.EMAILID, emailId);
                 startActivity(intent);

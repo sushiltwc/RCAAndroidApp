@@ -83,17 +83,52 @@ public class CurrentApplicantFragment extends BaseFragment {
                         applicantModel = new ApplicantModel();
                         JSONObject jObject = data.getJSONObject(i);
                         applicantModel.applicantId = jObject.getString("profile_id");
-                        applicantModel.applicantGivenName = jObject.getString("username");
+                        applicantModel.applicantSubmited=jObject.getString("is_submitted");
+                        if(!ApiUtils.isValidStringValue(jObject.getString("country_of_birth_arr")))
+                        {
+                            JSONObject jsonApplicantCOBArr=(JSONObject)jObject.get("country_of_birth_arr");
+                            applicantModel.applicantCOB=jsonApplicantCOBArr.getString("country_name");
+                        }
+                        applicantModel.applicantAddressLine1=jObject.getString("address1");
                         applicantModel.applicantSurname = jObject.getString("surname");
-                        applicantModel.applicantNationality = jObject.getString("nationality");
-                        applicantModel.applicantGender = jObject.getString("gender");
-                        applicantModel.applicantDOB = jObject.getString("dob");
-                        applicantModel.applicantPOB = jObject.getString("place_of_birth");
-                        applicantModel.is_Submitted = jObject.getString("is_submitted");
-                        if (jObject.get("applicant_type_arr") != null) {
+                        applicantModel.applicantAddressLine2 = jObject.getString("address2");
+                        applicantModel.applicantAddressLine3 = jObject.getString("address3");
+                        if(!ApiUtils.isValidStringValue(jObject.getString("country_arr"))){
+                            JSONObject jsonApplicantCountryArr=(JSONObject)jObject.get("country_arr");
+                            applicantModel.applicantCountry=jsonApplicantCountryArr.getString("country_name");
+                        }
+                        applicantModel.applicantOrderId = jObject.getString("order_id");
+                        applicantModel.applicantFName=jObject.getString("father_name");
+                        if (!ApiUtils.isValidStringValue(jObject.getString("applicant_type_arr"))) {
                             JSONObject jsonApplicantTypeArr = (JSONObject) jObject.get("applicant_type_arr");
                             applicantModel.applicantType = jsonApplicantTypeArr.getString("applicant_type_desc");
                         }
+                        applicantModel.applicantCity=jObject.getString("city");
+                        if (!ApiUtils.isValidStringValue(jObject.getString("language_arr"))) {
+                            JSONObject jsonApplicantLanguageArr = (JSONObject) jObject.get("language_arr");
+                            applicantModel.applicantLangSpoken = jsonApplicantLanguageArr.getString("lang_name");
+                        }
+                        applicantModel.applicantIsChild=jObject.getString("is_child");
+                        applicantModel.applicantGivenName=jObject.getString("username");
+                        applicantModel.applicantHName=jObject.getString("husband_name");
+                        applicantModel.applicantGender=jObject.getString("gender");
+                        if (!ApiUtils.isValidStringValue(jObject.getString("profession_arr"))) {
+                            JSONObject jsonApplicantProfArr = (JSONObject) jObject.get("profession_arr");
+                            applicantModel.applicantProfession = jsonApplicantProfArr.getString("profession_name");
+                        }
+                        if (!ApiUtils.isValidStringValue(jObject.getString("religion_arr"))) {
+                            JSONObject jsonApplicantReligionArr = (JSONObject) jObject.get("religion_arr");
+                            applicantModel.applicantReligion = jsonApplicantReligionArr.getString("religion_name");
+                        }
+                        applicantModel.applicantTelephone=jObject.getString("mobile_number");
+                        if (!ApiUtils.isValidStringValue(jObject.getString("marital_status_arr"))) {
+                            JSONObject jsonApplicantMaritalStatusArr = (JSONObject) jObject.get("marital_status_arr");
+                            applicantModel.applicantReligion = jsonApplicantMaritalStatusArr.getString("marital_status_name");
+                        }
+                        applicantModel.applicantDOB = jObject.getString("dob");
+                        applicantModel.applicantMName=jObject.getString("mother_name");
+                        applicantModel.applicantPOB = jObject.getString("place_of_birth");
+
                         applicantList.add(applicantModel);
                     }
                 }

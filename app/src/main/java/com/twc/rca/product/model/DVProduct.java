@@ -13,6 +13,7 @@ public class DVProduct implements Parcelable {
     private String product_name;
     private String product_validity;
     private String product_type;
+    private String product_info_url;
     private String currency;
     private String adult_price;
     private String child_price;
@@ -23,17 +24,19 @@ public class DVProduct implements Parcelable {
         product_name=in.readString();
         product_validity=in.readString();
         product_type=in.readString();
+        product_info_url=in.readString();
         currency=in.readString();
         adult_price=in.readString();
         child_price=in.readString();
         infant_price=in.readString();
     }
 
-    public DVProduct(String product_id,String product_name,String product_validity,String product_type,String currency,String adult_price,String child_price,String infant_price){
+    public DVProduct(String product_id,String product_name,String product_validity,String product_type,String product_info_url,String currency,String adult_price,String child_price,String infant_price){
         this.product_id=product_id;
         this.product_name=product_name;
         this.product_validity=product_validity;
         this.product_type=product_type;
+        this.product_info_url=product_info_url;
         this.currency=currency;
         this.adult_price=adult_price;
         this.child_price=child_price;
@@ -83,6 +86,14 @@ public class DVProduct implements Parcelable {
         this.product_type = product_type;
     }
 
+    public String getProduct_info_url() {
+        return product_info_url;
+    }
+
+    public void setProduct_info_url(String product_info_url) {
+        this.product_info_url = product_info_url;
+    }
+
     public String getCurrency() {
         return currency;
     }
@@ -126,6 +137,7 @@ public class DVProduct implements Parcelable {
         parcel.writeString(product_name);
         parcel.writeString(product_validity);
         parcel.writeString(product_type);
+        parcel.writeString(product_info_url);
         parcel.writeString(currency);
         parcel.writeString(adult_price);
         parcel.writeString(child_price);

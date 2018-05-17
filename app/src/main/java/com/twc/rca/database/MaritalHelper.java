@@ -97,5 +97,24 @@ public class MaritalHelper extends SQLiteOpenHelper {
         }
         return maritalModelArrayList;
     }
+
+    public String getMaritalId(String maritalName) {
+        String maritalId = null;
+
+        String sql = "";
+        sql += "SELECT " + MARITAL_ID + " FROM " + TABLE_NAME;
+        sql += " WHERE " + MARITAL_NAME + "='" + maritalName + "'";
+
+        Cursor cur = myDataBase.rawQuery(sql, null);
+
+        if (cur != null) {
+            if (cur.getCount() > 0) {
+                cur.moveToFirst();
+                maritalId = cur.getString(cur.getColumnIndex(MARITAL_ID));
+            }
+        }
+        cur.close();
+        return maritalId;
+    }
 }
 

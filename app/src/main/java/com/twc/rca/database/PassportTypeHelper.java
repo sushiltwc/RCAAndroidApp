@@ -97,5 +97,24 @@ public class PassportTypeHelper extends SQLiteOpenHelper {
         }
         return passportTypeModelArrayList;
     }
+
+    public String getPassportTypeId(String passporttypeName) {
+        String passportTypeId = null;
+
+        String sql = "";
+        sql += "SELECT " + PP_TYPE_ID + " FROM " + TABLE_NAME;
+        sql += " WHERE " + PP_TYPE_NAME + "='" + passporttypeName + "'";
+
+        Cursor cur = myDataBase.rawQuery(sql, null);
+
+        if (cur != null) {
+            if (cur.getCount() > 0) {
+                cur.moveToFirst();
+                passportTypeId = cur.getString(cur.getColumnIndex(PP_TYPE_ID));
+            }
+        }
+        cur.close();
+        return passportTypeId;
+    }
 }
 

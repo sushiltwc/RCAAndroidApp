@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/basic_widget_spacing"
+                android:drawableLeft="@drawable/ic_personaldetails_selected"
+                android:drawablePadding="@dimen/medium_widget_spacing"
+                android:text="@string/your_personal_details"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/medium_text_size"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginBottom="@dimen/basic_widget_spacing"
+                android:layout_marginTop="@dimen/basic_widget_spacing"
+                android:background="@color/colorGray" />
+
+            <include
+                layout="@layout/layout_personal_details_form"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginBottom="@dimen/basic_widget_spacing"
+                android:layout_marginTop="@dimen/basic_widget_spacing"
+                android:background="@color/colorGray" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/basic_widget_spacing"
+                android:drawableLeft="@drawable/ic_passportdetails_selected"
+                android:drawablePadding="@dimen/medium_widget_spacing"
+                android:text="@string/your_passport_details"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/medium_text_size"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginBottom="@dimen/basic_widget_spacing"
+                android:layout_marginTop="@dimen/basic_widget_spacing"
+                android:background="@color/colorGray" />
+
+            <include
+                layout="@layout/layout_passport_details_form"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginBottom="@dimen/basic_widget_spacing"
+                android:layout_marginTop="@dimen/basic_widget_spacing"
+                android:background="@color/colorGray" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/basic_widget_spacing"
+                android:drawableLeft="@drawable/ic_contactdetails_selected"
+                android:drawablePadding="@dimen/medium_widget_spacing"
+                android:text="@string/your_contact_details"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/medium_text_size"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginBottom="@dimen/basic_widget_spacing"
+                android:layout_marginTop="@dimen/basic_widget_spacing"
+                android:background="@color/colorGray" />
+
+
+            <include
+                layout="@layout/layout_contact_details_form"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btn_submit_application_form"
+        style="@style/BottomGrayButtonStyle"
+        android:enabled="false"
+        android:text="@string/submit_application" />
+</RelativeLayout>

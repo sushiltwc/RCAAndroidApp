@@ -235,6 +235,7 @@ public class OrderDetailActivity extends BaseActivity {
                 intent.putExtra(PAYMENT_URL,payment_url);
                 intent.putExtra(ORDER_ID, order_id);
                 startActivity(intent);
+                finish();
             } catch (JSONException e) {
                 e.printStackTrace();
             }

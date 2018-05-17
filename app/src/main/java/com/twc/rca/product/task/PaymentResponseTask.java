@@ -65,7 +65,7 @@ public class PaymentResponseTask extends ApiUtils {
 
     protected Map<String, Object> getParams(Context context) {
         Map<String, Object> map = new LinkedHashMap<>();
-        map.put(ApiUtils.ACCESS_TOKEN, "Ramukaka");
+        map.put(ACCESS_TOKEN, PreferenceUtils.getAccessToken(context));
         map.put(USER_ID, PreferenceUtils.getUserid(context));
         map.put(ORDER_ID, orderId);
         map.put(ApiUtils.METHOD, METHOD_NAME);

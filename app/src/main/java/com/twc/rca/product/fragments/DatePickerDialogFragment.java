@@ -60,7 +60,7 @@ public class DatePickerDialogFragment extends DialogFragment {
                                 int mon = datePicker.getMonth();
                                 int day = datePicker.getDayOfMonth();
                                 Date date = new GregorianCalendar(year, mon, day).getTime();
-                                DateDialogListener activity = (DateDialogListener) getContext();
+                                DateDialogListener activity = (DateDialogListener) getActivity();
                                 activity.onFinishDialog(date, id);
                                 dismiss();
                             }

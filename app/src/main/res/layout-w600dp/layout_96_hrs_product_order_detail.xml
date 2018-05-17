@@ -26,14 +26,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/normal_text_size"
                     android:text="@string/airport_of_arrival_hint"/>
 
                 <TextView
                     android:id="@+id/tv_od_arriving_airports"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/normal_text_size"
                     android:textStyle="bold"
                     android:text="DXB"/>
             </LinearLayout>
@@ -48,14 +46,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/normal_text_size"
                     android:text="@string/airport_of_departure_hint"/>
 
                 <TextView
                     android:id="@+id/tv_od_departure_airports"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/normal_text_size"
                     android:textStyle="bold"
                     android:text="DXB"/>
             </LinearLayout>
@@ -83,14 +79,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/normal_text_size"
                     android:text="@string/arrival_airline_hint"/>
 
                 <TextView
                     android:id="@+id/tv_od_arriving_airline"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/normal_text_size"
                     android:textStyle="bold"
                     android:text="DXB"/>
             </LinearLayout>
@@ -105,14 +99,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/normal_text_size"
                     android:text="@string/arrival_flight_no_hint"/>
 
                 <TextView
                     android:id="@+id/tv_od_arriving_flight_no"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/normal_text_size"
                     android:textStyle="bold"
                     android:text="DXB"/>
             </LinearLayout>
@@ -140,14 +132,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/normal_text_size"
                     android:text="@string/arrival_dt_hint"/>
 
                 <TextView
                     android:id="@+id/tv_od_arrival_dts"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/normal_text_size"
                     android:textStyle="bold"
                     android:text="24/04/2018"/>
             </LinearLayout>
@@ -162,14 +152,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/normal_text_size"
                     android:text="@string/arrival_time_hint"/>
 
                 <TextView
                     android:id="@+id/tv_od_arrival_tm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/normal_text_size"
                     android:textStyle="bold"
                     android:text="1:00"/>
             </LinearLayout>
@@ -197,14 +185,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/normal_text_size"
                     android:text="@string/dept_airline_hint"/>
 
                 <TextView
                     android:id="@+id/tv_od_dept_airline"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/normal_text_size"
                     android:textStyle="bold"
                     android:text="DXB"/>
             </LinearLayout>
@@ -219,14 +205,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/normal_text_size"
                     android:text="@string/dept_flight_no_hint"/>
 
                 <TextView
                     android:id="@+id/tv_od_dept_flight_no"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/normal_text_size"
                     android:textStyle="bold"
                     android:text="DXB"/>
             </LinearLayout>
@@ -254,14 +238,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/normal_text_size"
                     android:text="@string/departure_date"/>
 
                 <TextView
                     android:id="@+id/tv_od_departure_dts"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/normal_text_size"
                     android:textStyle="bold"
                     android:text="DXB"/>
             </LinearLayout>
@@ -276,14 +258,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/normal_text_size"
                     android:text="@string/time_of_departure_hint"/>
 
                 <TextView
                     android:id="@+id/tv_od_departure_tm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/normal_text_size"
                     android:textStyle="bold"
                     android:text="DXB"/>
             </LinearLayout>
@@ -310,14 +290,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/normal_text_size"
                     android:text="@string/coming_from_hint"/>
 
                 <TextView
                     android:id="@+id/tv_od_airport_coming_froms"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/normal_text_size"
                     android:textStyle="bold"
                     android:text="DXB"/>
             </LinearLayout>
@@ -332,14 +310,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/normal_text_size"
                     android:text="@string/going_to_hint"/>
 
                 <TextView
                     android:id="@+id/tv_od_traveller_airport_going_tos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/normal_text_size"
                     android:textStyle="bold"
                     android:text="DXB"/>
             </LinearLayout>

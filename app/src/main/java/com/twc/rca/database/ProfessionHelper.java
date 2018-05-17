@@ -97,5 +97,24 @@ public class ProfessionHelper extends SQLiteOpenHelper {
         }
         return countryModelArrayList;
     }
+
+    public String getProfessionId(String professionName) {
+        String professionId = null;
+
+        String sql = "";
+        sql += "SELECT " + PROFESSION_ID + " FROM " + TABLE_NAME;
+        sql += " WHERE " + PROFESSION_NAME + "='" + professionName + "'";
+
+        Cursor cur = myDataBase.rawQuery(sql, null);
+
+        if (cur != null) {
+            if (cur.getCount() > 0) {
+                cur.moveToFirst();
+                professionId = cur.getString(cur.getColumnIndex(PROFESSION_ID));
+            }
+        }
+        cur.close();
+        return professionId;
+    }
 }
 

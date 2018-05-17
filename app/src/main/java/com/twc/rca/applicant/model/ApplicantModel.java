@@ -14,6 +14,9 @@ public class ApplicantModel implements Parcelable {
     @SerializedName("applicantId")
     public String applicantId;
 
+    @SerializedName("applicantSubmited")
+    public String applicantSubmited;
+
     @SerializedName("applicantName")
     public String applicantName;
 
@@ -58,6 +61,9 @@ public class ApplicantModel implements Parcelable {
 
     @SerializedName("applicantMName")
     public String applicantMName;
+
+    @SerializedName("applicantHName")
+    public String applicantHName;
 
     @SerializedName("applicantPPNo")
     public String applicantPPNo;
@@ -131,20 +137,24 @@ public class ApplicantModel implements Parcelable {
     @SerializedName("applicantDeptTimeMin")
     public String applicantDeptTimeMin;
 
-    @SerializedName("is_Submitted")
-    public String is_Submitted;
+    @SerializedName("applicantOderId")
+    public String applicantOrderId;
+
+    @SerializedName("applicantIsChild")
+    public String applicantIsChild;
 
     public ApplicantModel(Parcel in) {
         applicantId = in.readString();
+        applicantSubmited = in.readString();
         applicantName = in.readString();
         applicantType = in.readString();
-        applicantSurname = in.readString();
         applicantGivenName = in.readString();
+        applicantSurname = in.readString();
         applicantNationality = in.readString();
         applicantGender = in.readString();
-        applicantDOB = in.readString();
         applicantPOB = in.readString();
         applicantCOB = in.readString();
+        applicantDOB = in.readString();
         applicantMaritalStatus = in.readString();
         applicantReligion = in.readString();
         applicantLangSpoken = in.readString();
@@ -176,7 +186,56 @@ public class ApplicantModel implements Parcelable {
         applicantDeptTimeHr = in.readString();
         applicantDeptTimeMin = in.readString();
         applicantHName = in.readString();
-        is_Submitted = in.readString();
+        applicantOrderId=in.readString();
+        applicantIsChild=in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(applicantId);
+        parcel.writeString(applicantSubmited);
+        parcel.writeString(applicantName);
+        parcel.writeString(applicantType);
+        parcel.writeString(applicantGivenName);
+        parcel.writeString(applicantSurname);
+        parcel.writeString(applicantNationality);
+        parcel.writeString(applicantGender);
+        parcel.writeString(applicantPOB);
+        parcel.writeString(applicantCOB);
+        parcel.writeString(applicantDOB);
+        parcel.writeString(applicantMaritalStatus);
+        parcel.writeString(applicantReligion);
+        parcel.writeString(applicantLangSpoken);
+        parcel.writeString(applicantProfession);
+        parcel.writeString(applicantFName);
+        parcel.writeString(applicantMName);
+        parcel.writeString(applicantPPNo);
+        parcel.writeString(applicantPPType);
+        parcel.writeString(applicantPPIssueGovt);
+        parcel.writeString(applicantPPIssuePlace);
+        parcel.writeString(applicantPPDOI);
+        parcel.writeString(applicantPPDOE);
+        parcel.writeString(applicantAddressLine1);
+        parcel.writeString(applicantAddressLine2);
+        parcel.writeString(applicantAddressLine3);
+        parcel.writeString(applicantCity);
+        parcel.writeString(applicantCountry);
+        parcel.writeString(applicantTelephone);
+        parcel.writeString(applicantArrivalAirline);
+        parcel.writeString(applicantArrivalFlightNo);
+        parcel.writeString(applicantArrivalComingFrom);
+        parcel.writeString(applicantDtOfArrival);
+        parcel.writeString(applicantArrivalTimeHr);
+        parcel.writeString(applicantArribalTimeMin);
+        parcel.writeString(applicantDeptAirline);
+        parcel.writeString(applicantDeptFlightNo);
+        parcel.writeString(applicantDeptLeavingTo);
+        parcel.writeString(applicantDtOfDept);
+        parcel.writeString(applicantDeptTimeHr);
+        parcel.writeString(applicantDeptTimeMin);
+        parcel.writeString(applicantHName);
+        parcel.writeString(applicantOrderId);
+        parcel.writeString(applicantIsChild);
     }
 
     public static final Creator<ApplicantModel> CREATOR = new Creator<ApplicantModel>() {
@@ -316,8 +375,6 @@ public class ApplicantModel implements Parcelable {
     public void setApplicantHName(String applicantHName) {
         this.applicantHName = applicantHName;
     }
-
-    String applicantHName;
 
     public String getApplicantName() {
         return applicantName;
@@ -532,61 +589,32 @@ public class ApplicantModel implements Parcelable {
         this.applicantDeptTimeMin = applicantDeptTimeMin;
     }
 
-    public String getIs_Submitted() {
-        return is_Submitted;
+    public String getApplicantSubmited() {
+        return applicantSubmited;
     }
 
-    public void setIs_Submitted(String is_Submitted) {
-        this.is_Submitted = is_Submitted;
+    public void setApplicantSubmited(String applicantSubmited) {
+        this.applicantSubmited = applicantSubmited;
+    }
+
+    public String getApplicantOrderId() {
+        return applicantOrderId;
+    }
+
+    public void setApplicantOrderId(String applicantOrderId) {
+        this.applicantOrderId = applicantOrderId;
+    }
+
+    public String getApplicantIsChild() {
+        return applicantIsChild;
+    }
+
+    public void setApplicantIsChild(String applicantIsChild) {
+        this.applicantIsChild = applicantIsChild;
     }
 
     @Override
     public int describeContents() {
         return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(applicantId);
-        parcel.writeString(applicantName);
-        parcel.writeString(applicantType);
-        parcel.writeString(applicantGivenName);
-        parcel.writeString(applicantSurname);
-        parcel.writeString(applicantNationality);
-        parcel.writeString(applicantGender);
-        parcel.writeString(applicantPOB);
-        parcel.writeString(applicantCOB);
-        parcel.writeString(applicantDOB);
-        parcel.writeString(applicantMaritalStatus);
-        parcel.writeString(applicantReligion);
-        parcel.writeString(applicantLangSpoken);
-        parcel.writeString(applicantProfession);
-        parcel.writeString(applicantFName);
-        parcel.writeString(applicantMName);
-        parcel.writeString(applicantPPNo);
-        parcel.writeString(applicantPPType);
-        parcel.writeString(applicantPPIssueGovt);
-        parcel.writeString(applicantPPIssuePlace);
-        parcel.writeString(applicantPPDOI);
-        parcel.writeString(applicantPPDOE);
-        parcel.writeString(applicantAddressLine1);
-        parcel.writeString(applicantAddressLine2);
-        parcel.writeString(applicantAddressLine3);
-        parcel.writeString(applicantCity);
-        parcel.writeString(applicantCountry);
-        parcel.writeString(applicantTelephone);
-        parcel.writeString(applicantArrivalAirline);
-        parcel.writeString(applicantArrivalFlightNo);
-        parcel.writeString(applicantArrivalComingFrom);
-        parcel.writeString(applicantDtOfArrival);
-        parcel.writeString(applicantArrivalTimeHr);
-        parcel.writeString(applicantArribalTimeMin);
-        parcel.writeString(applicantDeptAirline);
-        parcel.writeString(applicantDeptFlightNo);
-        parcel.writeString(applicantDeptLeavingTo);
-        parcel.writeString(applicantDeptTimeHr);
-        parcel.writeString(applicantDeptTimeMin);
-        parcel.writeString(applicantHName);
-        parcel.writeString(is_Submitted);
     }
 }

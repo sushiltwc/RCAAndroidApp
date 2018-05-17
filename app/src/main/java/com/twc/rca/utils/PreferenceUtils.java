@@ -15,12 +15,12 @@ public class PreferenceUtils {
     private static final String APP_FIRST_LAUNCH_DATE = "cardFirstLaunchDate";
     private static final String IS_REGISTERED = "isRegistered";
     private static final String IS_PAYMENT_DONE = "isPaymentDone";
-    public static final String IS_PF_UPLOADED="isPFUploaded";
-    public static final String IS_PB_UPLOADED="isPBUploaded";
+    public static final String IS_PF_UPLOADED = "isPFUploaded";
+    public static final String IS_PB_UPLOADED = "isPBUploaded";
 
     public static final String NA = "NA";
 
-    public static final String USERID = "user_id", EMAILID = "email_id", MOBILE_NO = "mobile_no", DEVICE_ID = "device_id";
+    public static final String USERID = "user_id", EMAILID = "email_id", MOBILE_NO = "mobile_no", DEVICE_ID = "device_id", ACCESS_TOKEN = "access_token";
 
     public static final String USEREXIST_MAILID = "userExistMailIds", OTP_NO = "otp_number";
 
@@ -28,21 +28,30 @@ public class PreferenceUtils {
     public static final String DB_VERSION = "db_version";
 
     public static void saveProfileInfo(Context context, String userId, String emailId, String
-            mobile) {
+            mobile,String access_token) {
         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
         editor.putString(USERID, userId).putString(EMAILID, emailId)
-                .putString(MOBILE_NO, mobile);
+                .putString(MOBILE_NO, mobile).putString(ACCESS_TOKEN,access_token);
         // Saving boolean as a string due to bad coding practice in legacy code :(
         editor.putString(IS_REGISTERED, "true").apply();
     }
 
-  public static String getUserid(Context context){
-      if (context == null) {
-          return NA;
-      }
-      SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-      return preferences.getString(USERID, NA);
-  }
+    public static String getAccessToken(Context context){
+        if (context == null) {
+            return NA;
+        }
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getString(ACCESS_TOKEN, NA);
+    }
+
+    public static String getUserid(Context context) {
+        if (context == null) {
+            return NA;
+        }
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getString(USERID, NA);
+    }
+
     public static boolean isRegistered(Context context) {
         if (context == null) {
             return false;
@@ -69,7 +78,7 @@ public class PreferenceUtils {
         editor.putBoolean(IS_PF_UPLOADED, isPFUploaded).apply();
     }
 
-    public static boolean isPFUploaded(Context context){
+    public static boolean isPFUploaded(Context context) {
         if (context == null) {
             return false;
         }
@@ -82,7 +91,7 @@ public class PreferenceUtils {
         editor.putBoolean(IS_PB_UPLOADED, isPBUploaded).apply();
     }
 
-    public static boolean isPBUploaded(Context context){
+    public static boolean isPBUploaded(Context context) {
         if (context == null) {
             return false;
         }

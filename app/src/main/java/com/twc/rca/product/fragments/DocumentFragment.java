@@ -79,6 +79,8 @@ public class DocumentFragment extends BaseFragment {
 
     ApplicantModel applicantModel;
 
+    String isApplicantSubmitted;
+
     String applicant_type;
 
     public static DocumentFragment getInstance() {
@@ -95,8 +97,7 @@ public class DocumentFragment extends BaseFragment {
         document_grid = view.findViewById(R.id.document_grid);
         btn_next = view.findViewById(R.id.btn_doc_next);
 
-        Bundle bundle = getArguments();
-        applicantModel = bundle.getParcelable("applicant");
+        applicantModel = getArguments().getParcelable("applicant");
         applicant_type = applicantModel.getApplicantType().replaceAll("[0-9]", "").replace(" ", "");
         if (applicant_type.equalsIgnoreCase("Infant"))
             applicant_type = "Child";
@@ -107,13 +108,17 @@ public class DocumentFragment extends BaseFragment {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle b = new Bundle();
-                if (passportFrontModel != null && passportBackModel != null) {
-                    b.putSerializable("pf", passportFrontModel);
-                    b.putSerializable("pb", passportBackModel);
-                    ApplicantionFragment.getInstance().putData(b);
-                } else {
-                    ApplicantionFragment.getInstance().putData(receive_doc_list);
+                if(applicantModel.getApplicantSubmited().equalsIgnoreCase("Y")) {
+                    ApplicationFormFragment.getInstance().setCustomerData(applicantModel);
+                }else{
+                    Bundle b = new Bundle();
+                    if (passportFrontModel != null && passportBackModel != null) {
+                        b.putSerializable("pf", passportFrontModel);
+                        b.putSerializable("pb", passportBackModel);
+                        ApplicationFormFragment.getInstance().putData(b);
+                    } else {
+                        ApplicationFormFragment.getInstance().putData(receive_doc_list);
+                    }
                 }
                 viewPager.setCurrentItem(1);
             }

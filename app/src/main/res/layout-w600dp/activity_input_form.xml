@@ -44,14 +44,13 @@
                                 android:layout_height="wrap_content"
                                 android:text="₹ 3669"
                                 android:textColor="@color/colorPrimary"
-                                android:textSize="@dimen/large_text_size"
+                                android:textSize="@dimen/larger_text_size"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/small_widget_spacing"
-                                android:textSize="@dimen/normal_text_size"
+                                android:layout_marginLeft="@dimen/medium_widget_spacing"
                                 android:text="All inclusive price" />
 
                         </LinearLayout>
@@ -63,7 +62,6 @@
                             android:layout_alignParentRight="true"
                             android:layout_marginTop="@dimen/large_widget_spacing"
                             android:text="@string/visa_info_documents_lable"
-                            android:textSize="@dimen/normal_text_size"
                             android:textColor="#249BEB"
                             android:textStyle="bold" />
 
@@ -85,7 +83,7 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/medium_widget_spacing"
+                            android:layout_marginLeft="@dimen/larger_widget_spacing"
                             android:orientation="horizontal">
 
                             <android.support.v7.widget.AppCompatImageView
@@ -97,7 +95,7 @@
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/basic_widget_spacing"
+                                android:layout_marginLeft="@dimen/medium_widget_spacing"
                                 android:orientation="vertical">
 
                                 <TextView
@@ -106,13 +104,12 @@
                                     android:layout_height="wrap_content"
                                     android:text="2/3 Days"
                                     android:textColor="@color/text_color"
-                                    android:textSize="@dimen/normal_text_size"
+                                    android:textSize="@dimen/medium_text_size"
                                     android:textStyle="bold" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="@dimen/normal_text_size"
                                     android:text="Visa processing" />
                             </LinearLayout>
 
@@ -122,7 +119,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:layout_marginRight="@dimen/medium_widget_spacing"
+                            android:layout_marginRight="@dimen/extra_larger_widget_spacing"
                             android:orientation="horizontal">
 
                             <android.support.v7.widget.AppCompatImageView
@@ -143,13 +140,12 @@
                                     android:layout_height="wrap_content"
                                     android:text="30 Days"
                                     android:textColor="@color/text_color"
-                                    android:textSize="@dimen/normal_text_size"
+                                    android:textSize="@dimen/medium_text_size"
                                     android:textStyle="bold" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="@dimen/normal_text_size"
                                     android:text="Visa validity" />
                             </LinearLayout>
 
@@ -204,7 +200,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/medium_widget_spacing"
+                android:layout_marginTop="@dimen/large_widget_spacing"
                 android:background="@drawable/circle"
                 android:elevation="@dimen/small_widget_spacing" />
 
@@ -217,7 +213,7 @@
                 android:elevation="@dimen/small_widget_spacing"
                 android:text="@android:string/ok"
                 android:textColor="@color/text_color"
-                android:textSize="@dimen/medium_text_size"
+                android:textSize="@dimen/large_text_size"
                 android:textStyle="bold" />
 
         </RelativeLayout>

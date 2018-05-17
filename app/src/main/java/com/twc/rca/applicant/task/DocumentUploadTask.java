@@ -68,8 +68,8 @@ public class DocumentUploadTask extends ApiUtils {
 
     protected Map<String, Object> getParams(Context context) {
         Map<String, Object> map = new LinkedHashMap<>();
-        map.put(ApiUtils.ACCESS_TOKEN, "Ramukaka");
-        map.put(ApiUtils.USER_ID, PreferenceUtils.getUserid(context));
+        map.put(ACCESS_TOKEN, PreferenceUtils.getAccessToken(context));
+        map.put(USER_ID, PreferenceUtils.getUserid(context));
         map.put(ApiUtils.APPLICANT_ID, applicantId);
         map.put(DOC_TYPE, docType);
         map.put(FILE_NAME, fileName);

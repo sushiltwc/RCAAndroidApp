@@ -97,5 +97,24 @@ public class ReligionHelper extends SQLiteOpenHelper {
         }
         return religionModelArrayList;
     }
+
+    public String getReligionId(String religionName) {
+        String religionId = null;
+
+        String sql = "";
+        sql += "SELECT " + RELIGION_ID + " FROM " + TABLE_NAME;
+        sql += " WHERE " + RELIGION_NAME + "='" + religionName + "'";
+
+        Cursor cur = myDataBase.rawQuery(sql, null);
+
+        if (cur != null) {
+            if (cur.getCount() > 0) {
+                cur.moveToFirst();
+                religionId = cur.getString(cur.getColumnIndex(RELIGION_ID));
+            }
+        }
+        cur.close();
+        return religionId;
+    }
 }
 

@@ -35,7 +35,7 @@ public class ApiUtils {
 
     public static final String ACCESS_TOKEN = "access_token";
 
-    public static final String USER_ID = "userId", APPLICANT_ID = "applicantId", APPLICANT_TYPE = "applicant_type";
+    public static final String USER_ID = "user_id", APPLICANT_ID = "applicantId", APPLICANT_TYPE = "applicant_type";
 
     public static final String METHOD = "method";
 
@@ -361,7 +361,7 @@ public class ApiUtils {
         try {
             //1
             // Create 2 dates starts
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             Date date1 = sdf.parse(d1);
             Date date2 = sdf.parse(d2);
 
@@ -380,14 +380,24 @@ public class ApiUtils {
                 System.out.println("Date1 is before Date2");
                 return true;
             }
-
-            //equals() returns true if both the dates are equal
             if (date1.equals(date2)) {
-                System.out.println("Date1 is equal Date2");
-                return false;
+                return true;
             }
-
             System.out.println();
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean isDateEquals(String d1, String d2) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            Date date1 = sdf.parse(d1);
+            Date date2 = sdf.parse(d2);
+            if (date1.equals(date2)) {
+                return true;
+            }
         } catch (ParseException ex) {
             ex.printStackTrace();
         }

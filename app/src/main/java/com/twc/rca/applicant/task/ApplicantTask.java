@@ -56,8 +56,8 @@ public class ApplicantTask extends ApiUtils {
 
     protected Map<String, Object> getParams(Context context) {
         Map<String, Object> map = new LinkedHashMap<>();
-        map.put(ApiUtils.ACCESS_TOKEN, "Ramukaka");
-        map.put("user_id", PreferenceUtils.getUserid(context));
+        map.put(ApiUtils.ACCESS_TOKEN, PreferenceUtils.getAccessToken(context));
+        map.put(USER_ID, PreferenceUtils.getUserid(context));
         map.put(ApiUtils.METHOD, METHOD_NAME);
         return map;
     }

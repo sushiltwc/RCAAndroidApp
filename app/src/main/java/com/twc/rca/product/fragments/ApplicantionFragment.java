@@ -65,9 +65,7 @@ public class ApplicantionFragment extends BaseFragment {
 
         Bundle bundle = getArguments();
         applicantModel = bundle.getParcelable("applicant");
-       /* if(applicantModel.getIs_Submitted().equalsIgnoreCase("Y"))
-            applicationAdapter.setCustomerData(applicantModel);
-*/
+
         prepareListData();
         prepareFormCollection();
 
@@ -102,19 +100,19 @@ public class ApplicantionFragment extends BaseFragment {
         listDataHeader_title.add(getString(R.string.your_personal_details));
         listDataHeader_title.add(getString(R.string.your_passport_details));
         listDataHeader_title.add(getString(R.string.your_contact_details));
-        listDataHeader_title.add(getString(R.string.your_travel_details));
+        //listDataHeader_title.add(getString(R.string.your_travel_details));
 
         listDataHeader_icon = new ArrayList<>();
         listDataHeader_icon.add(R.drawable.personal_details_selector);
         listDataHeader_icon.add(R.drawable.passport_details_selector);
         listDataHeader_icon.add(R.drawable.contact_details_selector);
-        listDataHeader_icon.add(R.drawable.travel_details_selector);
+        //listDataHeader_icon.add(R.drawable.travel_details_selector);
 
         list_child = new ArrayList<>();
         list_child.add(R.layout.layout_personal_details_form);
         list_child.add(R.layout.layout_passport_details_form);
         list_child.add(R.layout.layout_contact_details_form);
-        list_child.add(R.layout.layout_travel_details_form);
+        //list_child.add(R.layout.layout_travel_details_form);
     }
 
     private void prepareFormCollection() {
@@ -123,7 +121,7 @@ public class ApplicantionFragment extends BaseFragment {
         Integer[] personalModels = {R.layout.layout_personal_details_form};
         Integer[] passportModels = {R.layout.layout_passport_details_form};
         Integer[] contactModels = {R.layout.layout_contact_details_form};
-        Integer[] travelModels = {R.layout.layout_travel_details_form};
+        //Integer[] travelModels = {R.layout.layout_travel_details_form};
 
         formCollection = new LinkedHashMap<String, ArrayList<Integer>>();
 
@@ -134,8 +132,8 @@ public class ApplicantionFragment extends BaseFragment {
                 loadChild(passportModels);
             else if (laptop.equals(getString(R.string.your_contact_details)))
                 loadChild(contactModels);
-            else if (laptop.equals(getString(R.string.your_travel_details)))
-                loadChild(travelModels);
+            /*else if (laptop.equals(getString(R.string.your_travel_details)))
+                loadChild(travelModels);*/
 
             formCollection.put(laptop, list_child);
         }

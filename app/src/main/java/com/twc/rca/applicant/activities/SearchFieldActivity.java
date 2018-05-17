@@ -116,7 +116,7 @@ public class SearchFieldActivity extends BaseActivity implements SearchView.OnQu
                         break;
 
                     case 7:
-                        Transaction.getmTransactionInstance().setPassportType(strName);
+                        Transaction.getmTransactionInstance().setCountry_birth(strName);
                         break;
 
                     case 8:

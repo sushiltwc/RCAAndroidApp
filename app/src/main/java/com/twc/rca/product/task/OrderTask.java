@@ -33,7 +33,7 @@ public class OrderTask extends ApiUtils {
 
     public static String PRODUCT_ID = "product_id", USER_ID = "user_id", ADULT_COUNT = "adult", CHILD_COUNT = "child", INFANT_COUNT = "infant", TOTAL_PRICE = "total_price", NATIONALITY = "nationality", TRAVEL_DATE = "travel_date", ARRIVAL_DATE = "arrival_date", ARRIVAL_TIME = "arrival_time",
             DEPARTURE_DATE = "departure_date", DEPARTURE_TIME = "departure_time", ARRIVING_AIRPORT = "arriving_airport", DEPARTING_AIRPORT = "departing_airport", AIRLINE = "airline", ADD_ON_SERVICE = "addon_service",
-            HOURS = "hours",ARRIVAL_AIRLINE="arrival_airline",ARRIVAL_FLIGHT_NO="arrival_flight_no",DEPARTURE_AIRLINE="departure_airline",DEPARTURE_FLIGHT_NO="departure_flight_no", AIRPORT_COMING_FROM = "airport_comping_from", AIRPORT_GOING_TO = "airport_going_to";
+            HOURS = "hours",ARRIVAL_AIRLINE="arrival_airline",ARRIVAL_FLIGHT_NO="arrival_flight_no",DEPARTURE_AIRLINE="departure_airline",DEPARTURE_FLIGHT_NO="departure_flight_no", AIRPORT_COMING_FROM = "airport_coming_from", AIRPORT_GOING_TO = "airport_going_to";
 
     String productId, nationality, travel_date, arrival_date, arrival_time, departure_date, departure_time, arriving_airport, departure_airport, arriving_airline,arriving_flight_no,departure_airline,departure_flight_no, add_on_service, airport_coming_from, airport_going_to;
 
@@ -94,7 +94,7 @@ public class OrderTask extends ApiUtils {
 
     protected Map<String, Object> getParams(Context context) {
         Map<String, Object> map = new LinkedHashMap<>();
-        map.put(ApiUtils.ACCESS_TOKEN, "Ramukaka");
+        map.put(ACCESS_TOKEN, PreferenceUtils.getAccessToken(context));
         map.put(USER_ID, PreferenceUtils.getUserid(context));
         map.put(PRODUCT_ID, productId);
         map.put(ADULT_COUNT, adult_count);

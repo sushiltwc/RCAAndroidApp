@@ -56,7 +56,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.MyVi
         String noTravellers = ApiUtils.getNoTravellers(Integer.parseInt(orderModel.getAdult_count()), Integer.parseInt(orderModel.getChild_count()), Integer.parseInt(orderModel.getInfant_count()));
         holder.tv_acoount_traveller_count.setText(noTravellers);
         if (orderModel.getProduct_id().equalsIgnoreCase("1"))
-            holder.tv_account_travel_dt.setText(ApiUtils.getFormattedDate(ApiUtils.getDate(orderModel.getArrival_date(), "yyyy-MM-DD HH:MM:SS", "DD-MM-yyyy")));
+            holder.tv_account_travel_dt.setText(ApiUtils.getFormattedDate(ApiUtils.getDate(orderModel.getArrival_date(), "yyyy-MM-DD", "DD-MM-yyyy")));
         else
             holder.tv_account_travel_dt.setText(ApiUtils.getFormattedDate(ApiUtils.getDate(orderModel.getTravel_date(), "yyyy-MM-DD HH:MM:SS", "DD-MM-yyyy")));
 

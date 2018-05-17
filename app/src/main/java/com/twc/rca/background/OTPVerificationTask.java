@@ -71,7 +71,7 @@ public class OTPVerificationTask extends ApiUtils {
         map.put(EMAILID, emailId);
         map.put(OTP_NUMBER, otpNumner);
         map.put(DEVICEID, "90");
-        map.put(ApiUtils.ACCESS_TOKEN, "Ramukaka");
+        //map.put(ApiUtils.ACCESS_TOKEN, "Ramukaka");
         map.put(ApiUtils.METHOD, METHOD_NAME);
         return map;
     }

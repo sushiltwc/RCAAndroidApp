@@ -93,6 +93,7 @@
     <string name="popup_dialog_travel_dt">Dear applicant, please note that your visa comes with a validity of 30 days. Hence your application will be processed 30 days prior to your travel date to ensure you have a valid visa at the time of your travel.</string>
     <string name="arrival_dept_date_error">Arrival date can not be greater than departure date!</string>
     <string name="cm_from_going_to_error">“Dear Applicant, Since you are applying for a transit visa, the place where you are coming from in Dubai and the place where you are going to from Dubai cannot be the same. In this case please apply for a 30 days Visa.</string>
+    <string name="visa_not_applicable">"Dear Applicant, 96 Hours Dubai Transit Visa is not applicable for you!"</string>
 
     <!--Add Traveller Page-->
     <string name="add_traveller">Add Travelers</string>

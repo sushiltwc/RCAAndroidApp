@@ -35,6 +35,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/medium_widget_spacing"
+            android:clickable="true"
+            android:editable="false"
+            android:focusable="false"
             android:hint="@string/passport_type"
             android:textSize="@dimen/normal_text_size" />
     </android.support.design.widget.TextInputLayout>
@@ -94,6 +97,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/medium_widget_spacing"
+                android:clickable="true"
+                android:editable="false"
+                android:focusable="false"
                 android:hint="@string/date_of_issue"
                 android:textSize="@dimen/normal_text_size" />
 
@@ -109,6 +115,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/medium_widget_spacing"
+                android:clickable="true"
+                android:editable="false"
+                android:focusable="false"
                 android:hint="@string/date_of_expiry"
                 android:textSize="@dimen/normal_text_size" />
         </android.support.design.widget.TextInputLayout>
