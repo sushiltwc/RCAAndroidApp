@@ -34,6 +34,7 @@ import com.twc.rca.permissions.PermissionDialogUtil;
 import com.twc.rca.permissions.RunTimePermissionWrapper;
 import com.twc.rca.product.adapter.DocumentAdapter;
 import com.twc.rca.utils.ApiUtils;
+import com.twc.rca.utils.GVPassportUtils;
 import com.twc.rca.utils.PreferenceUtils;
 
 import org.json.JSONArray;
@@ -57,8 +58,6 @@ public class DocumentFragment extends BaseFragment {
 
     ViewPager viewPager;
 
-    Context context;
-
     GridView document_grid;
 
     AppCompatButton btn_next;
@@ -79,8 +78,6 @@ public class DocumentFragment extends BaseFragment {
 
     ApplicantModel applicantModel;
 
-    String isApplicantSubmitted;
-
     String applicant_type;
 
     public static DocumentFragment getInstance() {
@@ -98,6 +95,10 @@ public class DocumentFragment extends BaseFragment {
         btn_next = view.findViewById(R.id.btn_doc_next);
 
         applicantModel = getArguments().getParcelable("applicant");
+
+        if (applicantModel.getApplicantSubmited().equalsIgnoreCase("Y"))
+            btn_next.setVisibility(View.GONE);
+
         applicant_type = applicantModel.getApplicantType().replaceAll("[0-9]", "").replace(" ", "");
         if (applicant_type.equalsIgnoreCase("Infant"))
             applicant_type = "Child";
@@ -108,16 +109,31 @@ public class DocumentFragment extends BaseFragment {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(applicantModel.getApplicantSubmited().equalsIgnoreCase("Y")) {
+                if (applicantModel.getApplicantSubmited().equalsIgnoreCase("Y")) {
                     ApplicationFormFragment.getInstance().setCustomerData(applicantModel);
-                }else{
+                } else {
                     Bundle b = new Bundle();
                     if (passportFrontModel != null && passportBackModel != null) {
                         b.putSerializable("pf", passportFrontModel);
                         b.putSerializable("pb", passportBackModel);
                         ApplicationFormFragment.getInstance().putData(b);
                     } else {
-                        ApplicationFormFragment.getInstance().putData(receive_doc_list);
+                        // ApplicationFormFragment.getInstance().putData(receive_doc_list);
+                        String base64ImageData;
+                        showProgressDialog(getString(R.string.please_wait));
+                        for (int i = 0; i < receive_doc_list.size(); i++) {
+                            if (receive_doc_list.get(i).getDoc_type().equalsIgnoreCase("PASSPORT_FRONT")) {
+                                base64ImageData = GVPassportUtils.getByteArrayFromImageURL(receive_doc_list.get(i).getDoc_url().toString());
+                                passportFrontModel = new GVPassportUtils(getContext()).processPassportFront(ApiUtils.StringToBitMap(base64ImageData));
+                            } else if (receive_doc_list.get(i).getDoc_type().equalsIgnoreCase("PASSPORT_BACK")) {
+                                base64ImageData = GVPassportUtils.getByteArrayFromImageURL(receive_doc_list.get(i).getDoc_url().toString());
+                                passportBackModel = new GVPassportUtils(getContext()).processPassportBack(ApiUtils.StringToBitMap(base64ImageData));
+                            }
+                        }
+                        b.putSerializable("pf", passportFrontModel);
+                        b.putSerializable("pb", passportBackModel);
+                        ApplicationFormFragment.getInstance().putData(b);
+                        dismissProgressDialog();
                     }
                 }
                 viewPager.setCurrentItem(1);

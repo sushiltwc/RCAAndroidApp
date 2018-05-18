@@ -156,6 +156,7 @@
     <string name="father_name">Father\'s Name*</string>
     <string name="mother_name">Mother\'s Name</string>
     <string name="husband_name">Husband\'s Name</string>
+    <string name="husband_name_compulsory">Husband\'s Name*</string>
 
     <!--Personal Detail Validation Message-->
     <string name="invalid_surname">Please enter valid Surname</string>

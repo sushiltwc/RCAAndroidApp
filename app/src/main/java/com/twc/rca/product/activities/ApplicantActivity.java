@@ -6,16 +6,14 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 
 import com.twc.rca.R;
 import com.twc.rca.activities.BaseActivity;
 import com.twc.rca.applicant.model.ApplicantModel;
-import com.twc.rca.product.fragments.ApplicantionFragment;
 import com.twc.rca.product.fragments.ApplicationFormFragment;
 import com.twc.rca.product.fragments.DocumentFragment;
-import com.twc.rca.utils.ILog;
 
 /**
  * Created by Sushil on 06-03-2018.
@@ -23,11 +21,9 @@ import com.twc.rca.utils.ILog;
 
 public class ApplicantActivity extends BaseActivity {
 
-    ViewPager mViewPager;
+    CustomViewPager mViewPager;
 
     ApplicantModel applicantModel;
-
-    String isApplicantSubmitted;
 
     public static final int VISA_DOCUMENT = 0, APPLICANT = 1;
 
@@ -40,11 +36,22 @@ public class ApplicantActivity extends BaseActivity {
     }
 
     void initView() {
-        mViewPager = (ViewPager) findViewById(R.id.applicant_pager);
+        mViewPager = (CustomViewPager) findViewById(R.id.applicant_pager);
         ApplicantPagerAdapter manager = new ApplicantPagerAdapter(this.getSupportFragmentManager());
         mViewPager.setAdapter(manager);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.applicant_tabs);
         tabLayout.setupWithViewPager(mViewPager);
+        if (applicantModel.getApplicantSubmited().equalsIgnoreCase("Y")) {
+            mViewPager.setPagingEnabled(true);
+            ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
+            ViewGroup vgTab = (ViewGroup) vg.getChildAt(1);
+            vgTab.setEnabled(true);
+        } else {
+            mViewPager.setPagingEnabled(false);
+            ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
+            ViewGroup vgTab = (ViewGroup) vg.getChildAt(1);
+            vgTab.setEnabled(false);
+        }
     }
 
     class ApplicantPagerAdapter extends FragmentStatePagerAdapter {

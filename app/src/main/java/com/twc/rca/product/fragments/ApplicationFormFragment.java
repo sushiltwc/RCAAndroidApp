@@ -101,9 +101,6 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
 
         btn_submit = (AppCompatButton) view.findViewById(R.id.btn_submit_application_form);
 
-        if (applicantModel.getApplicantSubmited().equalsIgnoreCase("Y"))
-            btn_submit.setVisibility(View.GONE);
-
         btn_submit.setOnClickListener(this);
 
         btn_submit.setEnabled(true);
@@ -113,6 +110,13 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
         initPassportDetails(view);
 
         initContactDetails(view);
+
+        if (applicantModel.getApplicantSubmited().equalsIgnoreCase("Y")) {
+            setPersonalData();
+            setPassportData();
+            setContactData();
+            btn_submit.setVisibility(View.GONE);
+        }
 
         return view;
     }
@@ -503,13 +507,20 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
                 && !et_gender.getText().toString().isEmpty() && !et_dob.getText().toString().isEmpty() && !et_pob.getText().toString().isEmpty()
                 && !et_cob.getText().toString().isEmpty() && !et_marital_status.getText().toString().isEmpty() && !et_religion.getText().toString().isEmpty()
                 && !et_language.getText().toString().isEmpty() && !et_profession.getText().toString().isEmpty() && !et_father_name.getText().toString().isEmpty()
-                && !et_mother_name.getText().toString().isEmpty() && !et_husband_name.getText().toString().isEmpty()
+                && !et_mother_name.getText().toString().isEmpty()
                 && !et_pp_no.getText().toString().isEmpty() && !et_pp_type.getText().toString().isEmpty() && !et_pp_issue_govt.getText().toString().isEmpty()
                 && !et_pp_place_issue.getText().toString().isEmpty() && !et_pp_doi.getText().toString().isEmpty() && !et_pp_doe.getText().toString().isEmpty()
                 && !et_address_line1.getText().toString().isEmpty() && !et_city.getText().toString().isEmpty() && !et_country.getText().toString().isEmpty()
                 && !et_telephone_no.getText().toString().isEmpty()) {
-            btn_submit.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-            btn_submit.setEnabled(true);
+            if (strGender.equalsIgnoreCase("Female")) {
+                if (!et_husband_name.getText().toString().isEmpty()) {
+                    btn_submit.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    btn_submit.setEnabled(true);
+                } else {
+                    btn_submit.setBackgroundColor(getResources().getColor(R.color.colorGray));
+                    btn_submit.setEnabled(false);
+                }
+            }
         } else {
             btn_submit.setBackgroundColor(getResources().getColor(R.color.colorGray));
             btn_submit.setEnabled(false);
@@ -523,7 +534,6 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
     }
 
     public void putData(List<ReceiveDocumentModel> receiveDocumentModelArrayList) {
-        showProgressDialog(getString(R.string.please_wait));
         String base64ImageData;
         for (int i = 0; i < receiveDocumentModelArrayList.size(); i++) {
             if (receiveDocumentModelArrayList.get(i).getDoc_type().equalsIgnoreCase("PASSPORT_FRONT")) {
@@ -534,7 +544,6 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
                 passportBackModel = new GVPassportUtils(getContext()).processPassportBack(ApiUtils.StringToBitMap(base64ImageData));
             }
         }
-        dismissProgressDialog();
         setCustomerData(passportFrontModel, passportBackModel);
     }
 
