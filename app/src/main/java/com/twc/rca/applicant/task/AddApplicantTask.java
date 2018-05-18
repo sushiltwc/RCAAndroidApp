@@ -78,7 +78,7 @@ public class AddApplicantTask extends ApiUtils {
     }
 
     public AddApplicantTask(Context context) {
-        this.context=context;
+        this.context = context;
     }
 
     public void addApplicant(final AddApplicantTask.AddApplicantResposeCallback addApplicantResposeCallback) {
@@ -135,7 +135,7 @@ public class AddApplicantTask extends ApiUtils {
         map.put(PP_ISSUE_GOVT, CountryHelper.getInstance(context).getCountryId(pp_issuing_govt));
         map.put(PP_PLACE_OF_ISSUE, pp_place_of_issue);
         String currentDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
-        map.put(PP_ISACTIVE, compareDates(currentDate, pp_expiry_date) ? "Y" : "N");
+        map.put(PP_ISACTIVE, compareDates(currentDate, pp_expiry_date) ? "N" : "Y");
         map.put(ApiUtils.METHOD, METHOD_NAME);
         return map;
     }

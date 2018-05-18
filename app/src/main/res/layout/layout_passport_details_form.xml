@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/medium_widget_spacing"
+            android:singleLine="true"
             android:hint="@string/passport_no"
             android:textSize="@dimen/normal_text_size" />
 
@@ -35,6 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/medium_widget_spacing"
+            android:singleLine="true"
             android:clickable="true"
             android:editable="false"
             android:focusable="false"
@@ -60,6 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/medium_widget_spacing"
+                android:singleLine="true"
                 android:hint="@string/passport_issuing_govt"
                 android:textSize="@dimen/normal_text_size" />
 
@@ -75,6 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/medium_widget_spacing"
+                android:singleLine="true"
                 android:hint="@string/place_of_issue"
                 android:textSize="@dimen/normal_text_size" />
         </android.support.design.widget.TextInputLayout>
@@ -97,6 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/medium_widget_spacing"
+                android:singleLine="true"
                 android:clickable="true"
                 android:editable="false"
                 android:focusable="false"
@@ -115,6 +120,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/medium_widget_spacing"
+                android:singleLine="true"
                 android:clickable="true"
                 android:editable="false"
                 android:focusable="false"

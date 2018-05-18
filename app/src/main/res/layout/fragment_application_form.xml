@@ -5,7 +5,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/extra_larger_widget_spacing">
 
         <LinearLayout
             android:layout_width="match_parent"

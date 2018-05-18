@@ -183,6 +183,8 @@
 
     <!--Contact Validation Message-->
     <string name="invalid_address_line1">Please enter valid Address Line 1</string>
+    <string name="invalid_address_line2">Please enter valid Address Line 2 </string>
+    <string name="invalid_address_line3">Please enter valid Address Line 3</string>
     <string name="invalid_city">Please select valid City</string>
     <string name="invalid_country">Please select valid Country</string>
     <string name="invalid_mob_no">Please enter valid Mobile No.</string>

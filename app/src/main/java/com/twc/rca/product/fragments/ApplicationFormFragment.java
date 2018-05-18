@@ -101,7 +101,8 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
 
         btn_submit = (AppCompatButton) view.findViewById(R.id.btn_submit_application_form);
 
-        // new AddApplicantTask(getContext(),"91","s","s","17/04/1989","M","Single","INDIA","S","INDIA","HINDHU","9167306519","ENGLISH","MANAGER","S","S","S","Mumbai","S","S","S","INDIA","123456","Normal","10/10/2010","10/10/2020","INDIA","S").addApplicant(addApplicantResposeCallback);
+        if (applicantModel.getApplicantSubmited().equalsIgnoreCase("Y"))
+            btn_submit.setVisibility(View.GONE);
 
         btn_submit.setOnClickListener(this);
 
@@ -144,8 +145,6 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
         et_cob.setInputType(InputType.TYPE_NULL);
         et_marital_status.setInputType(InputType.TYPE_NULL);
 
-        setPersonalData();
-
         countryModelArrayList = new ArrayList<>();
         languageModelArrayList = new ArrayList<>();
         maritalModelArrayList = new ArrayList<>();
@@ -161,7 +160,8 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
         et_surname.addTextChangedListener(new FormValidator(et_surname) {
             @Override
             public void validate(TextView textView, String text) {
-                if (!ApiUtils.isValidateSurName(et_surname.getText().toString()))
+                strSurname = et_surname.getText().toString();
+                if (!ApiUtils.isValidateSurName(strSurname))
                     et_surname.setError(getContext().getResources().getString(R.string.invalid_surname));
                 checkRequiredFields();
             }
@@ -170,7 +170,8 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
         et_given_name.addTextChangedListener(new FormValidator(et_given_name) {
             @Override
             public void validate(TextView textView, String text) {
-                if (!ApiUtils.isValidateGivenName(et_given_name.getText().toString()))
+                strGivenName = et_given_name.getText().toString();
+                if (!ApiUtils.isValidateGivenName(strGivenName))
                     et_given_name.setError(getContext().getResources().getString(R.string.invalid_name));
                 checkRequiredFields();
             }
@@ -179,7 +180,8 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
         et_pob.addTextChangedListener(new FormValidator(et_pob) {
             @Override
             public void validate(TextView textView, String text) {
-                if (ApiUtils.isValidStringValue(et_pob.getText().toString()))
+                strPob = et_pob.getText().toString();
+                if (ApiUtils.isValidStringValue(strPob))
                     et_pob.setError(getContext().getResources().getString(R.string.invalid_pob));
                 checkRequiredFields();
             }
@@ -188,7 +190,8 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
         et_father_name.addTextChangedListener(new FormValidator(et_father_name) {
             @Override
             public void validate(TextView textView, String text) {
-                if (!ApiUtils.isValidateGivenName(et_father_name.getText().toString()))
+                strFName = et_father_name.getText().toString();
+                if (!ApiUtils.isValidateGivenName(strFName))
                     et_father_name.setError(getContext().getResources().getString(R.string.invalid_father_name));
                 checkRequiredFields();
             }
@@ -197,7 +200,8 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
         et_mother_name.addTextChangedListener(new FormValidator(et_mother_name) {
             @Override
             public void validate(TextView textView, String text) {
-                if (!ApiUtils.isValidateGivenName(et_mother_name.getText().toString()))
+                strMName = et_mother_name.getText().toString();
+                if (!ApiUtils.isValidateGivenName(strMName))
                     et_mother_name.setError(getContext().getResources().getString(R.string.invalid_mother_name));
                 checkRequiredFields();
             }
@@ -206,7 +210,8 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
         et_husband_name.addTextChangedListener(new FormValidator(et_husband_name) {
             @Override
             public void validate(TextView textView, String text) {
-                if (!ApiUtils.isValidateGivenName(et_husband_name.getText().toString()))
+                strHName = et_husband_name.getText().toString();
+                if (!ApiUtils.isValidateGivenName(strHName))
                     et_husband_name.setError(getContext().getResources().getString(R.string.invalid_husband_name));
                 checkRequiredFields();
             }
@@ -228,31 +233,12 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
 
         passportTypeModelArrayList = PassportTypeHelper.getInstance(getContext()).getPassportTypeList();
 
-        setPassportData();
-
         et_pp_no.addTextChangedListener(new FormValidator(et_pp_no) {
             @Override
             public void validate(TextView textView, String text) {
-                if (ApiUtils.isValidStringValue(et_pp_no.getText().toString()))
+                strPPNo = et_pp_no.getText().toString();
+                if (ApiUtils.isValidStringValue(strPPNo))
                     et_pp_no.setError(getContext().getResources().getString(R.string.invalid_pp_no));
-                checkRequiredFields();
-            }
-        });
-
-        et_pp_type.addTextChangedListener(new FormValidator(et_pp_type) {
-            @Override
-            public void validate(TextView textView, String text) {
-                if (ApiUtils.isValidStringValue(et_pp_type.getText().toString()))
-                    et_pp_type.setError(getContext().getResources().getString(R.string.invalid_pp_type));
-                checkRequiredFields();
-            }
-        });
-
-        et_pp_issue_govt.addTextChangedListener(new FormValidator(et_pp_issue_govt) {
-            @Override
-            public void validate(TextView textView, String text) {
-                if (ApiUtils.isValidStringValue(et_pp_issue_govt.getText().toString()))
-                    et_pp_issue_govt.setError(getContext().getResources().getString(R.string.invalid_pp_issue_govt));
                 checkRequiredFields();
             }
         });
@@ -260,26 +246,9 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
         et_pp_place_issue.addTextChangedListener(new FormValidator(et_pp_place_issue) {
             @Override
             public void validate(TextView textView, String text) {
+                strPIssue = et_pp_place_issue.getText().toString();
                 if (ApiUtils.isValidStringValue(et_pp_place_issue.getText().toString()))
                     et_pp_place_issue.setError(getContext().getResources().getString(R.string.invalid_pp_poi));
-                checkRequiredFields();
-            }
-        });
-
-        et_pp_doi.addTextChangedListener(new FormValidator(et_pp_doi) {
-            @Override
-            public void validate(TextView textView, String text) {
-                if (ApiUtils.isValidStringValue(et_pp_doi.getText().toString()))
-                    et_pp_place_issue.setError(getContext().getResources().getString(R.string.invalid_pp_poi));
-                checkRequiredFields();
-            }
-        });
-
-        et_pp_doe.addTextChangedListener(new FormValidator(et_pp_doe) {
-            @Override
-            public void validate(TextView textView, String text) {
-                if (ApiUtils.isValidStringValue(et_pp_doe.getText().toString()))
-                    et_pp_doe.setError(getContext().getResources().getString(R.string.date_of_expiry));
                 checkRequiredFields();
             }
         });
@@ -298,31 +267,40 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
         countryModelArrayList = new ArrayList<>();
         countryModelArrayList = CountryHelper.getInstance(getContext()).getCountryList();
 
-        setContactData();
-
         et_address_line1.addTextChangedListener(new FormValidator(et_address_line1) {
             @Override
             public void validate(TextView textView, String text) {
-                if (ApiUtils.isValidStringValue(et_address_line1.getText().toString()))
+                strAddress1 = et_address_line1.getText().toString();
+                if (ApiUtils.isValidStringValue(strAddress1))
                     et_address_line1.setError(getContext().getResources().getString(R.string.invalid_address_line1));
                 checkRequiredFields();
+            }
+        });
+
+        et_address_line2.addTextChangedListener(new FormValidator(et_address_line2) {
+            @Override
+            public void validate(TextView textView, String text) {
+                strAddress2 = et_address_line2.getText().toString();
+                if (ApiUtils.isValidStringValue(strAddress2))
+                    et_address_line2.setError(getContext().getResources().getString(R.string.invalid_address_line2));
+            }
+        });
+
+        et_address_line3.addTextChangedListener(new FormValidator(et_address_line3) {
+            @Override
+            public void validate(TextView textView, String text) {
+                strAddress3 = et_address_line3.getText().toString();
+                if (ApiUtils.isValidStringValue(strAddress3))
+                    et_address_line3.setError(getContext().getResources().getString(R.string.invalid_address_line3));
             }
         });
 
         et_city.addTextChangedListener(new FormValidator(et_city) {
             @Override
             public void validate(TextView textView, String text) {
+                strCity = et_city.getText().toString();
                 if (ApiUtils.isValidStringValue(et_city.getText().toString()))
                     et_city.setError(getContext().getResources().getString(R.string.invalid_city));
-                checkRequiredFields();
-            }
-        });
-
-        et_country.addTextChangedListener(new FormValidator(et_country) {
-            @Override
-            public void validate(TextView textView, String text) {
-                if (ApiUtils.isValidStringValue(et_country.getText().toString()))
-                    et_country.setError(getContext().getResources().getString(R.string.invalid_country));
                 checkRequiredFields();
             }
         });
@@ -330,7 +308,8 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
         et_telephone_no.addTextChangedListener(new FormValidator(et_telephone_no) {
             @Override
             public void validate(TextView textView, String text) {
-                if (ApiUtils.isValidMobileNumber(et_telephone_no.getText().toString()))
+                strTelNo = et_telephone_no.getText().toString();
+                if (!ApiUtils.isValidMobileNumber(et_telephone_no.getText().toString()))
                     et_telephone_no.setError(getContext().getResources().getString(R.string.invalid_mob_no));
                 checkRequiredFields();
             }
@@ -445,8 +424,7 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
 
             case R.id.btn_submit_application_form:
                 showProgressDialog(getString(R.string.please_wait));
-                AddApplicantTask addApplicantTask = //new AddApplicantTask(getContext(),"91","s","s","17/04/1989","M","Single","INDIA","S","INDIA","HINDHU","9167306519","ENGLISH","MANAGER","S","S","S","Mumbai","S","S","S","INDIA","123456","Normal","10/10/2010","10/10/2020","INDIA","S");
-                        new AddApplicantTask(getContext(), applicantModel.getApplicantId(), strGivenName, strSurname, strDob, strGender, strMaritalStatus, strNationality, strPob, strCob, strReligion, strTelNo, strLanguage, strProfession, strMName, strFName, strHName, strCity, strAddress1, strAddress2, strAddress3, strCountry, strPPNo, strPPType, strPPDoi, strPPDoe, strPPIssueGovt, strPIssue);
+                AddApplicantTask addApplicantTask = new AddApplicantTask(getContext(), applicantModel.getApplicantId(), strGivenName, strSurname, strDob, strGender, strMaritalStatus, strNationality, strPob, strCob, strReligion, strTelNo, strLanguage, strProfession, strMName, strFName, strHName, strCity, strAddress1, strAddress2, strAddress3, strCountry, strPPNo, strPPType, strPPDoi, strPPDoe, strPPIssueGovt, strPIssue);
                 addApplicantTask.addApplicant(addApplicantResposeCallback);
                 break;
         }
@@ -521,7 +499,7 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
     }
 
     void checkRequiredFields() {
-       /* if (!et_surname.getText().toString().isEmpty() && !et_given_name.getText().toString().isEmpty() && !et_nationality.getText().toString().isEmpty()
+        if (!et_surname.getText().toString().isEmpty() && !et_given_name.getText().toString().isEmpty() && !et_nationality.getText().toString().isEmpty()
                 && !et_gender.getText().toString().isEmpty() && !et_dob.getText().toString().isEmpty() && !et_pob.getText().toString().isEmpty()
                 && !et_cob.getText().toString().isEmpty() && !et_marital_status.getText().toString().isEmpty() && !et_religion.getText().toString().isEmpty()
                 && !et_language.getText().toString().isEmpty() && !et_profession.getText().toString().isEmpty() && !et_father_name.getText().toString().isEmpty()
@@ -529,16 +507,7 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
                 && !et_pp_no.getText().toString().isEmpty() && !et_pp_type.getText().toString().isEmpty() && !et_pp_issue_govt.getText().toString().isEmpty()
                 && !et_pp_place_issue.getText().toString().isEmpty() && !et_pp_doi.getText().toString().isEmpty() && !et_pp_doe.getText().toString().isEmpty()
                 && !et_address_line1.getText().toString().isEmpty() && !et_city.getText().toString().isEmpty() && !et_country.getText().toString().isEmpty()
-                && !et_telephone_no.getText().toString().isEmpty()) {*/
-        if (!et_nationality.getText().toString().isEmpty()
-                && !et_gender.getText().toString().isEmpty() && !et_dob.getText().toString().isEmpty()
-                && !et_cob.getText().toString().isEmpty() && !et_marital_status.getText().toString().isEmpty() && !et_religion.getText().toString().isEmpty()
-                && !et_language.getText().toString().isEmpty() && !et_profession.getText().toString().isEmpty() && !et_father_name.getText().toString().isEmpty()
-                && !et_mother_name.getText().toString().isEmpty() && !et_husband_name.getText().toString().isEmpty()
-                && !et_pp_no.getText().toString().isEmpty() && !et_pp_type.getText().toString().isEmpty() && !et_pp_issue_govt.getText().toString().isEmpty()
-                && !et_pp_doi.getText().toString().isEmpty() && !et_pp_doe.getText().toString().isEmpty()
-                && !et_address_line1.getText().toString().isEmpty() && !et_country.getText().toString().isEmpty()) {
-
+                && !et_telephone_no.getText().toString().isEmpty()) {
             btn_submit.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
             btn_submit.setEnabled(true);
         } else {
@@ -636,12 +605,16 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
         } else if (applicantModel != null) {
 
             strPPNo = applicantModel.getApplicantPPNo();
+            strPPType = applicantModel.getApplicantPPType();
             strPPIssueGovt = applicantModel.getApplicantPPIssueGovt();
+            strPIssue = applicantModel.getApplicantPPIssuePlace();
             strPPDoi = applicantModel.getApplicantPPDOI();
             strPPDoe = applicantModel.getApplicantPPDOE();
         }
         et_pp_no.setText(strPPNo);
+        et_pp_type.setText(strPPType);
         et_pp_issue_govt.setText(strPPIssueGovt);
+        et_pp_place_issue.setText(strPIssue);
         et_pp_doi.setText(strPPDoi);
         et_pp_doe.setText(strPPDoe);
     }
@@ -653,9 +626,17 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
         } else if (applicantModel != null) {
             strAddress1 = applicantModel.getApplicantAddressLine1();
             strAddress2 = applicantModel.getApplicantAddressLine2();
+            strAddress3 = applicantModel.getApplicantAddressLine3();
+            strCity = applicantModel.getApplicantCity();
+            strCountry = applicantModel.getApplicantCountry();
+            strTelNo = applicantModel.getApplicantTelephone();
         }
         et_address_line1.setText(strAddress1);
         et_address_line2.setText(strAddress2);
+        et_address_line3.setText(strAddress3);
+        et_city.setText(strCity);
+        et_country.setText(strCountry);
+        et_telephone_no.setText(strTelNo);
     }
 
     AddApplicantTask.AddApplicantResposeCallback addApplicantResposeCallback = new AddApplicantTask.AddApplicantResposeCallback() {
