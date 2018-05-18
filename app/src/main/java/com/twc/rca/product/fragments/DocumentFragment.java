@@ -118,7 +118,6 @@ public class DocumentFragment extends BaseFragment {
                         b.putSerializable("pb", passportBackModel);
                         ApplicationFormFragment.getInstance().putData(b);
                     } else {
-                        // ApplicationFormFragment.getInstance().putData(receive_doc_list);
                         String base64ImageData;
                         showProgressDialog(getString(R.string.please_wait));
                         for (int i = 0; i < receive_doc_list.size(); i++) {

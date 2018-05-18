@@ -179,8 +179,6 @@ public class DocumentAdapter extends BaseAdapter {
 
             img_doc.setImageBitmap(imageBitmap);
 
-            //DocumentFragment.getInstance().uploadDocPrefs();
-
             Toast.makeText(context, docList.get(position).getDoc_type_name().toString().replace("_", " ") + " " + "Uploaded Successfully!", Toast.LENGTH_SHORT).show();
         }
 

@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,7 @@ public class HomeFragment extends Fragment {
 
     DubaiVisaFragment mDubaiVisaFragment;
 
-    MNAFragment mMnAFragment;
+    AllApplicantFragment mMnAFragment;
 
     public static final int DUBAI_VISA = 0, MEET_ASSIST = 1;
 
@@ -58,7 +57,7 @@ public class HomeFragment extends Fragment {
                     return mDubaiVisaFragment = DubaiVisaFragment.getInstance();
 
                 case MEET_ASSIST:
-                    return mMnAFragment = MNAFragment.getInstance();
+                    return mMnAFragment = AllApplicantFragment.getInstance();
 
                 default:
                     return null;

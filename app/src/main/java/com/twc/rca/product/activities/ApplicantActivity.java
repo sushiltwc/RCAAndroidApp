@@ -14,6 +14,7 @@ import com.twc.rca.activities.BaseActivity;
 import com.twc.rca.applicant.model.ApplicantModel;
 import com.twc.rca.product.fragments.ApplicationFormFragment;
 import com.twc.rca.product.fragments.DocumentFragment;
+import com.twc.rca.utils.ApiUtils;
 
 /**
  * Created by Sushil on 06-03-2018.
@@ -32,6 +33,10 @@ public class ApplicantActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_applicant);
         applicantModel = getIntent().getParcelableExtra("applicant");
+        if (applicantModel.getApplicantSurname().equalsIgnoreCase("null"))
+            getSupportActionBar().setTitle("Application for " + ApiUtils.getFormattedString(applicantModel.getApplicantGivenName()));
+        else
+            getSupportActionBar().setTitle("Application for " + ApiUtils.getFormattedString(applicantModel.getApplicantGivenName()) + " " + ApiUtils.getFormattedString(applicantModel.getApplicantSurname()));
         initView();
     }
 

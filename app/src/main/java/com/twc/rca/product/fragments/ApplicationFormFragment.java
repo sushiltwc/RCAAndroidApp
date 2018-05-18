@@ -1,10 +1,12 @@
 package com.twc.rca.product.fragments;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.IntentCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
@@ -35,10 +37,12 @@ import com.twc.rca.model.MaritalModel;
 import com.twc.rca.model.PassportTypeModel;
 import com.twc.rca.model.ProfessionModel;
 import com.twc.rca.model.ReligionModel;
+import com.twc.rca.product.activities.OrderApplicantListActivity;
 import com.twc.rca.product.model.Transaction;
 import com.twc.rca.utils.ApiUtils;
 import com.twc.rca.utils.FormValidator;
 import com.twc.rca.utils.GVPassportUtils;
+import com.twc.rca.utils.PreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -115,6 +119,7 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
             setPersonalData();
             setPassportData();
             setContactData();
+            setDisableFields();
             btn_submit.setVisibility(View.GONE);
         }
 
@@ -512,8 +517,8 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
                 && !et_pp_place_issue.getText().toString().isEmpty() && !et_pp_doi.getText().toString().isEmpty() && !et_pp_doe.getText().toString().isEmpty()
                 && !et_address_line1.getText().toString().isEmpty() && !et_city.getText().toString().isEmpty() && !et_country.getText().toString().isEmpty()
                 && !et_telephone_no.getText().toString().isEmpty()) {
-                    btn_submit.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                    btn_submit.setEnabled(true);
+            btn_submit.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            btn_submit.setEnabled(true);
         } else {
             btn_submit.setBackgroundColor(getResources().getColor(R.color.colorGray));
             btn_submit.setEnabled(false);
@@ -641,11 +646,62 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
         et_telephone_no.setText(strTelNo);
     }
 
+    void setDisableFields() {
+        et_surname.setEnabled(false);
+        et_given_name.setEnabled(false);
+        et_nationality.setEnabled(false);
+        et_nationality.setClickable(false);
+        et_gender.setEnabled(false);
+        et_gender.setClickable(false);
+        et_dob.setEnabled(false);
+        et_dob.setClickable(false);
+        et_pob.setEnabled(false);
+        et_cob.setEnabled(false);
+        et_cob.setClickable(false);
+        et_marital_status.setEnabled(false);
+        et_marital_status.setClickable(false);
+        et_religion.setEnabled(false);
+        et_religion.setClickable(false);
+        et_language.setEnabled(false);
+        et_language.setClickable(false);
+        et_profession.setEnabled(false);
+        et_profession.setClickable(false);
+        et_father_name.setEnabled(false);
+        et_father_name.setClickable(false);
+        et_mother_name.setEnabled(false);
+        et_mother_name.setClickable(false);
+        et_husband_name.setEnabled(false);
+        et_husband_name.setClickable(false);
+
+        et_pp_no.setEnabled(false);
+        et_pp_type.setEnabled(false);
+        et_pp_issue_govt.setEnabled(false);
+        et_pp_issue_govt.setClickable(false);
+        et_pp_place_issue.setEnabled(false);
+        et_pp_doi.setEnabled(false);
+        et_pp_doi.setClickable(false);
+        et_pp_doe.setEnabled(false);
+        et_pp_doe.setClickable(false);
+
+        et_address_line1.setEnabled(false);
+        et_address_line2.setEnabled(false);
+        et_address_line3.setEnabled(false);
+        et_city.setEnabled(false);
+        et_country.setEnabled(false);
+        et_country.setClickable(false);
+        et_telephone_no.setEnabled(false);
+    }
+
     AddApplicantTask.AddApplicantResposeCallback addApplicantResposeCallback = new AddApplicantTask.AddApplicantResposeCallback() {
         @Override
         public void onSuccessAddApplicantResponse(String response) {
             dismissProgressDialog();
-            getActivity().finish();
+            Intent i = new Intent(getActivity(), OrderApplicantListActivity.class);
+            ComponentName cn = i.getComponent();
+            Intent mainIntent = IntentCompat.makeRestartActivityTask(cn);
+            mainIntent.putExtra("orderId", applicantModel.getApplicantOrderId());
+            startActivity(mainIntent);
+            PreferenceUtils.setIsApplicantionSubmitted(getContext(), true);
         }
 
         @Override

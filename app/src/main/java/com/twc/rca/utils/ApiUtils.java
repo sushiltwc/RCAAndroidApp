@@ -35,7 +35,7 @@ public class ApiUtils {
 
     public static final String ACCESS_TOKEN = "access_token";
 
-    public static final String USER_ID = "user_id", APPLICANT_ID = "applicant_id", EMAIL_ID="email_id",PASSWORD = "password",PHONE_NO = "phone_no", USER_NAME = "user_name", APPLICANT_TYPE = "applicant_type";
+    public static final String USER_ID = "user_id", APPLICANT_ID = "applicant_id", EMAIL_ID = "email_id", PASSWORD = "password", PHONE_NO = "phone_no", USER_NAME = "user_name", APPLICANT_TYPE = "applicant_type";
 
     public static final String METHOD = "method";
 
@@ -87,6 +87,16 @@ public class ApiUtils {
     // validate last name
     public static boolean isValidateSurName(String lastName) {
         return lastName.matches("[a-zA-z]+([ '-][a-zA-Z]+)*");
+    }
+
+    public static String getFormattedString(String str) {
+        String[] strArray = str.split(" ");
+        StringBuilder builder = new StringBuilder();
+        for (String s : strArray) {
+            String cap = s.substring(0, 1).toUpperCase() + s.substring(1, s.length()).toLowerCase();
+            builder.append(cap + " ");
+        }
+        return builder.toString();
     }
 
     public static String formatDate(Date date) {

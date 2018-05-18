@@ -15,6 +15,7 @@ public class PreferenceUtils {
     private static final String APP_FIRST_LAUNCH_DATE = "cardFirstLaunchDate";
     private static final String IS_REGISTERED = "isRegistered";
     private static final String IS_PAYMENT_DONE = "isPaymentDone";
+    private static final String IS_APPLICANTION_SUBMITTED = "isApplicantionSubmitted";
     public static final String IS_PF_UPLOADED = "isPFUploaded";
     public static final String IS_PB_UPLOADED = "isPBUploaded";
 
@@ -28,15 +29,15 @@ public class PreferenceUtils {
     public static final String DB_VERSION = "db_version";
 
     public static void saveProfileInfo(Context context, String userId, String emailId, String
-            mobile,String access_token) {
+            mobile, String access_token) {
         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
         editor.putString(USERID, userId).putString(EMAILID, emailId)
-                .putString(MOBILE_NO, mobile).putString(ACCESS_TOKEN,access_token);
+                .putString(MOBILE_NO, mobile).putString(ACCESS_TOKEN, access_token);
         // Saving boolean as a string due to bad coding practice in legacy code :(
         editor.putString(IS_REGISTERED, "true").apply();
     }
 
-    public static String getAccessToken(Context context){
+    public static String getAccessToken(Context context) {
         if (context == null) {
             return NA;
         }
@@ -71,6 +72,19 @@ public class PreferenceUtils {
         }
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getBoolean(PreferenceUtils.IS_PAYMENT_DONE, false);
+    }
+
+    public static void setIsApplicantionSubmitted(Context context, boolean isApplicationSubmiied) {
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        editor.putBoolean(IS_APPLICANTION_SUBMITTED, isApplicationSubmiied).apply();
+    }
+
+    public static boolean isApplicantionSubmitted(Context context) {
+        if (context == null) {
+            return false;
+        }
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getBoolean(PreferenceUtils.IS_APPLICANTION_SUBMITTED, false);
     }
 
     public static void setIsPFUploaded(Context context, boolean isPFUploaded) {
