@@ -31,6 +31,8 @@ public class OrderApplicantTask extends ApiUtils {
 
     public static String METHOD_NAME = "get_applicant_by_user_id_order_id";
 
+    public static String ORDER_ID="order_id";
+
     public OrderApplicantTask(Context context, String orderId) {
         this.context = context;
         this.orderId = orderId;
@@ -61,8 +63,8 @@ public class OrderApplicantTask extends ApiUtils {
         Map<String, Object> map = new LinkedHashMap<>();
         map.put(ACCESS_TOKEN, PreferenceUtils.getAccessToken(context));
         map.put(USER_ID, PreferenceUtils.getUserid(context));
-        map.put("order_id", orderId);
-        map.put(ApiUtils.METHOD, METHOD_NAME);
+        map.put(ORDER_ID, orderId);
+        map.put(METHOD, METHOD_NAME);
         return map;
     }
 

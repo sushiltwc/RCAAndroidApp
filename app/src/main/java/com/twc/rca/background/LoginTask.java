@@ -29,8 +29,6 @@ public class LoginTask extends ApiUtils {
 
     public static String METHOD_NAME = "login";
 
-    public static String EMAILID = "emailId", PASSWORD = "password";
-
     String emailId, password;
 
     public LoginTask(Context context,String emailId, String password) {
@@ -66,10 +64,9 @@ public class LoginTask extends ApiUtils {
 
     protected Map<String, Object> getParams(Context context) {
         Map<String, Object> map = new LinkedHashMap<>();
-        map.put(EMAILID, emailId);
+        map.put(EMAIL_ID, emailId);
         map.put(PASSWORD, password);
-        map.put(ApiUtils.ACCESS_TOKEN, "Ramukaka");
-        map.put(ApiUtils.METHOD, METHOD_NAME);
+        map.put(METHOD, METHOD_NAME);
         return map;
     }
 

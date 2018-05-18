@@ -29,7 +29,7 @@ public class OTPVerificationTask extends ApiUtils {
 
     public static String METHOD_NAME = "otp_verification";
 
-    public static String EMAILID = "emailId", DEVICEID = "deviceId", OTP_NUMBER = "otpNumber";
+    public static String DEVICE_ID = "device_id", OTP_NUMBER = "otp_number";
 
     String emailId;
 
@@ -68,11 +68,10 @@ public class OTPVerificationTask extends ApiUtils {
     protected Map<String, Object> getParams(Context context) {
         String ts = Context.TELEPHONY_SERVICE;
         Map<String, Object> map = new LinkedHashMap<>();
-        map.put(EMAILID, emailId);
+        map.put(EMAIL_ID, emailId);
         map.put(OTP_NUMBER, otpNumner);
-        map.put(DEVICEID, "90");
-        //map.put(ApiUtils.ACCESS_TOKEN, "Ramukaka");
-        map.put(ApiUtils.METHOD, METHOD_NAME);
+        map.put(DEVICE_ID, "90");
+        map.put(METHOD, METHOD_NAME);
         return map;
     }
 

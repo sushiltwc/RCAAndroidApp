@@ -31,7 +31,7 @@ public class OrderTask extends ApiUtils {
 
     public static String METHOD_NAME = "order_creation";
 
-    public static String PRODUCT_ID = "product_id", USER_ID = "user_id", ADULT_COUNT = "adult", CHILD_COUNT = "child", INFANT_COUNT = "infant", TOTAL_PRICE = "total_price", NATIONALITY = "nationality", TRAVEL_DATE = "travel_date", ARRIVAL_DATE = "arrival_date", ARRIVAL_TIME = "arrival_time",
+    public static String PRODUCT_ID = "product_id", ADULT_COUNT = "adult", CHILD_COUNT = "child", INFANT_COUNT = "infant", TOTAL_PRICE = "total_price", NATIONALITY_ID = "nationality_id", TRAVEL_DATE = "travel_date", ARRIVAL_DATE = "arrival_date", ARRIVAL_TIME = "arrival_time",
             DEPARTURE_DATE = "departure_date", DEPARTURE_TIME = "departure_time", ARRIVING_AIRPORT = "arriving_airport", DEPARTING_AIRPORT = "departing_airport", AIRLINE = "airline", ADD_ON_SERVICE = "addon_service",
             HOURS = "hours",ARRIVAL_AIRLINE="arrival_airline",ARRIVAL_FLIGHT_NO="arrival_flight_no",DEPARTURE_AIRLINE="departure_airline",DEPARTURE_FLIGHT_NO="departure_flight_no", AIRPORT_COMING_FROM = "airport_coming_from", AIRPORT_GOING_TO = "airport_going_to";
 
@@ -100,7 +100,7 @@ public class OrderTask extends ApiUtils {
         map.put(ADULT_COUNT, adult_count);
         map.put(CHILD_COUNT, child_count);
         map.put(INFANT_COUNT, infant_count);
-        map.put(NATIONALITY, CountryHelper.getInstance(context).getCountryId(nationality.toUpperCase()));
+        map.put(NATIONALITY_ID, CountryHelper.getInstance(context).getCountryId(nationality.toUpperCase()));
         map.put(TOTAL_PRICE, "1.0");
         map.put(TRAVEL_DATE, ApiUtils.formatDate(travel_date));
         map.put(ARRIVAL_DATE, ApiUtils.formatDate(arrival_date));
@@ -117,7 +117,7 @@ public class OrderTask extends ApiUtils {
         map.put(HOURS, hours);
         map.put(AIRPORT_COMING_FROM, airport_coming_from);
         map.put(AIRPORT_GOING_TO, airport_going_to);
-        map.put(ApiUtils.METHOD, METHOD_NAME);
+        map.put(METHOD, METHOD_NAME);
         return map;
     }
 

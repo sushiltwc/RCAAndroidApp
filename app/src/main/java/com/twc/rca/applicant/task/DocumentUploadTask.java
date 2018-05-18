@@ -29,7 +29,7 @@ public class DocumentUploadTask extends ApiUtils {
 
     Context context;
 
-    public static String METHOD_NAME = "upload_documents", DOC_TYPE = "docType", FILE_NAME = "filename", BASE64IMAGEDATA = "base64imagedata";
+    public static String METHOD_NAME = "upload_documents", DOC_TYPE = "doc_type", FILENAME = "filename", BASE64_IMAGE_DATA = "base64_image_data";
 
     String applicantId, docType, fileName, fileFormat, base64ImageData;
 
@@ -70,10 +70,10 @@ public class DocumentUploadTask extends ApiUtils {
         Map<String, Object> map = new LinkedHashMap<>();
         map.put(ACCESS_TOKEN, PreferenceUtils.getAccessToken(context));
         map.put(USER_ID, PreferenceUtils.getUserid(context));
-        map.put(ApiUtils.APPLICANT_ID, applicantId);
+        map.put(APPLICANT_ID, applicantId);
         map.put(DOC_TYPE, docType);
-        map.put(FILE_NAME, fileName);
-        map.put(BASE64IMAGEDATA, "data:image/" + fileFormat + ";base64," + base64ImageData);
+        map.put(FILENAME, fileName);
+        map.put(BASE64_IMAGE_DATA, "data:image/" + fileFormat + ";base64," + base64ImageData);
         map.put(ApiUtils.METHOD, METHOD_NAME);
         return map;
     }

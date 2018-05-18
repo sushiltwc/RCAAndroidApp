@@ -512,15 +512,8 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
                 && !et_pp_place_issue.getText().toString().isEmpty() && !et_pp_doi.getText().toString().isEmpty() && !et_pp_doe.getText().toString().isEmpty()
                 && !et_address_line1.getText().toString().isEmpty() && !et_city.getText().toString().isEmpty() && !et_country.getText().toString().isEmpty()
                 && !et_telephone_no.getText().toString().isEmpty()) {
-            if (strGender.equalsIgnoreCase("Female")) {
-                if (!et_husband_name.getText().toString().isEmpty()) {
                     btn_submit.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                     btn_submit.setEnabled(true);
-                } else {
-                    btn_submit.setBackgroundColor(getResources().getColor(R.color.colorGray));
-                    btn_submit.setEnabled(false);
-                }
-            }
         } else {
             btn_submit.setBackgroundColor(getResources().getColor(R.color.colorGray));
             btn_submit.setEnabled(false);

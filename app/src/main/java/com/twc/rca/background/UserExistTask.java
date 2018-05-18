@@ -33,8 +33,6 @@ public class UserExistTask extends ApiUtils {
 
     public static String METHOD_NAME="user_exist";
 
-    public static String EMAIL = "email";
-
     ArrayList<String> email;
 
     /**
@@ -51,8 +49,7 @@ public class UserExistTask extends ApiUtils {
         JSONObject json = new JSONObject();
         JSONArray jsonArray = new JSONArray(MailUtils.getGoogleAccountMail(context));
         try {
-            json.put(EMAIL, jsonArray);
-            json.put(ACCESS_TOKEN,"Ramukaka");
+            json.put(EMAIL_ID, jsonArray);
             json.put(METHOD,METHOD_NAME);
         } catch (JSONException e) {
             e.printStackTrace();

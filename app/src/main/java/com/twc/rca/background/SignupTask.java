@@ -29,8 +29,6 @@ public class SignupTask extends ApiUtils {
 
     public static String METHOD_NAME = "signup";
 
-    public static String EMAIL_ID="email_id",PHONE_NO = "phone_no", USER_NAME = "user_name", PASSWORD = "password";
-
     String emailId, phoneNo, userName, password;
 
     public SignupTask(String emailId, String phoneNo, String userName, String password) {
@@ -71,8 +69,7 @@ public class SignupTask extends ApiUtils {
         map.put(PHONE_NO, phoneNo);
         map.put(USER_NAME, userName);
         map.put(PASSWORD, password);
-        map.put(ApiUtils.ACCESS_TOKEN, "Ramukaka");
-        map.put(ApiUtils.METHOD, METHOD_NAME);
+        map.put(METHOD, METHOD_NAME);
         return map;
     }
 

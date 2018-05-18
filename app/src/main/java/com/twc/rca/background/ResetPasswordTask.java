@@ -6,10 +6,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.twc.rca.applicant.model.PassportBackModel;
 import com.twc.rca.utils.ApiUtils;
 import com.twc.rca.utils.ILog;
-import com.twc.rca.utils.PreferenceUtils;
 import com.twc.rca.volley.utils.NetworkErrorHelper;
 import com.twc.rca.volley.utils.VolleySingleTon;
 
@@ -28,21 +26,17 @@ public class ResetPasswordTask extends ApiUtils {
 
     Context context;
 
-    public static String EMAILID = "emailId";
-
-    public static String OTP_NUMBER="otp_number";
-
-    public static String PASSWORD="password";
+    public static String OTP_NUMBER = "otp_number";
 
     public static String METHOD_NAME = "reset_pwd";
 
-    String emailId,otpNumber,pswd;
+    String emailId, otpNumber, pswd;
 
-    public ResetPasswordTask(Context context,String emailId,String otpNumber,String pswd) {
-        this.context=context;
+    public ResetPasswordTask(Context context, String emailId, String otpNumber, String pswd) {
+        this.context = context;
         this.emailId = emailId;
-        this.otpNumber=otpNumber;
-        this.pswd=pswd;
+        this.otpNumber = otpNumber;
+        this.pswd = pswd;
     }
 
     public void userResetPswd(final ResetPswdResponseCallback resetPswdResponseCallback) {
@@ -69,10 +63,9 @@ public class ResetPasswordTask extends ApiUtils {
 
     protected Map<String, Object> getParams(Context context) {
         Map<String, Object> map = new LinkedHashMap<>();
-        map.put(EMAILID, emailId);
-        map.put(OTP_NUMBER,otpNumber);
-        map.put(PASSWORD,pswd);
-        map.put(ApiUtils.ACCESS_TOKEN, "Ramukaka");
+        map.put(EMAIL_ID, emailId);
+        map.put(OTP_NUMBER, otpNumber);
+        map.put(PASSWORD, pswd);
         map.put(ApiUtils.METHOD, METHOD_NAME);
         return map;
     }

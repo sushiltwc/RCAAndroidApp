@@ -29,8 +29,6 @@ public class ForgotPswdTask extends ApiUtils {
 
     public static String METHOD_NAME = "forgot_password";
 
-    public static String EMAILID = "emailId";
-
     String emailId;
 
     public ForgotPswdTask(Context context, String emailId) {
@@ -65,9 +63,8 @@ public class ForgotPswdTask extends ApiUtils {
 
     protected Map<String, Object> getParams(Context context) {
         Map<String, Object> map = new LinkedHashMap<>();
-        map.put(EMAILID, emailId);
-        map.put(ApiUtils.ACCESS_TOKEN, "Ramukaka");
-        map.put(ApiUtils.METHOD, METHOD_NAME);
+        map.put(EMAIL_ID, emailId);
+        map.put(METHOD, METHOD_NAME);
         return map;
     }
 

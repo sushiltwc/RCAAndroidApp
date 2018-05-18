@@ -64,7 +64,7 @@ public class RePaymentTask extends ApiUtils {
         map.put(ACCESS_TOKEN, PreferenceUtils.getAccessToken(context));
         map.put(USER_ID, PreferenceUtils.getUserid(context));
         map.put(ORDER_ID, orderId);
-        map.put(ApiUtils.METHOD, METHOD_NAME);
+        map.put(METHOD, METHOD_NAME);
         return map;
     }
 

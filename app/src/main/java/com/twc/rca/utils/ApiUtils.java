@@ -35,7 +35,7 @@ public class ApiUtils {
 
     public static final String ACCESS_TOKEN = "access_token";
 
-    public static final String USER_ID = "user_id", APPLICANT_ID = "applicantId", APPLICANT_TYPE = "applicant_type";
+    public static final String USER_ID = "user_id", APPLICANT_ID = "applicant_id", EMAIL_ID="email_id",PASSWORD = "password",PHONE_NO = "phone_no", USER_NAME = "user_name", APPLICANT_TYPE = "applicant_type";
 
     public static final String METHOD = "method";
 

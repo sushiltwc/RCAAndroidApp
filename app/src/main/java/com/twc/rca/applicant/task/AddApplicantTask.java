@@ -38,9 +38,9 @@ public class AddApplicantTask extends ApiUtils {
 
     public static String METHOD_NAME = "add_applicant";
 
-    public static String USER_ID = "user_id", USERNAME = "username", SURNAME = "surname", SALUTATION = "salutation", DOB = "dob", GENDER = "gender", MARITAL_STATUS = "marital_status_id", NATIONALITY = "nationality", PLACE_OF_BIRTH = "place_of_birth",
-            COUNTRY_OF_BIRTH = "country_of_birth", RELIGION = "religion", MOBILE_NUMBER = "mobile_number", LANGUAGE = "language", PROFESSION = "profession", MOTHER_NAME = "mother_name", FATHER_NAME = "father_name", HUSBAND_NAME = "husband_name", CITY = "city",
-            ADDRESS1 = "address1", ADDRESS2 = "address2", ADDRESS3 = "address3", COUNTRY = "country", FLIGHT_NO = "flight_no", ORIGIN_CITY = "origin_city", IS_CHILD = "is_child", PP_TYPE = "pp_type", PP_NO = "pp_no", PP_ISSUE_DATE = "pp_issue_date", PP_EXPIRY_DATE = "pp_expiry_date",
+    public static String USER_ID = "user_id", SURNAME = "surname", DOB = "dob", GENDER = "gender", MARITAL_STATUS = "marital_status_id", NATIONALITY_ID = "nationality_id", PLACE_OF_BIRTH = "place_of_birth",
+            COUNTRY_OF_BIRTH = "country_of_birth", RELIGION_ID = "religion_id", MOBILE_NUMBER = "mobile_number", LANGUAGE_ID = "language_id", PROFESSION_ID = "profession_id", MOTHER_NAME = "mother_name", FATHER_NAME = "father_name", HUSBAND_NAME = "husband_name", CITY = "city",
+            ADDRESS1 = "address1", ADDRESS2 = "address2", ADDRESS3 = "address3", COUNTRY_ID = "country_id",IS_CHILD = "is_child", PP_TYPE = "pp_type", PP_NO = "pp_no", PP_ISSUE_DATE = "pp_issue_date", PP_EXPIRY_DATE = "pp_expiry_date",
             PP_PLACE_OF_ISSUE = "pp_place_of_issue", PP_ISSUE_GOVT = "pp_issuing_govt", PP_ISACTIVE = "pp_isactive";
 
     String applicantId, userName, surName, dob, gender, marital_status, nationality, pob, cob, religion, mobNo, language, profession, mother_name, father_name, husband_name, city, address1, address2, address3, country, pp_no, pp_type, pp_issue_date, pp_expiry_date, pp_issuing_govt, pp_place_of_issue;
@@ -104,20 +104,20 @@ public class AddApplicantTask extends ApiUtils {
 
     protected Map<String, Object> getParams(Context context) {
         Map<String, Object> map = new LinkedHashMap<>();
-        map.put(ApiUtils.ACCESS_TOKEN, PreferenceUtils.getAccessToken(context));
-        map.put("applicant_id", applicantId);
+        map.put(ACCESS_TOKEN, PreferenceUtils.getAccessToken(context));
+        map.put(APPLICANT_ID, applicantId);
         map.put(USER_ID, PreferenceUtils.getUserid(context));
-        map.put(USERNAME, userName);
+        map.put(USER_NAME, userName);
         map.put(SURNAME, surName);
         map.put(DOB, dob);
         map.put(GENDER, gender);
         map.put(MARITAL_STATUS, MaritalHelper.getInstance(context).getMaritalId(marital_status));
-        map.put(NATIONALITY, CountryHelper.getInstance(context).getCountryId(nationality));
+        map.put(NATIONALITY_ID, CountryHelper.getInstance(context).getCountryId(nationality));
         map.put(PLACE_OF_BIRTH, pob);
-        map.put(RELIGION, ReligionHelper.getInstance(context).getReligionId(religion));
+        map.put(RELIGION_ID, ReligionHelper.getInstance(context).getReligionId(religion));
         map.put(MOBILE_NUMBER, mobNo);
-        map.put(LANGUAGE, LanguageHelper.getInstance(context).getLanguageId(language));
-        map.put(PROFESSION, ProfessionHelper.getInstance(context).getProfessionId(profession));
+        map.put(LANGUAGE_ID, LanguageHelper.getInstance(context).getLanguageId(language));
+        map.put(PROFESSION_ID, ProfessionHelper.getInstance(context).getProfessionId(profession));
         map.put(MOTHER_NAME, mother_name);
         map.put(FATHER_NAME, father_name);
         map.put(HUSBAND_NAME, husband_name);
@@ -125,7 +125,7 @@ public class AddApplicantTask extends ApiUtils {
         map.put(ADDRESS1, address1);
         map.put(ADDRESS2, address2);
         map.put(ADDRESS3, address3);
-        map.put(COUNTRY, CountryHelper.getInstance(context).getCountryId(country));
+        map.put(COUNTRY_ID, CountryHelper.getInstance(context).getCountryId(country));
         map.put(COUNTRY_OF_BIRTH, CountryHelper.getInstance(context).getCountryId(cob));
         map.put(IS_CHILD, getAge(dob) > 18 ? "Y" : "N");
         map.put(PP_NO, pp_no);
@@ -136,7 +136,7 @@ public class AddApplicantTask extends ApiUtils {
         map.put(PP_PLACE_OF_ISSUE, pp_place_of_issue);
         String currentDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
         map.put(PP_ISACTIVE, compareDates(currentDate, pp_expiry_date) ? "N" : "Y");
-        map.put(ApiUtils.METHOD, METHOD_NAME);
+        map.put(METHOD, METHOD_NAME);
         return map;
     }
 
