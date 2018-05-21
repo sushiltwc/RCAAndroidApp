@@ -73,10 +73,9 @@ public class PaymentFailureActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 Intent i=new Intent(PaymentFailureActivity.this, DashboardActivity.class);
-                // i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                ComponentName cn = i.getComponent();
-                Intent mainIntent = IntentCompat.makeRestartActivityTask(cn);
-                startActivity(mainIntent);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
+                finish();
                 PreferenceUtils.setIsPaymentDone(PaymentFailureActivity.this,false);
             }
         });

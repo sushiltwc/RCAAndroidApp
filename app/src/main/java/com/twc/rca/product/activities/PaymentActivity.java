@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.twc.rca.R;
 import com.twc.rca.activities.BaseActivity;
+import com.twc.rca.activities.DashboardActivity;
 import com.twc.rca.product.task.PaymentFailureTask;
 import com.twc.rca.utils.ILog;
 import com.twc.rca.volley.utils.VolleySingleTon;
@@ -244,6 +245,9 @@ public class PaymentActivity extends BaseActivity {
         @Override
         public void onSuccessPaymentFailureResponse(String response) {
             dismissProgressDialog();
+            Intent i = new Intent(PaymentActivity.this, DashboardActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
             finish();
         }
 

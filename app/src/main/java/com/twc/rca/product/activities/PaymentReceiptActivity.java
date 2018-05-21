@@ -90,9 +90,9 @@ public class PaymentReceiptActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(PaymentReceiptActivity.this, DashboardActivity.class);
-                ComponentName cn = i.getComponent();
-                Intent mainIntent = IntentCompat.makeRestartActivityTask(cn);
-                startActivity(mainIntent);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
+                finish();
                 PreferenceUtils.setIsPaymentDone(PaymentReceiptActivity.this, true);
             }
         });
