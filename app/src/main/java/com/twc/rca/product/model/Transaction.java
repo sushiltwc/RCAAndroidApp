@@ -15,6 +15,7 @@ public class Transaction {
     public static final int COUNTRY_BIRTH = 7;
     public static final int ARRIVAL_AIRLINE = 8;
     public static final int DEPT_AIRLINE = 9;
+    public static final int PASSPORT_ISSUE_GOVT=10;
 
     private int noOfPassengers;
     private int noOfAdults;
@@ -27,6 +28,7 @@ public class Transaction {
     private String language;
     private String maritalStatus;
     private String passportType;
+    private String passportIssueGovt;
     private String profession;
     private String religion;
     private String arrival_airline;
@@ -164,6 +166,14 @@ public class Transaction {
 
     public void setDept_airline(String dept_airline) {
         this.dept_airline = dept_airline;
+    }
+
+    public String getPassportIssueGovt() {
+        return passportIssueGovt;
+    }
+
+    public void setPassportIssueGovt(String passportIssueGovt) {
+        this.passportIssueGovt = passportIssueGovt;
     }
 
 }

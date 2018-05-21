@@ -125,6 +125,9 @@ public class SearchFieldActivity extends BaseActivity implements SearchView.OnQu
 
                     case 9:
                         Transaction.getmTransactionInstance().setDept_airline(strName);
+
+                    case 10:
+                        Transaction.getmTransactionInstance().setPassportIssueGovt(strName);
                 }
                 InputMethodManager inputMethodManager = (InputMethodManager) SearchFieldActivity.this.getSystemService(Activity.INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(SearchFieldActivity.this.getCurrentFocus().getWindowToken(), 0);

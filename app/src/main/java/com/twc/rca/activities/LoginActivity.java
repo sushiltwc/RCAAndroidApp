@@ -62,7 +62,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         list_userExist=new ArrayList<>();
         list_loginId=new ArrayList<>();
 
-        list_userExist=getIntent().getStringArrayListExtra(PreferenceUtils.USEREXIST_MAILID);
+       /* list_userExist=getIntent().getStringArrayListExtra(PreferenceUtils.USEREXIST_MAILID);
         list_mail = MailUtils.getAllGoogleAccountMailId(this);
 
         if(list_userExist!=null){
@@ -76,7 +76,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             auto_login_id.setAdapter(adapter);
             list_loginId=list_mail;
             auto_login_id.setOnClickListener(this);
-        }
+        }*/
     }
 
     @Override

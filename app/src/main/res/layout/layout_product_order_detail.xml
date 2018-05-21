@@ -3,6 +3,8 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/small_widget_spacing"
+    android:layout_marginRight="@dimen/small_widget_spacing"
     android:backgroundTint="#F7FAFB">
 
     <LinearLayout

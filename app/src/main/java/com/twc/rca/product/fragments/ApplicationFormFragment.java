@@ -431,6 +431,18 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
                 applicationFormFragment.startActivityForResult(intent, REQUEST_FOR_ACTIVITY_CODE);
                 break;
 
+            case R.id.et_ppd_passport_issuing_govt:
+                Transaction.getmTransactionInstance().setTransaction_type(Transaction.PASSPORT_ISSUE_GOVT);
+                searchNameList = new ArrayList<>();
+                for (int i = 0; i < countryModelArrayList.size(); i++) {
+                    searchNameList.add(countryModelArrayList.get(i).getCountryName());
+                }
+                intent = new Intent(getContext(), SearchFieldActivity.class);
+                intent.putExtra(SearchFieldActivity.TITLE, getContext().getString(R.string.select_passport_issue_govt));
+                intent.putStringArrayListExtra(SearchFieldActivity.SEARCHLIST, searchNameList);
+                applicationFormFragment.startActivityForResult(intent, REQUEST_FOR_ACTIVITY_CODE);
+                break;
+
             case R.id.btn_submit_application_form:
                 showProgressDialog(getString(R.string.please_wait));
                 AddApplicantTask addApplicantTask = new AddApplicantTask(getContext(), applicantModel.getApplicantId(), strGivenName, strSurname, strDob, strGender, strMaritalStatus, strNationality, strPob, strCob, strReligion, strTelNo, strLanguage, strProfession, strMName, strFName, strHName, strCity, strAddress1, strAddress2, strAddress3, strCountry, strPPNo, strPPType, strPPDoi, strPPDoe, strPPIssueGovt, strPIssue);
@@ -470,6 +482,11 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
                 inputMethodManager.hideSoftInputFromWindow(et_cob.getWindowToken(), 0);
                 strCob = Transaction.getmTransactionInstance().getCountry_birth();
                 et_cob.setText(strCob);
+            }
+            else if(Transaction.getmTransactionInstance().getTransaction_type() == 10){
+                inputMethodManager.hideSoftInputFromWindow(et_pp_issue_govt.getWindowToken(),0);
+                strPPIssueGovt=Transaction.getmTransactionInstance().getPassportIssueGovt();
+                et_pp_issue_govt.setText(strPPIssueGovt);
             }
         }
         checkRequiredFields();

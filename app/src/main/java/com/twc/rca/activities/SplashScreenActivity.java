@@ -66,15 +66,17 @@ public class SplashScreenActivity extends BaseActivity {
          */
         startTimeMillis = System.currentTimeMillis();
 
+        startNextActivity();
+
         /**
          * On a post-Android 6.0 devices, check if the required permissions have
          * been granted.
          */
-        if (Build.VERSION.SDK_INT >= 23) {
+        /*if (Build.VERSION.SDK_INT >= 23) {
             checkPermissions();
         } else {
             userExistCheck();
-        }
+        }*/
     }
 
     /**
@@ -173,6 +175,13 @@ public class SplashScreenActivity extends BaseActivity {
                 Intent launchIntent = null;
                 if (PreferenceUtils.isRegistered(getApplicationContext())) {
                     launchIntent = new Intent(SplashScreenActivity.this, DashboardActivity.class);
+                }
+                else{
+                    launchIntent = new Intent(SplashScreenActivity.this, LoginActivity.class);
+                }
+               /* Intent launchIntent = null;
+                if (PreferenceUtils.isRegistered(getApplicationContext())) {
+                    launchIntent = new Intent(SplashScreenActivity.this, DashboardActivity.class);
                     startActivity(launchIntent);
                 } else {
                         if(userExistArrayList.size()>0) {
@@ -183,7 +192,7 @@ public class SplashScreenActivity extends BaseActivity {
                             launchIntent =new Intent(SplashScreenActivity.this,SignupActivity.class);
                             launchIntent.putStringArrayListExtra(PreferenceUtils.USEREXIST_MAILID,userExistMailIds);
                         }
-                    }
+                    }*/
                 if (launchIntent != null) {
                     startActivity(launchIntent);
                     finish();

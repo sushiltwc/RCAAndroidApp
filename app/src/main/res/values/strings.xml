@@ -246,6 +246,7 @@
     <string name="select_departure_airline">Select Departure Airline</string>
     <string name="select_country_going_to">Select Country Going To</string>
     <string name="select_country">Select Country</string>
+    <string name="select_passport_issue_govt">Select Passport Issue Govt</string>
 
     <!--Lables-->
     <string name="visa_info_documents_lable">VISA Info &amp; Documents</string>
