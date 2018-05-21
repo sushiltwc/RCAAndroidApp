@@ -4,12 +4,10 @@ import android.app.Application;
 import android.content.Context;
 
 import com.twc.rca.database.AirlineHelper;
-import com.twc.rca.database.ApplicantHelper;
 import com.twc.rca.database.CountryHelper;
 import com.twc.rca.database.DatabaseCreater;
 import com.twc.rca.database.LanguageHelper;
 import com.twc.rca.database.MaritalHelper;
-import com.twc.rca.database.OrderHelper;
 import com.twc.rca.database.PassportTypeHelper;
 import com.twc.rca.database.ProfessionHelper;
 import com.twc.rca.database.ReligionHelper;
@@ -47,8 +45,6 @@ public class MyApplication extends Application {
         PassportTypeHelper passportTypeHelper = PassportTypeHelper.getInstance(this);
         ProfessionHelper professionHelper = ProfessionHelper.getInstance(this);
         ReligionHelper religionHelper = ReligionHelper.getInstance(this);
-        OrderHelper orderHelper = OrderHelper.getInstance(this);
-        ApplicantHelper applicantHelper = ApplicantHelper.getInstance(this);
 
         new DatabaseCreater(this, airlineHelper, airlineHelper.DB_NAME, airlineHelper.DB_VERSION).createDataBase();
         new DatabaseCreater(this, countryHelper, countryHelper.DB_NAME, countryHelper.DB_VERSION).createDataBase();

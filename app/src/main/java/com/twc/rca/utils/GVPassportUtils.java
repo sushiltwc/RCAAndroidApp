@@ -111,11 +111,6 @@ public class GVPassportUtils {
             passportFrontModel.setGender(str_sex);
             passportFrontModel.setDoe(str_doe);
             passportFrontModel.setDoi(str_doi);
-
-          /*  if (ApplicantHelper.getInstance(context).isApplicantExist(context, "29"))
-                ApplicantHelper.insertOrUpdatePF(context, passportFrontModel, "29", true);
-            else
-                ApplicantHelper.insertOrUpdatePF(context, passportFrontModel, "29", false);*/
         }
         return passportFrontModel;
     }

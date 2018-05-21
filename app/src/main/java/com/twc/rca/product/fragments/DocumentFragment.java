@@ -220,10 +220,11 @@ public class DocumentFragment extends BaseFragment {
             document_grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                    //selectImage();
-                    checkForPermissions(getContext(), PICK_IMAGE);
-                    docView = view;
-                    docPosition = position;
+                    if(applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
+                        checkForPermissions(getContext(), PICK_IMAGE);
+                        docView = view;
+                        docPosition = position;
+                    }
                 }
             });
         }

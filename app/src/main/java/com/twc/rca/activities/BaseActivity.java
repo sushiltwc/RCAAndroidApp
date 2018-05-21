@@ -72,6 +72,7 @@ public class BaseActivity extends AppCompatActivity {
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setInverseBackgroundForced(true);
         mProgressDialog.setCancelable(false);
+        mProgressDialog.setCanceledOnTouchOutside(false);
         //       mProgressDialog.setIndeterminate(true);
 //        mProgressDialog.setIndeterminateDrawable(getResources().getDrawable(R.drawable.progress_dialog_icon_drawable_animation));
     }
