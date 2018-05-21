@@ -59,13 +59,13 @@
 
             </LinearLayout>
 
-            <android.support.v7.widget.AppCompatButton
+            <Button
                 android:id="@+id/btn_re_pay_now"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:theme="@style/PrimaryButton"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="@dimen/extra_larger_widget_spacing"
-                android:background="@color/colorPrimary"
                 android:gravity="center"
                 android:text="@string/pay_now"
                 android:textColor="@color/colorWhite"

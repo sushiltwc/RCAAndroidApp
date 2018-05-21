@@ -57,6 +57,11 @@
         <item name="android:textSize">@dimen/medium_text_size</item>
     </style>
 
+    <style name="PrimaryButton" parent="Theme.AppCompat">
+        <item name="colorButtonNormal">@color/colorPrimary</item>
+        <item name="colorControlHighlight">@color/colorAccent</item>
+    </style>
+
     <style name="FullScreenDialog" parent="Theme.AppCompat.Light">
         <item name="android:windowFrame">@null</item>
     </style>

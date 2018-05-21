@@ -180,7 +180,7 @@ public class AllApplicantFragment extends BaseFragment {
 
                 JSONObject contentObject = (JSONObject) jsonObject.get(ApiUtils.CONTENT);
 
-                showToast(contentObject.getString("message"));
+                //showToast(contentObject.getString("message"));
             } catch (Exception e) {
                 e.printStackTrace();
             }

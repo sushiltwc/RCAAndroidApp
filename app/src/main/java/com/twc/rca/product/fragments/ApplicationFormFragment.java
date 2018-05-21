@@ -170,9 +170,11 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
             @Override
             public void validate(TextView textView, String text) {
                 strSurname = et_surname.getText().toString();
-                if (!ApiUtils.isValidateSurName(strSurname))
-                    et_surname.setError(getContext().getResources().getString(R.string.invalid_surname));
-                checkRequiredFields();
+                if(applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
+                    if (!ApiUtils.isValidateSurName(strSurname))
+                        et_surname.setError(getContext().getResources().getString(R.string.invalid_surname));
+                    checkRequiredFields();
+                }
             }
         });
 
@@ -180,9 +182,11 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
             @Override
             public void validate(TextView textView, String text) {
                 strGivenName = et_given_name.getText().toString();
-                if (!ApiUtils.isValidateGivenName(strGivenName))
-                    et_given_name.setError(getContext().getResources().getString(R.string.invalid_name));
-                checkRequiredFields();
+                if(applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
+                    if (!ApiUtils.isValidateGivenName(strGivenName))
+                        et_given_name.setError(getContext().getResources().getString(R.string.invalid_name));
+                    checkRequiredFields();
+                }
             }
         });
 
@@ -190,9 +194,11 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
             @Override
             public void validate(TextView textView, String text) {
                 strPob = et_pob.getText().toString();
-                if (ApiUtils.isValidStringValue(strPob))
-                    et_pob.setError(getContext().getResources().getString(R.string.invalid_pob));
-                checkRequiredFields();
+                if(applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
+                    if (ApiUtils.isValidStringValue(strPob))
+                        et_pob.setError(getContext().getResources().getString(R.string.invalid_pob));
+                    checkRequiredFields();
+                }
             }
         });
 
@@ -200,9 +206,11 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
             @Override
             public void validate(TextView textView, String text) {
                 strFName = et_father_name.getText().toString();
-                if (!ApiUtils.isValidateGivenName(strFName))
-                    et_father_name.setError(getContext().getResources().getString(R.string.invalid_father_name));
-                checkRequiredFields();
+                if(applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
+                    if (!ApiUtils.isValidateGivenName(strFName))
+                        et_father_name.setError(getContext().getResources().getString(R.string.invalid_father_name));
+                    checkRequiredFields();
+                }
             }
         });
 
@@ -210,9 +218,11 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
             @Override
             public void validate(TextView textView, String text) {
                 strMName = et_mother_name.getText().toString();
-                if (!ApiUtils.isValidateGivenName(strMName))
-                    et_mother_name.setError(getContext().getResources().getString(R.string.invalid_mother_name));
-                checkRequiredFields();
+                if(applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
+                    if (!ApiUtils.isValidateGivenName(strMName))
+                        et_mother_name.setError(getContext().getResources().getString(R.string.invalid_mother_name));
+                    checkRequiredFields();
+                }
             }
         });
 
@@ -220,9 +230,11 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
             @Override
             public void validate(TextView textView, String text) {
                 strHName = et_husband_name.getText().toString();
-                if (!ApiUtils.isValidateGivenName(strHName))
-                    et_husband_name.setError(getContext().getResources().getString(R.string.invalid_husband_name));
-                checkRequiredFields();
+                if(applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
+                    if (!ApiUtils.isValidateGivenName(strHName))
+                        et_husband_name.setError(getContext().getResources().getString(R.string.invalid_husband_name));
+                    checkRequiredFields();
+                }
             }
         });
     }
@@ -246,9 +258,11 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
             @Override
             public void validate(TextView textView, String text) {
                 strPPNo = et_pp_no.getText().toString();
-                if (ApiUtils.isValidStringValue(strPPNo))
-                    et_pp_no.setError(getContext().getResources().getString(R.string.invalid_pp_no));
-                checkRequiredFields();
+                if(applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
+                    if (ApiUtils.isValidStringValue(strPPNo))
+                        et_pp_no.setError(getContext().getResources().getString(R.string.invalid_pp_no));
+                    checkRequiredFields();
+                }
             }
         });
 
@@ -256,9 +270,11 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
             @Override
             public void validate(TextView textView, String text) {
                 strPIssue = et_pp_place_issue.getText().toString();
-                if (ApiUtils.isValidStringValue(et_pp_place_issue.getText().toString()))
-                    et_pp_place_issue.setError(getContext().getResources().getString(R.string.invalid_pp_poi));
-                checkRequiredFields();
+                if(applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
+                    if (ApiUtils.isValidStringValue(et_pp_place_issue.getText().toString()))
+                        et_pp_place_issue.setError(getContext().getResources().getString(R.string.invalid_pp_poi));
+                    checkRequiredFields();
+                }
             }
         });
     }
@@ -280,9 +296,11 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
             @Override
             public void validate(TextView textView, String text) {
                 strAddress1 = et_address_line1.getText().toString();
-                if (ApiUtils.isValidStringValue(strAddress1))
-                    et_address_line1.setError(getContext().getResources().getString(R.string.invalid_address_line1));
-                checkRequiredFields();
+                if(applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
+                    if (ApiUtils.isValidStringValue(strAddress1))
+                        et_address_line1.setError(getContext().getResources().getString(R.string.invalid_address_line1));
+                    checkRequiredFields();
+                }
             }
         });
 
@@ -290,8 +308,10 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
             @Override
             public void validate(TextView textView, String text) {
                 strAddress2 = et_address_line2.getText().toString();
-                if (ApiUtils.isValidStringValue(strAddress2))
-                    et_address_line2.setError(getContext().getResources().getString(R.string.invalid_address_line2));
+                if(applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
+                    if (ApiUtils.isValidStringValue(strAddress2))
+                        et_address_line2.setError(getContext().getResources().getString(R.string.invalid_address_line2));
+                }
             }
         });
 
@@ -299,8 +319,10 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
             @Override
             public void validate(TextView textView, String text) {
                 strAddress3 = et_address_line3.getText().toString();
-                if (ApiUtils.isValidStringValue(strAddress3))
-                    et_address_line3.setError(getContext().getResources().getString(R.string.invalid_address_line3));
+                if(applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
+                    if (ApiUtils.isValidStringValue(strAddress3))
+                        et_address_line3.setError(getContext().getResources().getString(R.string.invalid_address_line3));
+                }
             }
         });
 
@@ -308,9 +330,11 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
             @Override
             public void validate(TextView textView, String text) {
                 strCity = et_city.getText().toString();
-                if (ApiUtils.isValidStringValue(et_city.getText().toString()))
-                    et_city.setError(getContext().getResources().getString(R.string.invalid_city));
-                checkRequiredFields();
+                if(applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
+                    if (ApiUtils.isValidStringValue(et_city.getText().toString()))
+                        et_city.setError(getContext().getResources().getString(R.string.invalid_city));
+                    checkRequiredFields();
+                }
             }
         });
 
@@ -318,9 +342,11 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
             @Override
             public void validate(TextView textView, String text) {
                 strTelNo = et_telephone_no.getText().toString();
-                if (!ApiUtils.isValidMobileNumber(et_telephone_no.getText().toString()))
-                    et_telephone_no.setError(getContext().getResources().getString(R.string.invalid_mob_no));
-                checkRequiredFields();
+                if(applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
+                    if (!ApiUtils.isValidMobileNumber(et_telephone_no.getText().toString()))
+                        et_telephone_no.setError(getContext().getResources().getString(R.string.invalid_mob_no));
+                    checkRequiredFields();
+                }
             }
         });
     }

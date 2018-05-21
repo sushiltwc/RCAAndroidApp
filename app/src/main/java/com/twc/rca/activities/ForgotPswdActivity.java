@@ -38,6 +38,13 @@ public class ForgotPswdActivity extends BaseActivity {
         tv_login_link = (AppCompatTextView) findViewById(R.id.tv_forgot_pswd_login_link);
         btn_fp_next = (AppCompatButton) findViewById(R.id.btn_forgot_pswd_next);
 
+        tv_login_link.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         btn_fp_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

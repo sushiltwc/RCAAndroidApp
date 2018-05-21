@@ -48,7 +48,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/large_widget_spacing"
                         android:layout_marginRight="@dimen/large_widget_spacing"
-                        android:textSize="@dimen/medium_text_size"
                         android:hint="@string/email_hint" />
                 </android.support.design.widget.TextInputLayout>
 
@@ -72,7 +71,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/large_widget_spacing"
-                    android:textSize="@dimen/medium_text_size"
                     android:hint="@string/phone_no_hint"
                     android:inputType="phone" />
             </android.support.design.widget.TextInputLayout>
@@ -86,7 +84,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/large_widget_spacing"
-                    android:textSize="@dimen/medium_text_size"
                     android:hint="@string/name_hint" />
             </android.support.design.widget.TextInputLayout>
 
@@ -99,7 +96,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/large_widget_spacing"
-                    android:textSize="@dimen/medium_text_size"
                     android:hint="@string/pswd_hint"
                     android:inputType="textPassword" />
             </android.support.design.widget.TextInputLayout>
@@ -113,7 +109,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/large_widget_spacing"
-                    android:textSize="@dimen/medium_text_size"
                     android:hint="@string/re_pswd_hint"
                     android:inputType="textPassword" />
             </android.support.design.widget.TextInputLayout>

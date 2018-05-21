@@ -7,7 +7,10 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -15,7 +18,9 @@ import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.twc.rca.R;
 import com.twc.rca.activities.BaseActivity;
@@ -32,6 +37,10 @@ import java.util.HashMap;
 public class PaymentActivity extends BaseActivity {
 
     public static final String TAG = PaymentActivity.class.getSimpleName();
+
+    TextView tv_actionbar_title;
+
+    ImageButton img_button_back;
 
     WebView mWebView;
 
@@ -53,6 +62,34 @@ public class PaymentActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
+        final ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            View viewActionBar = getLayoutInflater().inflate(R.layout.layout_applicant_actionbar, null);
+            ActionBar.LayoutParams params = new ActionBar.LayoutParams(
+                    ActionBar.LayoutParams.MATCH_PARENT,
+                    ActionBar.LayoutParams.WRAP_CONTENT,
+                    Gravity.CENTER);
+            tv_actionbar_title = (TextView) viewActionBar.findViewById(R.id.tv_applicant_actionbar_title);
+            img_button_back = (ImageButton) viewActionBar.findViewById(R.id.img_btn_back_arrow);
+            img_button_back.setVisibility(View.VISIBLE);
+
+            tv_actionbar_title.setText(getString(R.string.securely_pay_visa));
+            actionBar.setCustomView(viewActionBar, params);
+            actionBar.setDisplayShowCustomEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(false);
+            Toolbar toolbar = (Toolbar) actionBar.getCustomView().getParent();
+            toolbar.setContentInsetsAbsolute(0, 0);
+            toolbar.getContentInsetEnd();
+            toolbar.setPadding(0, 0, 0, 0);
+
+            img_button_back.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showCancellationPrompt();
+                }
+            });
+        }
+
         URL = getIntent().getStringExtra(OrderDetailActivity.PAYMENT_URL).replace(" ", "");
         orderId = getIntent().getStringExtra(OrderDetailActivity.ORDER_ID);
         initView();
@@ -93,7 +130,7 @@ public class PaymentActivity extends BaseActivity {
 
     @Override
     protected boolean isHomeAsUpEnabled() {
-        return true;
+        return false;
     }
 
     @Override
