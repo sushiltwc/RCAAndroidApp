@@ -9,6 +9,7 @@ import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
+import android.text.Html;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
@@ -55,6 +56,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         tv_forgot_pswd = (AppCompatTextView) findViewById(R.id.tv_login_forgot_pswd);
         tv_sign_up = (AppCompatTextView) findViewById(R.id.tv_signup);
         btn_login = (AppCompatButton) findViewById(R.id.btn_login);
+
+        tv_sign_up.setText(Html.fromHtml("New User? Go to <font color='#66A1E7'>SIGN UP</font>"));
         tv_forgot_pswd.setOnClickListener(this);
         tv_sign_up.setOnClickListener(this);
         btn_login.setOnClickListener(this);

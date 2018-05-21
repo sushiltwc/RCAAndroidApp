@@ -38,13 +38,10 @@
     <string name="empty_name_msg">Please enter user name</string>
     <string name="empty_mobile_msg">Please enter valid mobile number</string>
     <string name="need_to_verify">Need to Verify</string>\
-    <string name="sign_up_link">New User? Go to <font fgcolor="#66A1E7">SIGN UP</font></string>
-    <string name="login_link">Already have an account? Go to <font fgcolor="#66A1E7">LOG IN</font></string>
     <string name="forgot_password">Forgot Password</string>
 
     <!--Forgot Password Screen-->
     <string name="reset_msg">After pressing NEXT an OTP will be sent to your email ID, \n using that OTP you can reset your Password</string>
-    <string name="forget_pswd_login_link">Go back to <font fgcolor="#66A1E7">LOG IN</font></string>
 
     <!--Reset Password Screen-->
     <string name="reset_password">Reset Password</string>

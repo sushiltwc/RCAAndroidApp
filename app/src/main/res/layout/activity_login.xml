@@ -88,8 +88,7 @@
         android:layout_above="@id/btn_login"
         android:layout_marginBottom="@dimen/basic_widget_spacing"
         android:gravity="center"
-        android:textStyle="bold"
-        android:text="@string/sign_up_link" />
+        android:textStyle="bold"/>
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/btn_login"

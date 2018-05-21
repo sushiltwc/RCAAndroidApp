@@ -9,6 +9,7 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -60,6 +61,8 @@ public class SignupActivity extends BaseActivity implements View.OnClickListener
         tv_log_in = (AppCompatTextView) findViewById(R.id.tv_login);
         tv_need_to_verify=(AppCompatTextView)findViewById(R.id.tv_need_to_verify);
         btn_sign_up = (AppCompatButton) findViewById(R.id.btn_signup);
+
+        tv_log_in.setText(Html.fromHtml("Already have an account? Go to <font color='#66A1E7'>LOG IN</font>"));
 
         tv_log_in.setOnClickListener(this);
         btn_sign_up.setOnClickListener(this);

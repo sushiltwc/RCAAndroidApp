@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
+import android.text.Html;
 import android.view.View;
 
 import com.twc.rca.R;
@@ -37,6 +38,8 @@ public class ForgotPswdActivity extends BaseActivity {
         et_fp_email = (AppCompatEditText) findViewById(R.id.et_forgot_pswd_email_id);
         tv_login_link = (AppCompatTextView) findViewById(R.id.tv_forgot_pswd_login_link);
         btn_fp_next = (AppCompatButton) findViewById(R.id.btn_forgot_pswd_next);
+
+        tv_login_link.setText(Html.fromHtml("Go back to <font color='#66A1E7'>LOG IN</font>"));
 
         tv_login_link.setOnClickListener(new View.OnClickListener() {
             @Override
