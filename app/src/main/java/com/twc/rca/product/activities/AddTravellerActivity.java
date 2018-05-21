@@ -192,14 +192,14 @@ public class AddTravellerActivity extends BaseActivity {
                     @Override
                     public void onClick(View v) {
                         count = Integer.parseInt((String) viewHolder.tv_count.getText());
-                        if (position == 0) {
+                       /* if (position == 0) {
                             if (count != 1)
                                 count--;
                         }
-                        if (position == 1 || position == 2) {
+                        if (position == 1 || position == 2) {*/
                             if (!(count <= 0))
                                 count--;
-                        }
+                        //}
                         viewHolder.tv_count.setText(String.valueOf(count));
                     }
                 });

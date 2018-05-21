@@ -23,6 +23,6 @@
         android:text="@string/add_traveller"
         android:textColor="@color/text_color"
         android:textStyle="bold"
-        android:textSize="@dimen/medium_text_size" />
+        android:textSize="@dimen/large_text_size" />
 
 </LinearLayout>

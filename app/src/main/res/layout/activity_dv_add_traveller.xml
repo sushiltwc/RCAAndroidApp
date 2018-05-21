@@ -40,19 +40,12 @@
         android:layout_below="@id/ll_heading"
         android:orientation="vertical">
 
-        <!--<TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/large_widget_spacing"
-            android:layout_marginLeft="@dimen/extra_large_widget_spacing"
-            android:text="Travellers" />-->
-
         <ListView
             android:id="@+id/list_add_travellers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/larger_widget_spacing"
-            android:clickable="true"></ListView>
+            android:clickable="false"></ListView>
     </LinearLayout>
 
     <android.support.v7.widget.AppCompatButton
