@@ -8,9 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
-import android.text.Editable;
 import android.text.Html;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -37,7 +35,7 @@ public class SignupActivity extends BaseActivity implements View.OnClickListener
 
     AppCompatEditText et_signup_phone_no, et_signup_user_name, et_signup_pswd, et_signup_repswd;
 
-    AppCompatTextView tv_log_in,tv_need_to_verify;
+    AppCompatTextView tv_log_in, tv_need_to_verify;
 
     AppCompatButton btn_sign_up;
 
@@ -59,7 +57,7 @@ public class SignupActivity extends BaseActivity implements View.OnClickListener
         et_signup_pswd = (AppCompatEditText) findViewById(R.id.et_signup_pswd);
         et_signup_repswd = (AppCompatEditText) findViewById(R.id.et_signup_repswd);
         tv_log_in = (AppCompatTextView) findViewById(R.id.tv_login);
-        tv_need_to_verify=(AppCompatTextView)findViewById(R.id.tv_need_to_verify);
+        tv_need_to_verify = (AppCompatTextView) findViewById(R.id.tv_need_to_verify);
         btn_sign_up = (AppCompatButton) findViewById(R.id.btn_signup);
 
         tv_log_in.setText(Html.fromHtml("Already have an account? Go to <font color='#66A1E7'>LOG IN</font>"));
@@ -95,7 +93,7 @@ public class SignupActivity extends BaseActivity implements View.OnClickListener
             case R.id.btn_signup:
                 if (isValidSignUpData()) {
                     showProgressDialog(getString(R.string.please_wait));
-                    new SignupTask(str_email, str_phone_no, str_name, str_password).userSignUp(signUpResponseCallback);
+                    new SignupTask(this, str_email, str_phone_no, str_name, str_password).userSignUp(signUpResponseCallback);
                 }
                 break;
         }
@@ -109,7 +107,7 @@ public class SignupActivity extends BaseActivity implements View.OnClickListener
             public void onClick(DialogInterface dialog, int which) {
                 if (id == R.id.auto_signup_id)
                     auto_signup_id.setText(list.get(which));
-                    auto_signup_id.setSelection(auto_signup_id.getText().length());
+                auto_signup_id.setSelection(auto_signup_id.getText().length());
             }
         });
         builder.show();
@@ -141,11 +139,10 @@ public class SignupActivity extends BaseActivity implements View.OnClickListener
         if (str_password == null || str_password.equals("")) {
             showSnack(R.string.empty_password_msg);
             return false;
-        }
-        else{
-            if(!ApiUtils.isValidPassword(str_password)){
+        } else {
+            if (!ApiUtils.isValidPassword(str_password)) {
                 showSnack(R.string.password_validation_msg);
-            return false;
+                return false;
             }
         }
 

@@ -31,7 +31,8 @@ public class SignupTask extends ApiUtils {
 
     String emailId, phoneNo, userName, password;
 
-    public SignupTask(String emailId, String phoneNo, String userName, String password) {
+    public SignupTask(Context context, String emailId, String phoneNo, String userName, String password) {
+        this.context = context;
         this.emailId = emailId;
         this.phoneNo = phoneNo;
         this.userName = userName;
