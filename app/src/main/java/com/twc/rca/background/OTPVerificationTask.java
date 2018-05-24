@@ -1,6 +1,7 @@
 package com.twc.rca.background;
 
 import android.content.Context;
+import android.provider.Settings;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -35,7 +36,8 @@ public class OTPVerificationTask extends ApiUtils {
 
     int otpNumner;
 
-    public OTPVerificationTask(String emailId, int otpNumber) {
+    public OTPVerificationTask(Context context,String emailId, int otpNumber) {
+        this.context=context;
         this.emailId = emailId;
         this.otpNumner = otpNumber;
     }
@@ -70,7 +72,8 @@ public class OTPVerificationTask extends ApiUtils {
         Map<String, Object> map = new LinkedHashMap<>();
         map.put(EMAIL_ID, emailId);
         map.put(OTP_NUMBER, otpNumner);
-        map.put(DEVICE_ID, "90");
+        map.put(DEVICE_ID, Settings.Secure.getString(context.getContentResolver(),
+                Settings.Secure.ANDROID_ID));
         map.put(METHOD, METHOD_NAME);
         return map;
     }

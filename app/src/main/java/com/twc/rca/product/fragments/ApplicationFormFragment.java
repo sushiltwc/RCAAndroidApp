@@ -746,7 +746,7 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
         public void onSuccessAddApplicantResponse(String response) {
             dismissProgressDialog();
             Intent i = new Intent(getActivity(), OrderApplicantListActivity.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);// | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             i.putExtra("orderId", applicantModel.getApplicantOrderId());
             startActivity(i);
             getActivity().finish();

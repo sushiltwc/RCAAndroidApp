@@ -86,7 +86,7 @@ public class OtpActivity extends BaseActivity implements View.OnClickListener {
         public void onOTPSuccess(int otpNumber) {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
             showProgressDialog(getString(R.string.please_wait));
-            new OTPVerificationTask(emailId, otpNumber).otpVerification(otpVerificationResponseCallback);
+            new OTPVerificationTask(getApplicationContext(),emailId, otpNumber).otpVerification(otpVerificationResponseCallback);
         }
 
         @Override
