@@ -24,7 +24,7 @@ public class ApplicantProvider extends ContentProvider {
 
     SQLiteDatabase mDatabase;
 
-    public static final String AUTHORITY = "com.org.vassist.database.applicant";
+    public static final String AUTHORITY = "com.twc.rca.database.applicant";
 
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY);
 

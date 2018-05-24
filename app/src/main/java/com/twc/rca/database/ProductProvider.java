@@ -24,7 +24,7 @@ public class ProductProvider extends ContentProvider {
 
     SQLiteDatabase mDatabase;
 
-    public static final String AUTHORITY = "com.org.vassist.database.product";
+    public static final String AUTHORITY = "com.twc.rca.database.product";
 
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY);
 

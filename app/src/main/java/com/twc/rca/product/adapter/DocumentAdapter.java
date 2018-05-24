@@ -24,6 +24,7 @@ import com.twc.rca.applicant.model.PassportBackModel;
 import com.twc.rca.applicant.model.PassportFrontModel;
 import com.twc.rca.applicant.model.ReceiveDocumentModel;
 import com.twc.rca.applicant.task.DocumentUploadTask;
+import com.twc.rca.database.DocumentHelper;
 import com.twc.rca.product.fragments.DocumentFragment;
 import com.twc.rca.utils.ApiUtils;
 import com.twc.rca.utils.GVPassportUtils;
@@ -61,7 +62,7 @@ public class DocumentAdapter extends BaseAdapter {
 
     DocumentUploadCallback documentUploadCallback;
 
-    String applicantId;
+    String applicantOrderId, applicantId;
 
     public interface DocumentUploadCallback {
         void pfCallback(PassportFrontModel passportFrontModel);
@@ -69,9 +70,10 @@ public class DocumentAdapter extends BaseAdapter {
         void pbCalback(PassportBackModel passportBackModel);
     }
 
-    public DocumentAdapter(Context context, DocumentFragment fragment, String applicantId, List<ReceiveDocumentModel> docReceiveList, List<DocumentModel> docList, DocumentUploadCallback documentUploadCallback) {
+    public DocumentAdapter(Context context, DocumentFragment fragment, String applicantOrderId, String applicantId, List<ReceiveDocumentModel> docReceiveList, List<DocumentModel> docList, DocumentUploadCallback documentUploadCallback) {
         this.context = context;
         documentFragment = fragment;
+        this.applicantOrderId = applicantOrderId;
         this.applicantId = applicantId;
         this.docReceiveList = docReceiveList;
         this.docList = docList;
@@ -173,6 +175,8 @@ public class DocumentAdapter extends BaseAdapter {
                 PassportBackModel passportBackModel = new GVPassportUtils(context).processPassportBack(ApiUtils.StringToBitMap(base64ImageData));
                 documentUploadCallback.pbCalback(passportBackModel);
             }
+
+            DocumentHelper.updateDocList(context, applicantOrderId, applicantId, docList.get(position).getDoc_type_id(), docList.get(position).getDoc_type_name(), "true");
             Bitmap thumbnailImageBitmap = Bitmap.createScaledBitmap(imageBitmap, THUMBNAIL_WIDTH_SIZE, THUMBNAIL_HEIGHT_SIZE, false);
 
             img_doc = (ImageView) view.findViewWithTag(position);

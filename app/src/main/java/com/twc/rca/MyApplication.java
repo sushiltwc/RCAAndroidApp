@@ -29,6 +29,9 @@ public class MyApplication extends Application {
     public void onCreate() {
         mInstance = this;
         super.onCreate();
+
+        //Crashlytics Initialisation
+        //Fabric.with(this, new Crashlytics());
         createDatabases();
     }
 

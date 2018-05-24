@@ -137,6 +137,7 @@
     <string name="choose_from_gallery">Choose From Gallery</string>
     <string name="cancel">Cancel</string>
     <string name="passport_scan_error">Detector dependencies are not yet available</string>
+    <string name="doc_upload_error_msg">Dear Customer, please submit all required documents!</string>
 
     <!--Personal Detail Form-->
     <string name="surname">Surname*</string>

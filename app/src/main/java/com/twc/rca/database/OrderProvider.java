@@ -24,7 +24,7 @@ public class OrderProvider extends ContentProvider {
 
     SQLiteDatabase mDatabase;
 
-    public static final String AUTHORITY = "com.org.vassist.database.order";
+    public static final String AUTHORITY = "com.twc.rca.database.order";
 
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY);
 

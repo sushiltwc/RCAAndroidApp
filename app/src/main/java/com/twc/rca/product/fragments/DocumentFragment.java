@@ -30,6 +30,7 @@ import com.twc.rca.applicant.model.PassportFrontModel;
 import com.twc.rca.applicant.model.ReceiveDocumentModel;
 import com.twc.rca.applicant.task.DocumentListTask;
 import com.twc.rca.applicant.task.DocumentReceiveTask;
+import com.twc.rca.database.DocumentHelper;
 import com.twc.rca.permissions.PermissionDialogUtil;
 import com.twc.rca.permissions.RunTimePermissionWrapper;
 import com.twc.rca.product.adapter.DocumentAdapter;
@@ -62,7 +63,7 @@ public class DocumentFragment extends BaseFragment {
 
     AppCompatButton btn_next;
 
-    List<DocumentModel> doc_list = new ArrayList<>();
+    ArrayList<DocumentModel> doc_list = new ArrayList<>();
 
     List<ReceiveDocumentModel> receive_doc_list = new ArrayList<>();
 
@@ -116,6 +117,7 @@ public class DocumentFragment extends BaseFragment {
                     if (passportFrontModel != null && passportBackModel != null) {
                         b.putSerializable("pf", passportFrontModel);
                         b.putSerializable("pb", passportBackModel);
+                        b.putParcelableArrayList("docList", doc_list);
                         ApplicationFormFragment.getInstance().putData(b);
                     } else {
                         String base64ImageData;
@@ -131,6 +133,7 @@ public class DocumentFragment extends BaseFragment {
                         }
                         b.putSerializable("pf", passportFrontModel);
                         b.putSerializable("pb", passportBackModel);
+                        b.putParcelableArrayList("docList", doc_list);
                         ApplicationFormFragment.getInstance().putData(b);
                         dismissProgressDialog();
                     }
@@ -208,19 +211,26 @@ public class DocumentFragment extends BaseFragment {
                         JSONObject jsonobject = data.getJSONObject(i);
                         documentModel.doc_type_id = jsonobject.getString(DOC_TYPE_ID);
                         documentModel.doc_type_name = jsonobject.getString(DOC_TYPE_NAME);
+                        documentModel.doc_submitted = "false";
                         doc_list.add(documentModel);
                     }
+                }
+
+                DocumentHelper.insertDocList(getContext(), applicantModel.getApplicantOrderId(), applicantModel.getApplicantId(), doc_list);
+                if (receive_doc_list.size() > 0) {
+                    for (int i = 0; i < receive_doc_list.size(); i++)
+                        DocumentHelper.updateDocList(getContext(), applicantModel.getApplicantOrderId(), applicantModel.getApplicantId(), doc_list.get(i).getDoc_type_id(), receive_doc_list.get(i).getDoc_type(), "true");
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            documentAdapter = new DocumentAdapter(getContext(), DocumentFragment.this, applicantModel.getApplicantId(), receive_doc_list, doc_list, documentUploadCallback);
+            documentAdapter = new DocumentAdapter(getContext(), DocumentFragment.this, applicantModel.getApplicantOrderId(), applicantModel.getApplicantId(), receive_doc_list, doc_list, documentUploadCallback);
             document_grid.setAdapter(documentAdapter);
 
             document_grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                    if(applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
+                    if (applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
                         checkForPermissions(getContext(), PICK_IMAGE);
                         docView = view;
                         docPosition = position;

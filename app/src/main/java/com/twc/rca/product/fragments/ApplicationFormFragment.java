@@ -1,12 +1,10 @@
 package com.twc.rca.product.fragments;
 
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.IntentCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
@@ -21,11 +19,13 @@ import com.twc.rca.R;
 import com.twc.rca.activities.BaseFragment;
 import com.twc.rca.applicant.activities.SearchFieldActivity;
 import com.twc.rca.applicant.model.ApplicantModel;
+import com.twc.rca.applicant.model.DocumentModel;
 import com.twc.rca.applicant.model.PassportBackModel;
 import com.twc.rca.applicant.model.PassportFrontModel;
 import com.twc.rca.applicant.model.ReceiveDocumentModel;
 import com.twc.rca.applicant.task.AddApplicantTask;
 import com.twc.rca.database.CountryHelper;
+import com.twc.rca.database.DocumentHelper;
 import com.twc.rca.database.LanguageHelper;
 import com.twc.rca.database.MaritalHelper;
 import com.twc.rca.database.PassportTypeHelper;
@@ -69,6 +69,8 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
     CharSequence list_gender[] = new CharSequence[]{"Male", "Female"};
 
     String strSurname, strGivenName, strNationality, strGender, strDob, strPob, strCob, strMaritalStatus, strReligion, strLanguage, strProfession, strFName, strMName, strHName, strPPNo, strPPType, strPPIssueGovt, strPIssue, strPPDoi, strPPDoe, strAddress1, strAddress2, strAddress3, strCity, strCountry, strTelNo;
+
+    ArrayList<DocumentModel> documentModelArrayList;
 
     private static final String DIALOG_DATE = "DatePickerDialogFragment";
 
@@ -170,7 +172,7 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
             @Override
             public void validate(TextView textView, String text) {
                 strSurname = et_surname.getText().toString();
-                if(applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
+                if (applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
                     if (!ApiUtils.isValidateSurName(strSurname))
                         et_surname.setError(getContext().getResources().getString(R.string.invalid_surname));
                     checkRequiredFields();
@@ -182,7 +184,7 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
             @Override
             public void validate(TextView textView, String text) {
                 strGivenName = et_given_name.getText().toString();
-                if(applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
+                if (applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
                     if (!ApiUtils.isValidateGivenName(strGivenName))
                         et_given_name.setError(getContext().getResources().getString(R.string.invalid_name));
                     checkRequiredFields();
@@ -194,7 +196,7 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
             @Override
             public void validate(TextView textView, String text) {
                 strPob = et_pob.getText().toString();
-                if(applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
+                if (applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
                     if (ApiUtils.isValidStringValue(strPob))
                         et_pob.setError(getContext().getResources().getString(R.string.invalid_pob));
                     checkRequiredFields();
@@ -206,7 +208,7 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
             @Override
             public void validate(TextView textView, String text) {
                 strFName = et_father_name.getText().toString();
-                if(applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
+                if (applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
                     if (!ApiUtils.isValidateGivenName(strFName))
                         et_father_name.setError(getContext().getResources().getString(R.string.invalid_father_name));
                     checkRequiredFields();
@@ -218,7 +220,7 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
             @Override
             public void validate(TextView textView, String text) {
                 strMName = et_mother_name.getText().toString();
-                if(applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
+                if (applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
                     if (!ApiUtils.isValidateGivenName(strMName))
                         et_mother_name.setError(getContext().getResources().getString(R.string.invalid_mother_name));
                     checkRequiredFields();
@@ -230,7 +232,7 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
             @Override
             public void validate(TextView textView, String text) {
                 strHName = et_husband_name.getText().toString();
-                if(applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
+                if (applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
                     if (!ApiUtils.isValidateGivenName(strHName))
                         et_husband_name.setError(getContext().getResources().getString(R.string.invalid_husband_name));
                     checkRequiredFields();
@@ -258,7 +260,7 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
             @Override
             public void validate(TextView textView, String text) {
                 strPPNo = et_pp_no.getText().toString();
-                if(applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
+                if (applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
                     if (ApiUtils.isValidStringValue(strPPNo))
                         et_pp_no.setError(getContext().getResources().getString(R.string.invalid_pp_no));
                     checkRequiredFields();
@@ -270,7 +272,7 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
             @Override
             public void validate(TextView textView, String text) {
                 strPIssue = et_pp_place_issue.getText().toString();
-                if(applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
+                if (applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
                     if (ApiUtils.isValidStringValue(et_pp_place_issue.getText().toString()))
                         et_pp_place_issue.setError(getContext().getResources().getString(R.string.invalid_pp_poi));
                     checkRequiredFields();
@@ -296,7 +298,7 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
             @Override
             public void validate(TextView textView, String text) {
                 strAddress1 = et_address_line1.getText().toString();
-                if(applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
+                if (applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
                     if (ApiUtils.isValidStringValue(strAddress1))
                         et_address_line1.setError(getContext().getResources().getString(R.string.invalid_address_line1));
                     checkRequiredFields();
@@ -308,7 +310,7 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
             @Override
             public void validate(TextView textView, String text) {
                 strAddress2 = et_address_line2.getText().toString();
-                if(applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
+                if (applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
                     if (ApiUtils.isValidStringValue(strAddress2))
                         et_address_line2.setError(getContext().getResources().getString(R.string.invalid_address_line2));
                 }
@@ -319,7 +321,7 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
             @Override
             public void validate(TextView textView, String text) {
                 strAddress3 = et_address_line3.getText().toString();
-                if(applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
+                if (applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
                     if (ApiUtils.isValidStringValue(strAddress3))
                         et_address_line3.setError(getContext().getResources().getString(R.string.invalid_address_line3));
                 }
@@ -330,7 +332,7 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
             @Override
             public void validate(TextView textView, String text) {
                 strCity = et_city.getText().toString();
-                if(applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
+                if (applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
                     if (ApiUtils.isValidStringValue(et_city.getText().toString()))
                         et_city.setError(getContext().getResources().getString(R.string.invalid_city));
                     checkRequiredFields();
@@ -342,7 +344,7 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
             @Override
             public void validate(TextView textView, String text) {
                 strTelNo = et_telephone_no.getText().toString();
-                if(applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
+                if (applicantModel.getApplicantSubmited().equalsIgnoreCase("N")) {
                     if (!ApiUtils.isValidMobileNumber(et_telephone_no.getText().toString()))
                         et_telephone_no.setError(getContext().getResources().getString(R.string.invalid_mob_no));
                     checkRequiredFields();
@@ -470,9 +472,13 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
                 break;
 
             case R.id.btn_submit_application_form:
-                showProgressDialog(getString(R.string.please_wait));
-                AddApplicantTask addApplicantTask = new AddApplicantTask(getContext(), applicantModel.getApplicantId(), strGivenName, strSurname, strDob, strGender, strMaritalStatus, strNationality, strPob, strCob, strReligion, strTelNo, strLanguage, strProfession, strMName, strFName, strHName, strCity, strAddress1, strAddress2, strAddress3, strCountry, strPPNo, strPPType, strPPDoi, strPPDoe, strPPIssueGovt, strPIssue);
-                addApplicantTask.addApplicant(addApplicantResposeCallback);
+                if (DocumentHelper.isDocListUploaded(getContext(), applicantModel.getApplicantOrderId(), applicantModel.getApplicantId(), documentModelArrayList)) {
+                    showProgressDialog(getString(R.string.please_wait));
+                    AddApplicantTask addApplicantTask = new AddApplicantTask(getContext(), applicantModel.getApplicantId(), strGivenName, strSurname, strDob, strGender, strMaritalStatus, strNationality, strPob, strCob, strReligion, strTelNo, strLanguage, strProfession, strMName, strFName, strHName, strCity, strAddress1, strAddress2, strAddress3, strCountry, strPPNo, strPPType, strPPDoi, strPPDoe, strPPIssueGovt, strPIssue);
+                    addApplicantTask.addApplicant(addApplicantResposeCallback);
+                } else {
+                    showToast(getString(R.string.doc_upload_error_msg));
+                }
                 break;
         }
     }
@@ -508,10 +514,9 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
                 inputMethodManager.hideSoftInputFromWindow(et_cob.getWindowToken(), 0);
                 strCob = Transaction.getmTransactionInstance().getCountry_birth();
                 et_cob.setText(strCob);
-            }
-            else if(Transaction.getmTransactionInstance().getTransaction_type() == 10){
-                inputMethodManager.hideSoftInputFromWindow(et_pp_issue_govt.getWindowToken(),0);
-                strPPIssueGovt=Transaction.getmTransactionInstance().getPassportIssueGovt();
+            } else if (Transaction.getmTransactionInstance().getTransaction_type() == 10) {
+                inputMethodManager.hideSoftInputFromWindow(et_pp_issue_govt.getWindowToken(), 0);
+                strPPIssueGovt = Transaction.getmTransactionInstance().getPassportIssueGovt();
                 et_pp_issue_govt.setText(strPPIssueGovt);
             }
         }
@@ -571,6 +576,7 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
     public void putData(Bundle args) {
         passportFrontModel = (PassportFrontModel) args.getSerializable("pf");
         passportBackModel = (PassportBackModel) args.getSerializable("pb");
+        documentModelArrayList = (ArrayList<DocumentModel>) args.getSerializable("docList");
         setCustomerData(passportFrontModel, passportBackModel);
     }
 
@@ -740,10 +746,10 @@ public class ApplicationFormFragment extends BaseFragment implements View.OnClic
         public void onSuccessAddApplicantResponse(String response) {
             dismissProgressDialog();
             Intent i = new Intent(getActivity(), OrderApplicantListActivity.class);
-            ComponentName cn = i.getComponent();
-            Intent mainIntent = IntentCompat.makeRestartActivityTask(cn);
-            mainIntent.putExtra("orderId", applicantModel.getApplicantOrderId());
-            startActivity(mainIntent);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);// | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            i.putExtra("orderId", applicantModel.getApplicantOrderId());
+            startActivity(i);
+            getActivity().finish();
             PreferenceUtils.setIsApplicantionSubmitted(getContext(), true);
         }
 
