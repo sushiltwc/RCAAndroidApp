@@ -52,77 +52,84 @@ public class GVPassportUtils {
     }
 
     public PassportFrontModel processPassportFront(Bitmap bitmap) {
-        getCustomerName(bitmap);
+        if (bitmap != null) {
+            getCustomerName(bitmap);
 
-        bitmap = PassportUtils.cutTop(bitmap);
-        bitmap = PassportUtils.cutTop(bitmap);
+            bitmap = PassportUtils.cutTop(bitmap);
+            bitmap = PassportUtils.cutTop(bitmap);
 
-        ocr = new ArrayList<>();
-        TextRecognizer txtRecognizer = new TextRecognizer.Builder(context).build();
-        if (!txtRecognizer.isOperational()) {
-            ILog.d(TAG, String.valueOf(R.string.passport_scan_error));
-        } else {
-            Frame frame = new Frame.Builder().setBitmap(bitmap).build();
-            SparseArray items = txtRecognizer.detect(frame);
-            StringBuilder strBuilder = new StringBuilder();
-            for (int i = 0; i < items.size(); i++) {
-                TextBlock item = (TextBlock) items.valueAt(i);
-                strBuilder.append(item.getValue());
-                strBuilder.append("/");
-                for (Text line : item.getComponents()) {
-                    Log.v("lines", line.getValue());
-                    ocr.add(line.getValue());
+            if (bitmap != null) {
+                ocr = new ArrayList<>();
+                TextRecognizer txtRecognizer = new TextRecognizer.Builder(context).build();
+                if (!txtRecognizer.isOperational()) {
+                    ILog.d(TAG, String.valueOf(R.string.passport_scan_error));
+                } else {
+                    Frame frame = new Frame.Builder().setBitmap(bitmap).build();
+                    SparseArray items = txtRecognizer.detect(frame);
+                    StringBuilder strBuilder = new StringBuilder();
+                    for (int i = 0; i < items.size(); i++) {
+                        TextBlock item = (TextBlock) items.valueAt(i);
+                        strBuilder.append(item.getValue());
+                        strBuilder.append("/");
+                        for (Text line : item.getComponents()) {
+                            Log.v("lines", line.getValue());
+                            ocr.add(line.getValue());
+                        }
+                    }
+                    if(ocr.size()==2) {
+                        String str1 = ocr.get(0).replace(" ", "").replace("-", "").replace("(", "").replace(")", "").replace("¢", "");
+                        String str2 = ocr.get(1).replace(" ", "").replace("-", "").replace("(", "").replace(")", "").replace(".", "");
+
+                        if (str1.length() != 44) {
+                            int strLength = 44 - str1.length();
+                            for (int i = 0; i < strLength; i++)
+                                str1 += "<";
+                        }
+                        if (str2.length() != 44) {
+                            int strLength = 44 - str2.length();
+                            for (int i = 0; i < strLength; i++)
+                                str2 += "<";
+                        }
+                        Log.d("Str1 : ", str1);
+                        Log.d("Str2 : ", str2);
+
+                        getPersonalDetails(str1);
+                        getPPDetails(str2);
+
+                        str_dob = ApiUtils.getDate(str_dob);
+                        str_doe = ApiUtils.getDate(str_doe);
+
+                        if (ApiUtils.getAge(str_dob) < 18)
+                            str_doi = ApiUtils.getIssueDate(str_doe, "C");
+                        else
+                            str_doi = ApiUtils.getIssueDate(str_doe, "A");
+
+                        passportFrontModel.setName(str_name);
+                        passportFrontModel.setSurname(str_surname);
+                        passportFrontModel.setNationality(str_nationality);
+                        passportFrontModel.setPassportNo(str_passportNo);
+                        passportFrontModel.setIssueCountry(str_country);
+                        passportFrontModel.setDob(str_dob);
+                        passportFrontModel.setGender(str_sex);
+                        passportFrontModel.setDoe(str_doe);
+                        passportFrontModel.setDoi(str_doi);
+                    }
                 }
             }
-
-            String str1 = ocr.get(0).replace(" ", "").replace("-", "").replace("(", "").replace(")", "").replace("¢", "");
-            String str2 = ocr.get(1).replace(" ", "").replace("-", "").replace("(", "").replace(")", "").replace(".", "");
-
-            if (str1.length() != 44) {
-                int strLength = 44 - str1.length();
-                for (int i = 0; i < strLength; i++)
-                    str1 += "<";
-            }
-            if (str2.length() != 44) {
-                int strLength = 44 - str2.length();
-                for (int i = 0; i < strLength; i++)
-                    str2 += "<";
-            }
-            Log.d("Str1 : ", str1);
-            Log.d("Str2 : ", str2);
-
-            getPersonalDetails(str1);
-            getPPDetails(str2);
-
-            str_dob = ApiUtils.getDate(str_dob);
-            str_doe = ApiUtils.getDate(str_doe);
-
-            if (ApiUtils.getAge(str_dob) < 18)
-                str_doi = ApiUtils.getIssueDate(str_doe, "C");
-            else
-                str_doi = ApiUtils.getIssueDate(str_doe, "A");
-
-            passportFrontModel.setName(str_name);
-            passportFrontModel.setSurname(str_surname);
-            passportFrontModel.setNationality(str_nationality);
-            passportFrontModel.setPassportNo(str_passportNo);
-            passportFrontModel.setIssueCountry(str_country);
-            passportFrontModel.setDob(str_dob);
-            passportFrontModel.setGender(str_sex);
-            passportFrontModel.setDoe(str_doe);
-            passportFrontModel.setDoi(str_doi);
         }
         return passportFrontModel;
     }
 
     public PassportBackModel processPassportBack(Bitmap bitmap) {
-        getFamilyNames(bitmap);
-        getAddress(bitmap);
-        passportBackModel.setfName(str_FName);
-        passportBackModel.setmName(str_MName);
-        passportBackModel.sethName(str_HName);
-        passportBackModel.setAddLine1(str_Address_line1);
-        passportBackModel.setAddLine2(str_Address_line2);
+        if(bitmap!=null) {
+            getFamilyNames(bitmap);
+            getAddress(bitmap);
+            passportBackModel.setfName(str_FName);
+            passportBackModel.setmName(str_MName);
+            passportBackModel.sethName(str_HName);
+            passportBackModel.setAddLine1(str_Address_line1);
+            passportBackModel.setAddLine2(str_Address_line2);
+        }
         return passportBackModel;
     }
 
