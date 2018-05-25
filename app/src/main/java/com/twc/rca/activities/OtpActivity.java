@@ -10,7 +10,7 @@ import android.view.WindowManager;
 
 import com.twc.rca.R;
 import com.twc.rca.background.OTPVerificationTask;
-import com.twc.rca.database.ProfessionHelper;
+import com.twc.rca.background.ResendOtpTask;
 import com.twc.rca.utils.ApiUtils;
 import com.twc.rca.utils.OtpTextWatcher;
 import com.twc.rca.utils.PreferenceUtils;
@@ -32,20 +32,13 @@ public class OtpActivity extends BaseActivity implements View.OnClickListener {
     AppCompatEditText et_otp_1, et_otp_2, et_otp_3, et_otp_4;
     List<AppCompatEditText> list_otp_view;
     String emailId;
-    int otpNumber, otp1, otp2, otp3, otp4;
-
-    OtpTextWatcher otpTextWatcher;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp);
         emailId = getIntent().getStringExtra(PreferenceUtils.EMAILID);
-        otpNumber = getIntent().getIntExtra(PreferenceUtils.OTP_NO, 0);
-        otp4 = otpNumber % 10;
-        otp3 = otpNumber / 10 % 10;
-        otp2 = otpNumber / 100 % 10;
-        otp1 = otpNumber / 1000 % 10;
+
         initView();
     }
 
@@ -57,15 +50,7 @@ public class OtpActivity extends BaseActivity implements View.OnClickListener {
         et_otp_3 = (AppCompatEditText) findViewById(R.id.et_otp_digit_3);
         et_otp_4 = (AppCompatEditText) findViewById(R.id.et_otp_digit_4);
 
-        String str = String.valueOf(otpNumber);
-
-        //Toast.makeText(this,str,Toast.LENGTH_SHORT).show();
-
         tv_otp_mailId.setText(emailId);
-       /* et_otp_1.setText(Integer.toString(otp1));
-        et_otp_2.setText(Integer.toString(otp2));
-        et_otp_3.setText(Integer.toString(otp3));
-        et_otp_4.setText(Integer.toString(otp4));*/
 
         list_otp_view = new ArrayList<>();
         list_otp_view.add(et_otp_1);
@@ -86,7 +71,7 @@ public class OtpActivity extends BaseActivity implements View.OnClickListener {
         public void onOTPSuccess(int otpNumber) {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
             showProgressDialog(getString(R.string.please_wait));
-            new OTPVerificationTask(getApplicationContext(),emailId, otpNumber).otpVerification(otpVerificationResponseCallback);
+            new OTPVerificationTask(getApplicationContext(), emailId, otpNumber).otpVerification(otpVerificationResponseCallback);
         }
 
         @Override
@@ -99,9 +84,32 @@ public class OtpActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_resend_otp:
+                showProgressDialog(getApplicationContext().getResources().getString(R.string.please_wait));
+                new ResendOtpTask(getApplicationContext(), emailId).userResendOtp(resendOtpResponseCallback);
                 break;
         }
     }
+
+    ResendOtpTask.ResendOtpResponseCallback resendOtpResponseCallback = new ResendOtpTask.ResendOtpResponseCallback() {
+        @Override
+        public void onSuccessResendOtpResponse(String response) {
+            dismissProgressDialog();
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+
+                JSONObject contentObject = (JSONObject) jsonObject.get(ApiUtils.CONTENT);
+
+                showToast(contentObject.getString(ApiUtils.MESSAGE));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onFailureResendOtpResponse(String response) {
+            dismissProgressDialog();
+        }
+    };
 
     OTPVerificationTask.OTPVerificationResponseCallback otpVerificationResponseCallback = new OTPVerificationTask.OTPVerificationResponseCallback() {
         @Override
@@ -119,9 +127,9 @@ public class OtpActivity extends BaseActivity implements View.OnClickListener {
                 String user_Id = jsonobject.getString(PreferenceUtils.USERID);
                 String email_Id = jsonobject.getString(PreferenceUtils.EMAILID);
                 String mobile_No = jsonobject.getString(PreferenceUtils.MOBILE_NO);
-                String access_token=jsonobject.getString(ApiUtils.ACCESS_TOKEN);
+                String access_token = jsonobject.getString(ApiUtils.ACCESS_TOKEN);
 
-                PreferenceUtils.saveProfileInfo(getApplicationContext(), user_Id, email_Id, mobile_No,access_token);
+                PreferenceUtils.saveProfileInfo(getApplicationContext(), user_Id, email_Id, mobile_No, access_token);
                 Intent intent = new Intent(OtpActivity.this, VerificationActivity.class);
                 intent.putExtra(PreferenceUtils.EMAILID, emailId);
                 startActivity(intent);
