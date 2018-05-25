@@ -123,7 +123,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     boolean isValidLoginData() {
-        str_login_id = auto_login_id.getText().toString();
+        str_login_id = auto_login_id.getText().toString().replace(" ","");
         str_login_pswd = et_login_pswd.getText().toString();
 
         if (!ApiUtils.isValidMail(str_login_id)) {

@@ -115,7 +115,7 @@ public class SignupActivity extends BaseActivity implements View.OnClickListener
 
     boolean isValidSignUpData() {
 
-        str_email = auto_signup_id.getText().toString();
+        str_email = auto_signup_id.getText().toString().replace(" ","");
         str_phone_no = et_signup_phone_no.getText().toString();
         str_name = et_signup_user_name.getText().toString();
         str_password = et_signup_pswd.getText().toString();
