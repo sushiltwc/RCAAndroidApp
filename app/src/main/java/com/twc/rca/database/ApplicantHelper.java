@@ -3,9 +3,6 @@ package com.twc.rca.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 
 import com.twc.rca.applicant.model.PassportBackModel;
@@ -16,77 +13,27 @@ import com.twc.rca.utils.ILog;
  * Created by Sushil on 10-04-2018.
  */
 
-public class ApplicantHelper extends SQLiteOpenHelper {
+public class ApplicantHelper {
 
-    public static final String DB_NAME = "ApplicantDB.db";
+    public static boolean isApplicantExist(Context context, String appId) {
 
-    public static final int DB_VERSION = 1;
+        String selection = ApplicantProvider
+                .ApplicantList.KEY_AID + " = " + appId;
 
-    private static ApplicantHelper sInstance;
-
-    private SQLiteDatabase myDataBase;
-
-    public static ApplicantHelper getInstance(Context context) {
-        if (sInstance == null) {
-            sInstance = new ApplicantHelper(context.getApplicationContext());
-        }
-        return sInstance;
-    }
-
-    /**
-     * Constructor
-     * Takes and keeps a reference of the passed context in order to access to the application assets and resources.
-     *
-     * @param context
-     */
-    ApplicantHelper(Context context) {
-        super(context, DB_NAME, null, DB_VERSION);
-    }
-
-    public void openDataBase() {
-        String myPath = DatabaseUtils.DB_PATH + DB_NAME;
-        try {
-            myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
-        } catch (SQLiteException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    @Override
-    public synchronized void close() {
-        if (myDataBase != null)
-            myDataBase.close();
-        super.close();
-    }
-
-    @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
-
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
-    }
-
-    public boolean isApplicantExist(Context context, String applicantId) {
-        String[] columns = {ApplicantProvider.ApplicantList.KEY_AID};
-        String selection = ApplicantProvider.ApplicantList.KEY_AID + " =?";
-        String[] selectionArgs = {applicantId};
-        String limit = "1";
-
-        Cursor cursor = myDataBase.query(ApplicantProvider.ApplicantList.TABLE_NAME, columns, selection, selectionArgs, null, null, null, limit);
+        Cursor cursor = context.getContentResolver().query(ApplicantProvider.ApplicantList
+                .CONTENT_URI, null, selection, null, null);
         boolean exists = (cursor.getCount() > 0);
         cursor.close();
         return exists;
     }
 
-    public static int insertOrUpdatePF(Context context, PassportFrontModel passportFrontModel, String applicantId, boolean isUpdate) {
+    public static int insertOrUpdatePF(Context context, PassportFrontModel passportFrontModel, String applicantId) {
         int rowID = -1;
         String selection = ApplicantProvider.ApplicantList.KEY_AID + " =?";
         String[] selectionArgs = {applicantId};
         ContentValues values = new ContentValues();
 
+        values.put(ApplicantProvider.ApplicantList.KEY_AID, applicantId);
         values.put(ApplicantProvider.ApplicantList.KEY_SNAME, passportFrontModel.getSurname());
         values.put(ApplicantProvider.ApplicantList.KEY_GNAME, passportFrontModel.getName());
         values.put(ApplicantProvider.ApplicantList.KEY_NATIONALITY, passportFrontModel.getNationality());
@@ -96,38 +43,31 @@ public class ApplicantHelper extends SQLiteOpenHelper {
         values.put(ApplicantProvider.ApplicantList.KEY_DOI, passportFrontModel.getDoi());
         values.put(ApplicantProvider.ApplicantList.KEY_DOE, passportFrontModel.getDoe());
 
-        if (isUpdate) {
-            rowID = context.getContentResolver().update(ApplicantProvider.ApplicantList.CONTENT_URI, values, selection, selectionArgs);
+        if (isApplicantExist(context, applicantId)) {
+            context.getContentResolver().update(ApplicantProvider.ApplicantList.CONTENT_URI, values, selection, selectionArgs);
         } else {
-            Uri uri = context.getContentResolver().insert(ApplicantProvider.ApplicantList.CONTENT_URI, values);
-            if (uri != null) {
-                rowID = 1;
-                ILog.d("Applicant Created Successfully", String.valueOf(rowID));
-            }
+            context.getContentResolver().insert(ApplicantProvider.ApplicantList.CONTENT_URI, values);
         }
         return rowID;
     }
 
-    public static int insertOrUpdatePB(Context context, PassportBackModel passportBackModel, String applicantId, boolean isUpdate) {
+    public static int insertOrUpdatePB(Context context, PassportBackModel passportBackModel, String applicantId) {
         int rowID = -1;
         String selection = ApplicantProvider.ApplicantList.KEY_AID + " =?";
         String[] selectionArgs = {applicantId};
         ContentValues values = new ContentValues();
 
+        values.put(ApplicantProvider.ApplicantList.KEY_AID, applicantId);
         values.put(ApplicantProvider.ApplicantList.KEY_FNAME, passportBackModel.getfName());
         values.put(ApplicantProvider.ApplicantList.KEY_MNAME, passportBackModel.getmName());
         values.put(ApplicantProvider.ApplicantList.KEY_HNAME, passportBackModel.gethName());
         values.put(ApplicantProvider.ApplicantList.KEY_ADD1, passportBackModel.getAddLine1());
         values.put(ApplicantProvider.ApplicantList.KEY_ADD2, passportBackModel.getAddLine2());
 
-        if (isUpdate) {
-            rowID = context.getContentResolver().update(ApplicantProvider.ApplicantList.CONTENT_URI, values, selection, selectionArgs);
+        if (isApplicantExist(context, applicantId)) {
+            context.getContentResolver().update(ApplicantProvider.ApplicantList.CONTENT_URI, values, selection, selectionArgs);
         } else {
-            Uri uri = context.getContentResolver().insert(ApplicantProvider.ApplicantList.CONTENT_URI, values);
-            if (uri != null) {
-                rowID = 1;
-                ILog.d("Applicant Created Successfully", String.valueOf(rowID));
-            }
+            context.getContentResolver().insert(ApplicantProvider.ApplicantList.CONTENT_URI, values);
         }
         return rowID;
     }

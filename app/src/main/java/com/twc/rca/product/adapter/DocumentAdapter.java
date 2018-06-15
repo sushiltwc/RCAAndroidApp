@@ -24,6 +24,7 @@ import com.twc.rca.applicant.model.PassportBackModel;
 import com.twc.rca.applicant.model.PassportFrontModel;
 import com.twc.rca.applicant.model.ReceiveDocumentModel;
 import com.twc.rca.applicant.task.DocumentUploadTask;
+import com.twc.rca.database.ApplicantHelper;
 import com.twc.rca.database.DocumentHelper;
 import com.twc.rca.product.fragments.DocumentFragment;
 import com.twc.rca.utils.ApiUtils;
@@ -169,10 +170,14 @@ public class DocumentAdapter extends BaseAdapter {
             if (docList.get(position).doc_type_id.equalsIgnoreCase("1")) {
                 PreferenceUtils.setIsPFUploaded(context, true);
                 PassportFrontModel passportFrontModel = new GVPassportUtils(context).processPassportFront(ApiUtils.StringToBitMap(base64ImageData));
+                if (passportFrontModel != null)
+                    ApplicantHelper.insertOrUpdatePF(context, passportFrontModel, applicantId);
                 documentUploadCallback.pfCallback(passportFrontModel);
             } else if (docList.get(position).doc_type_id.equalsIgnoreCase("2")) {
                 PreferenceUtils.setIsPBUploaded(context, true);
                 PassportBackModel passportBackModel = new GVPassportUtils(context).processPassportBack(ApiUtils.StringToBitMap(base64ImageData));
+                if (passportBackModel != null)
+                    ApplicantHelper.insertOrUpdatePB(context, passportBackModel, applicantId);
                 documentUploadCallback.pbCalback(passportBackModel);
             }
 

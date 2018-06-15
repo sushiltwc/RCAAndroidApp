@@ -3,6 +3,7 @@ package com.twc.rca;
 import android.app.Application;
 import android.content.Context;
 
+import com.crashlytics.android.Crashlytics;
 import com.twc.rca.database.AirlineHelper;
 import com.twc.rca.database.CountryHelper;
 import com.twc.rca.database.DatabaseCreater;
@@ -11,6 +12,8 @@ import com.twc.rca.database.MaritalHelper;
 import com.twc.rca.database.PassportTypeHelper;
 import com.twc.rca.database.ProfessionHelper;
 import com.twc.rca.database.ReligionHelper;
+
+import io.fabric.sdk.android.Fabric;
 
 /**
  * Created by Sushil on 15-03-2018.
@@ -31,7 +34,7 @@ public class MyApplication extends Application {
         super.onCreate();
 
         //Crashlytics Initialisation
-        //Fabric.with(this, new Crashlytics());
+        Fabric.with(this, new Crashlytics());
         createDatabases();
     }
 

@@ -2,10 +2,12 @@ package com.twc.rca.database;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,9 +22,15 @@ public class ApplicantProvider extends ContentProvider {
 
     public static final String TAG = ApplicantProvider.class.getSimpleName();
 
+    static final String DB_NAME = "ApplicantList.db";
+
+    static int DB_VERSION = 1;
+
     DatabaseHelper mDBHelper;
 
     SQLiteDatabase mDatabase;
+
+    private ApplicantSQLiteHelper mApplicantSQLiteHelper;
 
     public static final String AUTHORITY = "com.twc.rca.database.applicant";
 
@@ -39,11 +47,11 @@ public class ApplicantProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        mDBHelper = DatabaseHelper.getInstance(getContext());
+        mApplicantSQLiteHelper = new ApplicantSQLiteHelper(getContext(), DB_NAME, null, DB_VERSION);
         try {
-            mDatabase = mDBHelper.getWritableDatabase();
+            mDatabase = mApplicantSQLiteHelper.getWritableDatabase();
         } catch (SQLiteException ex) {
-            mDatabase = mDBHelper.getReadableDatabase();
+            mDatabase = mApplicantSQLiteHelper.getReadableDatabase();
         }
         return true;
     }
@@ -54,8 +62,8 @@ public class ApplicantProvider extends ContentProvider {
         Cursor cursor = null;
         switch (URI_MATCHER.match(uri)) {
             case APPLICANT_LIST:
-                mDatabase = mDBHelper.getReadableDatabase();
-                cursor = mDatabase.query(ApplicantList.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
+                mDatabase = mApplicantSQLiteHelper.getReadableDatabase();
+                cursor = mDatabase.query(ApplicantProvider.ApplicantList.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
                 break;
         }
         if (cursor != null) {
@@ -77,12 +85,13 @@ public class ApplicantProvider extends ContentProvider {
         long rowCount = -1;
         switch (URI_MATCHER.match(uri)) {
             case APPLICANT_LIST:
-                rowCount = mDatabase.insert(ApplicantList.TABLE_NAME, null, values);
-                insertUri = Uri.withAppendedPath(ApplicantList.CONTENT_URI, Long.toString(rowCount));
+                rowCount = mDatabase.insert(ApplicantProvider.ApplicantList.TABLE_NAME, null, values);
+                insertUri = Uri.withAppendedPath(DocumentProvider.DocList.CONTENT_URI, Long.toString(rowCount));
                 break;
         }
-        if (rowCount > 0) {
-            getContext().getContentResolver().notifyChange(insertUri, null);
+        if (rowCount != -1) {
+            ILog.d(TAG, "Row inserted " + rowCount);
+            getContext().getContentResolver().notifyChange(uri, null);
         }
         return insertUri;
     }
@@ -117,6 +126,41 @@ public class ApplicantProvider extends ContentProvider {
         return count;
     }
 
+    static class ApplicantSQLiteHelper extends SQLiteOpenHelper {
+
+        static ApplicantSQLiteHelper sApplicantSQLiteHelper;
+
+        public static ApplicantSQLiteHelper getInstance(Context context) {
+            if (sApplicantSQLiteHelper == null) {
+                sApplicantSQLiteHelper = new ApplicantSQLiteHelper(context.getApplicationContext(), DB_NAME, null, DB_VERSION);
+            }
+            return sApplicantSQLiteHelper;
+        }
+
+        public ApplicantSQLiteHelper(Context context) {
+            super(context, DB_NAME, null, DB_VERSION);
+        }
+
+        public ApplicantSQLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+            super(context, name, factory, version);
+        }
+
+        @Override
+        public void onCreate(SQLiteDatabase db) {
+            createDocTable(db);
+        }
+
+        @Override
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            db.execSQL(ApplicantList.DROP_TABLE);
+            createDocTable(db);
+        }
+
+        void createDocTable(SQLiteDatabase db) {
+            db.execSQL(ApplicantList.CREATE_TABLE);
+        }
+    }
+
     public static class ApplicantList {
         public static final String TABLE_NAME = "ApplicantList";
 
@@ -147,5 +191,7 @@ public class ApplicantProvider extends ContentProvider {
                         + KEY_DEPT_AIR + " TEXT ," + KEY_DEPT_FLIGHT_NO + " TEXT ," + KEY_DEPT_LEAVING_TO + " TEXT ,"
                         + KEY_DEPT_DT + " TEXT ," + KEY_DEPT_TM_HR + " TEXT ," + KEY_DEPT_TM_MIN + " TEXT " +
                         ")";
+
+        public static final String DROP_TABLE = "drop table if exists " + ApplicantList.TABLE_NAME;
     }
 }
