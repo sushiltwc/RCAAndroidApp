@@ -51,8 +51,8 @@ public class ForgotPswdActivity extends BaseActivity {
         btn_fp_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!ApiUtils.isValidMail(et_fp_email.getText().toString())) {
-                    showProgressDialog();
+                if(ApiUtils.isValidMail(et_fp_email.getText().toString())) {
+                    showProgressDialog(getString(R.string.please_wait));
                     new ForgotPswdTask(getApplicationContext(), et_fp_email.getText().toString()).userForgotPswd(forgotPswdResponseCallback);
                 }
                 else{

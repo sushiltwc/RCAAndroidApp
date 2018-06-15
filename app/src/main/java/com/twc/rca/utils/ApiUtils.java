@@ -41,7 +41,9 @@ public class ApiUtils {
 
     protected static final String BASE_APP_DEBUG_URL = "http://dev.redcarpetassist.com/rca_website/api/api.php";
 
-    protected static final String BASE_APP_RELEASE_URL = "http://dev.redcarpetassist.com/rca_website/api/api.php";
+    //protected static final String BASE_APP_DEBUG_URL = "http://13.127.81.46/rca_website/api/api.php";
+
+    protected static final String BASE_APP_RELEASE_URL = "http://13.127.81.46/rca_website/api/api.php";
 
     protected static final String BASE_APP_URL = BuildConfig.DEBUG ? BASE_APP_DEBUG_URL : BASE_APP_RELEASE_URL;
 
