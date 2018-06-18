@@ -101,7 +101,7 @@ public class OrderTask extends ApiUtils {
         map.put(CHILD_COUNT, child_count);
         map.put(INFANT_COUNT, infant_count);
         map.put(NATIONALITY_ID, CountryHelper.getInstance(context).getCountryId(nationality.toUpperCase()));
-        map.put(TOTAL_PRICE, "1.0");
+        map.put(TOTAL_PRICE, total_price);
         map.put(TRAVEL_DATE, ApiUtils.formatDate(travel_date));
         map.put(ARRIVAL_DATE, ApiUtils.formatDate(arrival_date));
         map.put(ARRIVAL_TIME, arrival_time);
